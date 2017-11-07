@@ -1,0 +1,50 @@
+        .jumbotron {
+            width: 600px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            margin-bottom: auto;
+        }
+
+        .table {
+            margin-top: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 5px;
+        }
+
+        h3 {
+            margin-bottom: 30px;
+        }
+
+        .selecionado {
+            background-color: yellow;
+        }
+
+        .negrito {
+            font-weight: bold;
+        }
+
+        hr {
+            border-color: #999;
+        }
+
+        img#playImg {
+            height: 20%;
+            width: 20%;
+        }
+
+        figure.foto-legenda {
+            position: relative;
+              border: 8px solid white;
+              box-shadow: 1px 1px 4px black;
+
+        }
+
+        figure.foto-legenda img {
+            width: 100%;
+            height: 100%;
+
+        }

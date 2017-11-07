@@ -1,0 +1,33 @@
+<div class="jumbotron">
+	
+	<h3>Cadastro de Álbum</h3>
+	<hr/>
+	<form name="albumForm">
+		<input class="form-control" name="nome" type="text" ng-model="album.nome" placeholder="Nome do álbum" ng-required="true"/>
+		<input class="form-control" name="ano" type="text" ng-model="album.ano" placeholder="Ano de lançamento" ng-required="true"/>
+
+		<select class="form-control" ng-model="artistaAlbum" ng-options="artista.nome for artista in artistas | orderBy:'nome'" ng-required="true">
+            <option value="">Selecione um artista</option>
+        </select>
+	</form>
+
+	<div ng-show="albumForm.nome.$dirty" ng-messages="albumForm.nome.$error">
+        <div ng-message="required" class="alert alert-danger">
+            Por favor, preencha o nome do álbum!
+        </div>
+    </div>
+
+    <div ng-show="hasAlbum()" class="alert alert-danger">
+    		Álbum já cadastrado no sistema.
+    </div>
+
+    <div ng-show="hasSuccess()" class="alert alert-success">
+    	Álbum adicionado com sucesso.
+    </div>
+	
+
+	<button class="btn btn-primary btn-block" ng-click="adicionarAlbum(artistaAlbum.id, album)" ng-disabled="albumForm.$invalid">Adicionar álbum</button>
+	<hr/>
+	<a href="#!/addInfo" class="btn btn-info btn-block">Voltar</a>
+
+</div>

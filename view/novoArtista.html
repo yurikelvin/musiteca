@@ -1,0 +1,39 @@
+<div class="jumbotron">
+
+
+	<h3>Cadastro de artistas</h3>
+	<hr/>
+	<form name="artistaForm">
+
+		
+	
+		<input class="form-control" ntype="text" ng-model="artista.nome" name="nome" placeholder="Nome do artista" ng-required="true"/>
+		<input class="form-control" type="text" ng-model="artista.imagem" name="imagem" placeholder="Imagem do artista" ng-required="true"/>
+
+	
+
+	</form>
+
+   <div ng-show="artistaForm.nome.$dirty" ng-messages="artistaForm.nome.$error">
+        <div ng-message="required" class="alert alert-danger">
+            Por favor, preencha o nome do artista!
+        </div>
+    </div>
+
+    <div ng-show="hasArtista()" class="alert alert-danger">
+    		Artista já cadastrado no sistema.
+    </div>
+
+    <div ng-show="hasSuccess()" class="alert alert-success">
+    	Artista adicionado com sucesso.
+    </div>
+	
+
+	<button class="btn btn-primary btn-block" ng-click="adicionarArtista(artista)" ng-disabled="artistaForm.nome.$invalid">Adicionar artista</button>
+	<hr/>
+	<a href="#!/addInfo" class="btn btn-info btn-block">Voltar</a>
+
+
+	
+
+</div>

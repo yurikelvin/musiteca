@@ -1,0 +1,36 @@
+<div class="jumbotron">
+
+	<h2>{{artista.nome}}</h2>
+
+	<figure class="foto-legenda" ng-show="artista.imagem != null">
+		<img src="{{artista.imagem}}"></img>
+		<hr/>
+	</figure>
+
+	<div ng-if="artista.albuns != null">
+		<hr/>
+		<h3>Álbuns</h3>
+
+		<table class="table table-striped">
+
+			<tr>
+
+				<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+				<th><a href="" ng-click="ordenarPor('ano')">Ano</a></th>
+
+			</tr>
+
+			<tr ng-repeat="album in albuns | filter: {nome: criterioDeBusca} | limitTo: 5 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+					<td>{{album.nome}}</td>
+					<td>{{album.ano}}</td>
+					
+			</tr>
+
+			</tr>
+
+		</table>
+
+	</div>
+
+
+</div>
