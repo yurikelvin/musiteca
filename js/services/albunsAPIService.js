@@ -7,7 +7,7 @@ angular.module("musiteca").factory("albunsAPI", function() {
 
 		var album = null;
 
-		_id = parseInt(id);
+		var _id = parseInt(id);
 
 		for(i = 0; i < albunsData.length; i ++) {
 			if(albunsData[i] != null) {
@@ -53,6 +53,8 @@ angular.module("musiteca").factory("albunsAPI", function() {
 		addMusic: function(musica, idAlbum) {
 			var album = pegaAlbum(idAlbum);
 
+			musica.albumNome = album.nome;
+
 			if(album.musicas == null) {
 				album.musicas = [];
 			}
@@ -60,8 +62,9 @@ angular.module("musiteca").factory("albunsAPI", function() {
 			album.musicas.push(musica);
 		},
 
-		addAlbum: function(album) {
+		addAlbum: function(idArtist, album) {
 			album.idAlbum = ++id;
+			album.idArtist = idArtist;
 			albunsData.push(album);
 		},
 

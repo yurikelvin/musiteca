@@ -8,7 +8,9 @@
 
 		<input class="form-control" name="duracao" type="text" ng-model="musica.duracao" placeholder="Duração da música" ng-required="true"/>
 
-		<select class="form-control" ng-model="selectedAlbum" ng-options="album.nome + ', Ano: ' + album.ano for album in albuns | orderBy:'nome'" ng-init="" ng-required="true">
+		<input class="form-control" name="ano" type="text" ng-model="musica.ano" placeholder="Ano de lançamento" ng-required="true"/>
+
+		<select class="form-control" ng-model="selectedAlbum" ng-options="'Nome: ' + album.nome + ', Ano: ' + album.ano + ', Artista: ' + album.artistaNome for album in albuns | orderBy:'nome'" ng-init="" ng-required="true">
                 <option value="">Selecione um álbum</option>
         </select>
 
@@ -30,6 +32,7 @@
 	<button class="btn btn-primary btn-block" ng-click="adicionarMusica(musica, selectedAlbum.idAlbum, selectedArtist.id)" ng-disabled="musicForm.$invalid">Adicionar música</button>
 
 	<hr/>
-	<a href="#!/addInfo" class="btn btn-info btn-block">Voltar</a>
+	<a href="#!/addInfo" class="btn btn-info btn-block"><i class="fa fa-undo" aria-hidden="true"></i>
+ Voltar</a>
 
 </div>

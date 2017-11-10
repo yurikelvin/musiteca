@@ -7,10 +7,13 @@ angular.module("musiteca").controller("novoAlbumCtrl", function($scope, artistas
 	$scope.adicionarAlbum = function(id, album) {
 
 		if(!$scope.verificaAlbum($scope.albuns, album)) {
+
+			var artistaRelacionado = artistasAPI.getArtista(id);
+			album.artistaNome = artistaRelacionado.nome;
 			var copyAlbum = angular.copy(album);
 
 			artistasAPI.addAlbum(id, copyAlbum);
-			albunsAPI.addAlbum(copyAlbum);
+			albunsAPI.addAlbum(id, copyAlbum);
 
 			$scope.cadastroEfetuado = true;
 		} else {

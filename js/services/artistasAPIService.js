@@ -6,7 +6,7 @@ angular.module("musiteca").factory("artistasAPI", function() {
 	getArtist = function(id) {
 		var artista = null;
 
-		_id = parseInt(id);
+		var _id = parseInt(id);
 
 		for(i = 0; i < artistasData.length; i ++) {
 			if(artistasData[i] != null) {
@@ -42,6 +42,29 @@ angular.module("musiteca").factory("artistasAPI", function() {
 			return artista;
 		},
 
+		getAlbuns: function(id) {
+			var artista = getArtist(id);
+
+			return artista.albuns;
+		},
+
+		getAlbum: function(idAlbum, idArtist) {
+			var artista = getArtist(idArtist);
+
+			var artistaAlbuns = artista.albuns;
+
+			var album;
+
+			if(artista.albuns != null) {
+				for(i = 0; i < artista.albuns.length; i ++) {
+					if(artista.albuns[i].idAlbum == idAlbum) {
+						album = albuns[i];
+					}
+				}
+			}
+			return album;
+		},
+
 		addAlbum: function(id, album) {
 
 			var artista = getArtist(id);
@@ -53,8 +76,29 @@ angular.module("musiteca").factory("artistasAPI", function() {
 			artista.albuns.push(album);
 		},
 
+		getMusicas: function(id) {
+			var artista = getArtist(id);
+			var musicas = [];
+
+			var albuns = artista.albuns;
+
+			if(albuns != null) {
+				for(i = 0; i < albuns.length; i ++) {
+					var musicasDaVez = albuns[i].musicas;
+					if(musicasDaVez != null) {
+						for(k = 0; k < musicasDaVez.length; k ++) {
+							musicas.push(musicasDaVez[k]);
+						}
+					}
+				}
+			}
+			return musicas;
+		},
+
 		addArtista: function(artista) {
 			artista.id = ++id;
+			artista.ultimaOuvida = "Não definido ainda";
+			artista.statusCheck = true;
 			artistasData.push(artista);
 		},
 

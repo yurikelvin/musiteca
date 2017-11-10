@@ -1,10 +1,19 @@
 <!DOCTYPE HTML>
-<html ng-app="musiteca">
+<html ng-app="musiteca" lang="pt-br">
 <head>
 	<meta charset="utf-8">
 	<title>Musiteca</title>
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css"/>
 	<link rel="stylesheet" type="text/css" href="css/app.css"/>
+
+  	<link href="css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/star-rating.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
 	<script src="lib/angular/angular.js"></script>
 	<script src="lib/angular/angular-route.js"></script>
 	<script src="lib/angular/angular-locale_pt-br.js"></script>
@@ -13,14 +22,21 @@
 	<script src="js/controllers/musitecaCtrl.js"></script>
 	<script src="js/controllers/novoArtistaCtrl.js"></script>
 	<script src="js/controllers/detalhesArtistaCtrl.js"></script>
+	<script src="js/controllers/detalhesAlbumCtrl.js"></script>
 	<script src="js/controllers/adicionaMusicaCtrl.js"></script>
 	<script src="js/controllers/novoAlbumCtrl.js"></script>
 	<script src="js/config/routeConfig.js"></script>
 	<script src="js/services/artistasAPIService.js"></script>
 	<script src="js/services/albunsAPIService.js"></script>
+	<script src="js/services/artistasFavoritosAPIService.js"></script>
+
+  
+    
+
+
 
 </head>
-<body background="img/background.jpg">
+<body background="img/background.jpg" class="rating">
 
 	<div ng-view></div>
 

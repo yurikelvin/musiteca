@@ -20,11 +20,18 @@
         }
 
         .selecionado {
-            background-color: yellow;
+            background-color: #48D1CC;
+            padding: 10px;
+            border: 8px solid white;
+            box-shadow: 1px 1px 4px black;
         }
 
         .negrito {
             font-weight: bold;
+        }
+
+        .italic {
+             font-style: italic;
         }
 
         hr {
@@ -48,3 +55,52 @@
             height: 100%;
 
         }
+
+        figure.foto-legenda figcaption {
+            opacity: 0;
+            position: absolute;
+            top: 0px;
+            background-color: rgba(0,0,0, .4);
+            color:white;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: opacity 1s;
+        }
+
+        figure.foto-legenda:hover figcaption {
+            opacity: 1;
+        }
+
+        div#rateArtist {
+            margin: -20px auto 0px 50px;
+            /* box-shadow: 0px 0px 10px rgba(0,0,0, .5); */
+            padding: 10px;
+        }
+
+        input[type=checkbox] {
+            display: none;
+        }
+
+        input[type=checkbox] + label {
+            user-select: none;
+        }
+
+
+        div#cabecalho {
+            position: relative;
+              border: 8px solid white;
+              box-shadow: 1px 1px 4px black;
+
+        }
+
+        h5 {
+            font-size:24px;
+            display: inline;
+        }
+        h5 small {
+            font-size: 18px;
+            display: inline;
+        }
+

@@ -5,6 +5,7 @@
 	<form name="albumForm">
 		<input class="form-control" name="nome" type="text" ng-model="album.nome" placeholder="Nome do álbum" ng-required="true"/>
 		<input class="form-control" name="ano" type="text" ng-model="album.ano" placeholder="Ano de lançamento" ng-required="true"/>
+		<input class="form-control" name="imagem" type="text" ng-model="album.imagem" placeholder="Capa do Álbum"/>
 
 		<select class="form-control" ng-model="artistaAlbum" ng-options="artista.nome for artista in artistas | orderBy:'nome'" ng-required="true">
             <option value="">Selecione um artista</option>
@@ -28,6 +29,7 @@
 
 	<button class="btn btn-primary btn-block" ng-click="adicionarAlbum(artistaAlbum.id, album)" ng-disabled="albumForm.$invalid">Adicionar álbum</button>
 	<hr/>
-	<a href="#!/addInfo" class="btn btn-info btn-block">Voltar</a>
+	<a href="#!/addInfo" class="btn btn-info btn-block"><i class="fa fa-undo" aria-hidden="true"></i>
+ Voltar</a>
 
 </div>
