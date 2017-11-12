@@ -60,9 +60,42 @@ angular.module("musiteca").controller("playlistsCtrl", function($scope, $timeout
             }
         });
 
+        $scope.cleanSelect(playlists);
+
+
 
     	playlistsAPI.setPlaylists(playlistsAPermanecer);
     	$scope.playlists = playlistsAPI.getPlaylists();
+    };
+
+    $scope.confirmRemovePlaylist = function(playlists) {
+
+        swal({
+          title: "Você tem certeza?",
+          text: "Você tem certeza que deseja remover a(s) playlist(s) cadastradas?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $scope.$apply (function () {
+                $scope.removePlaylist(playlists);
+            });
+            swal("Playlist(s) removida(s) com sucesso.", {icon: "success",});
+          } else {
+
+            $scope.$apply(function() {
+                $scope.cleanSelect(playlists);
+            });
+          }
+        });
+    };
+
+    $scope.cleanSelect = function(playlists) {
+        for(i = 0 ; i < playlists.length; i ++) {
+            playlists[i].selected = false;
+        };
     };
 
 

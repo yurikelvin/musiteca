@@ -46,7 +46,7 @@ angular.module("musiteca").controller("musitecaCtrl", function($scope, $timeout,
 
     $scope.adicionaFavoritos = function(artistas) {
         var artistasFavoritos = artistas.filter(function (artista) {
-            if(artista.selecionado && artista.statusCheck == true) {
+            if(artista.selecionado == true && artista.statusCheck == true) {
             	return artista;
             };
         });
@@ -55,7 +55,7 @@ angular.module("musiteca").controller("musitecaCtrl", function($scope, $timeout,
         	artistasFavoritos[i].statusCheck = false;
         }
 
-        artistasFavoritosAPI.setArtistasFavoritos(artistasFavoritos);
+        artistasFavoritosAPI.addArtistasFavoritos(artistasFavoritos);
         $scope.hasSucessFavoritos = true;
         $timeout(function(){
         	$scope.hasSucessFavoritos = false;
@@ -63,17 +63,18 @@ angular.module("musiteca").controller("musitecaCtrl", function($scope, $timeout,
     };
 
     $scope.removeArtistasFavoritos = function(artistas) {
-
     	var artistasAPermanecer = [];
 
     	for(i = 0; i < artistas.length; i ++) {
     		if(artistas[i].select) {
-    			artistas[i].selecionado = false;
-    			artistas[i].statusCheck = true;
+    			artistas[i].selecionado = false; // change the icon on check_box in artistas
+    			artistas[i].statusCheck = true; // change to enable the check_box in artistas
     		} else {
     			artistasAPermanecer.push(artistas[i]);
     		}
     	}
+
+        $scope.cleanSelect(artistas);
 
 
     	artistasFavoritosAPI.setArtistasFavoritos(artistasAPermanecer);
@@ -91,5 +92,36 @@ angular.module("musiteca").controller("musitecaCtrl", function($scope, $timeout,
 		}
 	};
 
+    $scope.confirmRemoveFavoritos = function(artistas) {
+
+        swal({
+          title: "Você tem certeza?",
+          text: "Você tem certeza que deseja remover o(s) artista(s) dos favoritos?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $scope.$apply (function () {
+                $scope.removeArtistasFavoritos(artistas);
+            });
+            swal("Artista(s) removido(s) com sucesso.", {icon: "success",});
+          } else {
+
+            $scope.$apply(function() {
+                $scope.cleanSelect(artistas);
+            });
+          }
+        });
+
+    };
+
+
+    $scope.cleanSelect = function(artistas) {
+        for(i = 0; i < artistas.length; i ++) {
+            artistas[i].select = false;
+        }
+    };
 
 });

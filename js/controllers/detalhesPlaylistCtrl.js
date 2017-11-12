@@ -19,6 +19,35 @@ angular.module("musiteca").controller("detalhesPlaylistCtrl", function($scope, $
       $scope.playlist = playlistsAPI.getPlaylist($routeParams.idPlaylist);
   };
 
+  $scope.confirmRemoveMusicasPlaylist = function(musicas) {
+    swal({
+      title: "Você tem certeza?",
+      text: "Você tem certeza que deseja remover a(s) música(s) cadastrada(s) na playlist?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        $scope.$apply (function () {
+            $scope.removeMusicasPlaylist(musicas);
+        });
+        swal("Música(s) removida(s) com sucesso.", {icon: "success",});
+      } else {
+
+        $scope.$apply(function() {
+            $scope.cleanSelect(musicas);
+        });
+      }
+    });
+  };
+
+  $scope.cleanSelect = function(musicas) {
+    for(i = 0; i < musicas.length; i ++) {
+      musicas[i].selected = false;
+    };
+  };
+
   $scope.isMusicasSelecionado = function(musicas){
       return musicas.some(function(musica) {
           return musica.selected;

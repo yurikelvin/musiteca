@@ -18,8 +18,8 @@
 
 		<tr ng-class="{'italic': artistaFavorito.selecionado}" ng-repeat="artistaFavorito in artistasFavoritos | filter: {nome: criterioDeBusca} | limitTo: 5 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
 
-			<td><input type="checkbox" ng-attr-id="{{'cf' + artista.id}}" ng-model="artistaFavorito.select"/>
-				<label ng-attr-for="{{'cf' +artista.id}}">
+			<td><input type="checkbox" ng-attr-id="{{'cf' + artistaFavorito.id}}" ng-model="artistaFavorito.select"/>
+				<label ng-attr-for="{{'cf' +artistaFavorito.id}}">
 	  				<img ng-src="{{getIcon(check, artistaFavorito.select)}}"/>
 				</label></td>
 			<td><a href="#!artistas/detalhes/{{artistaFavorito.id}}">{{artistaFavorito.nome}}</a></td>
@@ -34,7 +34,7 @@
 		Você ainda não possui artistas favoritos.
 	</div>
 
-	<button class="btn btn-danger btn-block" ng-click="removeArtistasFavoritos(artistasFavoritos)" ng-show="isArtistaFavoritoSelecionado(artistasFavoritos)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remover Artistas</button>
+	<button class="btn btn-danger btn-block" ng-click="confirmRemoveFavoritos(artistasFavoritos)" ng-show="isArtistaFavoritoSelecionado(artistasFavoritos)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remover Artistas</button>
 	
 	<hr/>
 	<a href="#!/menu" class="btn btn-info btn-block"><i class="fa fa-undo" aria-hidden="true"></i>

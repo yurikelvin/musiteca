@@ -50,8 +50,14 @@ angular.module("musiteca").factory("artistasFavoritosAPI", function() {
 		},
 
 		addArtistaFavorito: function(artista) {
-			artista.id = ++id;
 			artistasFavoritosData.push(artista);
+		
+		},
+
+		addArtistasFavoritos: function(artistas) {
+			for(i = 0; i < artistas.length; i ++) {
+				artistasFavoritosData.push(artistas[i]);
+			}
 		},
 
 		setArtistasFavoritos: function(artistas) {
