@@ -1,0 +1,70 @@
+<div class="jumbotron">
+
+	<h3>Playlist</h3>
+
+	<div ng-show="playlist.imagem != null" >
+		<hr/>
+
+		<figure class="foto-legenda" ng-show="playlist.imagem != null">
+			<img src="{{playlist.imagem}}"></img>
+			
+		</figure>
+	</div>
+
+	<br/>
+	<h4 style="display:inline">Nome: <small style="display:inline" class="form-text text-muted">{{playlist.nome}}</small></h4>
+	<br/>
+	<h4 style="display:inline">Quantidade de Músicas: <small style="display:inline" class="form-text text-muted">{{musicasPlaylist.length}}</small></h4>
+	<br/>
+	<h4 style="display:inline" ng-show="playlist.descricao != null">Descrição: <small style="display:inline" class="form-text text-muted">{{playlist.descricao}}</small></h4>
+	
+	<div ng-show="musicasPlaylist.length > 0">
+		<hr/>
+		<h3>Músicas <i class="fa fa-music fa-lg" aria-hidden="true"></i></h3>
+
+		<table class="table table-striped">
+
+			<tr>
+				<th>Selecionar</th>
+				<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+				<th><a href="" ng-click="ordenarPor('duracao')">Duração</a></th>
+				<th><a href="" ng-click="ordenarPor('ano')">Ano</a></th>
+				<th><a href="" ng-click="ordenarPor('nomeArtist')">Artista</a></th>
+
+			</tr>
+
+			<tr ng-repeat="musica in musicasPlaylist | filter: {nome: criterioDeBusca} | limitTo: 10 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+					<td><input type="checkbox" ng-attr-id="{{'cd' + musica.idMusic}}" ng-model="musica.selected"/>
+						<label ng-attr-for="{{'cd' +musica.idMusic}}">
+							<img ng-src="{{getIcon(check, musica.selected)}}"/>
+						</label></td>
+					<td>{{musica.nome}}</td>
+					<td>{{musica.duracao}}</td>
+					<td>{{musica.ano}}</td>
+					<td>{{musica.nomeArtist}}</td>
+					
+			</tr>
+		</table>
+
+	</div>
+
+	<hr/>
+	<br/>
+	<h4>Adicione músicas a playlist</h4>
+	<form name="adicionaMusPlay" novalidate>
+		<select class="form-control" ng-model="selectedMusic" ng-options="'Nome: ' + musica.nome  + ' Artista: ' + musica.nomeArtist for musica in musicasSistema" ng-required="true">
+	                <option value="">Selecione a musica a adicionar na playlist.</option>
+	    </select>
+	</form>
+
+	<button class="btn btn-success btn-block" ng-click="addToPlaylist(selectedMusic)" ng-disabled="adicionaMusPlay.$invalid">Adicionar Música a playlist</button>
+
+	 <button class="btn btn-danger btn-block" ng-click="removeMusicasPlaylist(musicasPlaylist)" ng-show="isMusicasSelecionado(musicasPlaylist)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remover Música(s)</button>
+
+
+	<hr/>
+
+	<a href="#!/playlist" class="btn btn-info btn-block"><i class="fa fa-undo" aria-hidden="true"></i>
+ Voltar</a>
+
+</div>

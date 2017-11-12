@@ -2,7 +2,7 @@
 
 	<h3>Cadastro de Músicas</h3>
 	<hr/>
-	<form name="musicForm">
+	<form name="musicForm" novalidate>
 
 		<input class="form-control" name="nome" type="text" ng-model="musica.nome" placeholder="Nome da música" ng-required="true"/>
 
@@ -22,7 +22,7 @@
 	</form>
 
 	<div ng-show="hasMusic()" class="alert alert-danger">
-    		Música já existente no álbum.
+    	Música já existente no álbum.
     </div>
 
     <div ng-show="hasSuccess()" class="alert alert-success">

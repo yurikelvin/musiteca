@@ -13,7 +13,17 @@ angular.module("musiteca").config(function ($routeProvider) {
 
 	$routeProvider.when("/playlist",  {
 		templateUrl: "view/playlist.html",
-		controller: "musitecaCtrl"
+		controller: "playlistsCtrl"
+	});
+
+	$routeProvider.when("/playlist/:idPlaylist", {
+		templateUrl: "view/detalhesPlaylist.html",
+		controller: "detalhesPlaylistCtrl",
+	});
+
+	$routeProvider.when("/novaPlaylist",  {
+		templateUrl: "view/novaPlaylist.html",
+		controller: "playlistsCtrl"
 	});
 
 	/** Rotas pertinentes a artista do sistema**/

@@ -104,3 +104,21 @@
             display: inline;
         }
 
+        figure.foto-playlist {
+            position: relative;
+            border: 8px solid white;
+            box-shadow: 1px 1px 4px black;
+            text-align: left;
+            display: block;
+            margin-top: 20px;
+            margin-bottom: auto;
+            margin-left: 40px;
+            margin-right: 300px;
+
+        }
+
+        figure.foto-playlist img {
+            width: 100%;
+            height: 100%;
+
+        }
