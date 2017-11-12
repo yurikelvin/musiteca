@@ -21,11 +21,13 @@
 			<tr>
 
 				<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+				<th><a href="" ng-click="ordenarPor('ano')">Ano</a></th>
 
 			</tr>
 
 			<tr ng-repeat="album in albuns | filter: {nome: criterioDeBusca} | limitTo: 5 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
 					<td><a href="#!album/detalhes/{{album.idAlbum}}">{{album.nome}}</a></td>
+					<td>{{album.ano}}</a></td>
 					
 			</tr>
 		</table>

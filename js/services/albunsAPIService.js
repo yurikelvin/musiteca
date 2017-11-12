@@ -45,7 +45,7 @@ angular.module("musiteca").factory("albunsAPI", function() {
 			return album;
 		},
 
-		getMusicas: function(idAlbum) {
+		getMusicasAlbum: function(idAlbum) {
 			var album = pegaAlbum(idAlbum);
 
 			return album.musicas;
