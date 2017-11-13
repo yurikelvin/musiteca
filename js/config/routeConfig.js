@@ -2,7 +2,7 @@ angular.module("musiteca").config(function ($routeProvider) {
 
 	/** Rotas pertinentes ao menu**/
 	$routeProvider.when("/menu", {
-		templateUrl: "view/menu.html",
+		templateUrl: "view/menu.html"
 	});
 
 	/** Rotas pertinentes ao usuario**/
