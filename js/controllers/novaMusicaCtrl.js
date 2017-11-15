@@ -1,4 +1,4 @@
-angular.module("musiteca").controller("adicionaMusicaCtrl", function($scope, artistasAPI, albunsAPI, $filter, $location) {
+angular.module("musiteca").controller("novaMusicaCtrl", function($scope, artistasAPI, albunsAPI, $filter, $location) {
 
 	$scope.artistas = artistasAPI.getArtistas();
 

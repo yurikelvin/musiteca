@@ -43,26 +43,5 @@ angular.module("musiteca").config(function ($routeProvider) {
 		controller: "detalhesAlbumCtrl",
 	});
 
-	/** Rotas pertinentes a adições de informações no sistema **/
-
-	$routeProvider.when("/addInfo", {
-		templateUrl: "view/adicionaInformacoes.html",
-	});
-
-	$routeProvider.when("/addInfo/novoArtista",  {
-		templateUrl: "view/novoArtista.html",
-		controller: "novoArtistaCtrl"
-	});
-
-	$routeProvider.when("/addInfo/novoAlbum",  {
-		templateUrl: "view/novoAlbum.html",
-		controller: "novoAlbumCtrl"
-	});
-
-	$routeProvider.when("/addInfo/addMusica", {
-		templateUrl: "view/adicionaMusica.html",
-		controller: "adicionaMusicaCtrl"
-	});
-
-	$routeProvider.otherwise({redirectTo: "/menu"});
+	//$routeProvider.otherwise({redirectTo: "/menu"});
 });

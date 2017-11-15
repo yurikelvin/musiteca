@@ -1,35 +1,44 @@
-<div class="jumbotron">
-	
-	<h3>Cadastro de Álbum</h3>
-	<hr/>
-	<form name="albumForm" novalidate>
-		<input class="form-control" name="nome" type="text" ng-model="album.nome" placeholder="Nome do álbum" ng-required="true"/>
-		<input class="form-control" name="ano" type="text" ng-model="album.ano" placeholder="Ano de lançamento" ng-required="true"/>
-		<input class="form-control" name="imagem" type="text" ng-model="album.imagem" placeholder="Capa do Álbum"/>
-
-		<select class="form-control" ng-model="artistaAlbum" ng-options="artista.nome for artista in artistas | orderBy:'nome'" ng-required="true">
-            <option value="">Selecione um artista</option>
-        </select>
-	</form>
-
-	<div ng-show="albumForm.nome.$dirty" ng-messages="albumForm.nome.$error">
-        <div ng-message="required" class="alert alert-danger">
-            Por favor, preencha o nome do álbum!
+<div class="modal-content" ng-controller="novoAlbumCtrl">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cadastro de Álbum</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cadastroEfetuado = false">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-    </div>
+        <div class="modal-body">
+		    <form name="albumForm" novalidate>
+		    	<label for="album-name" class="col-form-label">Nome:</label>
+				<input id="album-name" class="form-control" name="nome" type="text" ng-model="album.nome" placeholder="Nome do álbum" ng-required="true"/>
 
-    <div ng-show="hasAlbum()" class="alert alert-danger">
-    		Álbum já cadastrado no sistema.
-    </div>
+				<label for="album-ano" class="col-form-label">Ano:</label>
+				<input id="album-ano" class="form-control" name="ano" type="text" ng-model="album.ano" placeholder="Ano de lançamento" ng-required="true"/>
 
-    <div ng-show="hasSuccess()" class="alert alert-success">
-    	Álbum adicionado com sucesso.
-    </div>
-	
+				<label for="album-img" class="col-form-label">Imagem:</label>
+				<input id="album-img" class="form-control" name="imagem" type="text" ng-model="album.imagem" placeholder="Capa do Álbum"/>
 
-	<button class="btn btn-primary btn-block" ng-click="adicionarAlbum(artistaAlbum.id, album)" ng-disabled="albumForm.$invalid">Adicionar álbum</button>
-	<hr/>
-	<a href="#!/addInfo" class="btn btn-info btn-block"><i class="fa fa-undo" aria-hidden="true"></i>
- Voltar</a>
+				<label for="album-nameArtist" class="col-form-label">Artista associado:</label>
+				<select id="album-nameArtist" class="form-control" ng-model="artistaAlbum" ng-options="artista.nome for artista in artistas | orderBy:'nome'" ng-required="true">
+		            <option value="">Selecione um artista</option>
+		        </select>
+			</form>
+
+			<div ng-show="albumForm.nome.$dirty" ng-messages="albumForm.nome.$error">
+		        <div ng-message="required" class="alert alert-danger">
+		            Por favor, preencha o nome do álbum!
+		        </div>
+		    </div>
+
+		    <div ng-show="hasAlbum()" class="alert alert-danger">
+		    		Álbum já cadastrado no sistema.
+		    </div>
+
+		    <div ng-show="hasSuccess()" class="alert alert-success">
+		    	Álbum adicionado com sucesso.
+		    </div>
+        </div>
+        <div class="modal-footer">
+        	<button class="btn btn-primary btn-block" ng-click="adicionarAlbum(artistaAlbum.id, album)" ng-disabled="albumForm.$invalid">Adicionar álbum</button>
+        	<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" ng-click="cadastroEfetuado = false">Fechar</button>
+        </div>
 
 </div>

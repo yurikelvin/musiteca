@@ -122,3 +122,35 @@
             height: 100%;
 
         }
+
+        .circular--landscape {
+          display: inline-block;
+          position: relative;
+          width: 200px;
+          height: 200px;
+          overflow: hidden;
+          border-radius: 50%;
+          box-shadow: 1px 1px 4px black;
+        }
+
+        .circular--landscape img {
+          width: auto;
+          height: 100%;
+          margin-left: -50px;
+        }
+
+        .circular--square {
+          position: relative;
+          width: 200px;
+          height: 200px;
+          overflow: hidden;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .circular--square img {
+            width: 100%;
+            height: 100%;
+        }
