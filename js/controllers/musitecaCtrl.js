@@ -1,9 +1,10 @@
-angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, artistasAPI, artistasFavoritosAPI, $filter, $location) {
+angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, artistasAPI, albunsAPI, artistasFavoritosAPI, $filter) {
 
 	$scope.app = "Musiteca!";
 
 	$scope.artistas = artistasAPI.getArtistas();
 	$scope.artistasFavoritos = artistasFavoritosAPI.getArtistasFavoritos();
+    $scope.albuns = albunsAPI.getAlbuns();
 
 
     $scope.ordenarPor = function(campo) {
@@ -118,14 +119,14 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
         }
     };
 
-    $scope.viewArtista = function (artistaSelected) {
+    $scope.view = function (itemSelected, template) {
       var modalInstance = $uibModal.open({
-        templateUrl: 'view/detalhesArtista.html',
-        controller: 'detalhesArtistaCtrl',
+        templateUrl: 'view/modal/' + template + '.html',
+        controller: template + 'Ctrl',
         size: 'lg',
         resolve: {
           item: function () {
-            return artistaSelected;
+            return itemSelected;
           }
         }
       });

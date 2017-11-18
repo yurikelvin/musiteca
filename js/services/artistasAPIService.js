@@ -99,6 +99,9 @@ angular.module("musiteca").factory("artistasAPI", function() {
 			artista.id = ++id;
 			artista.ultimaOuvida = "Não definido ainda";
 			artista.statusCheck = true;
+			if(artista.imagem == null) {
+				artista.imagem = "https://www.atomix.com.au/media/2015/06/atomix_user31.png";
+			}
 			artistasData.push(artista);
 		},
 

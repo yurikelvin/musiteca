@@ -1,4 +1,4 @@
-angular.module("musiteca").controller("novoArtistaCtrl", function($scope, artistasAPI) {
+angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInstance, $scope, artistasAPI) {
 
 	$scope.artistas = artistasAPI.getArtistas();
 
@@ -51,5 +51,8 @@ angular.module("musiteca").controller("novoArtistaCtrl", function($scope, artist
 		return $scope.cadastroEfetuado;
 	};
 
+	$scope.close = function() {
+		$uibModalInstance.dismiss('cancel');
+	}
 
 });

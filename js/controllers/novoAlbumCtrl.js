@@ -1,4 +1,4 @@
-angular.module("musiteca").controller("novoAlbumCtrl", function($scope, artistasAPI, albunsAPI) {
+angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstance, $scope, artistasAPI, albunsAPI) {
 
 	$scope.artistas = artistasAPI.getArtistas();
 	$scope.albuns = albunsAPI.getAlbuns();
@@ -59,6 +59,10 @@ angular.module("musiteca").controller("novoAlbumCtrl", function($scope, artistas
 
 		return $scope.cadastroEfetuado;
 	};
+
+	$scope.close = function() {
+		$uibModalInstance.dismiss('cancel');
+	}
 
 
 });

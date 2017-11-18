@@ -1,7 +1,7 @@
-<div class="modal-content" ng-controller="novaMusicaCtrl">
+<div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Cadastro de Músicas</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cadastroEfetuado = false">
+          <button type="button" class="close" ng-click="close()" aria-label="Close" ng-click="cadastroEfetuado = false">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -38,7 +38,7 @@
         </div>
         <div class="modal-footer">
         	<button class="btn btn-primary btn-block" ng-click="adicionarMusica(musica, selectedAlbum.idAlbum, selectedArtist.id)" ng-disabled="musicForm.$invalid">Adicionar música</button>
-        	<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" ng-click="cadastroEfetuado = false">Fechar</button>
+        	<button type="button" class="btn btn-secondary btn-block" ng-click="close()">Fechar</button>
         </div>
 
 </div>

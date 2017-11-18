@@ -1,12 +1,17 @@
-angular.module("musiteca").controller("detalhesAlbumCtrl", function($scope, $routeParams, albunsAPI) {
+angular.module("musiteca").controller("detalhesAlbumCtrl", function($uibModalInstance, $scope, item, albunsAPI) {
 
-	$scope.album = albunsAPI.getAlbum($routeParams.id);
-  $scope.musicas = albunsAPI.getMusicasAlbum($routeParams.id);
+  $scope.album = item;
+  $scope.musicas = albunsAPI.getMusicasAlbum(item.idAlbum);
 
   $scope.ordenarPor = function(campo) {
     $scope.criterioDeOrdenacao = campo;
     $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
    };
+
+  $scope.cancel = function() {
+      $uibModalInstance.dismiss('cancel');
+  };
+
 
 
 });

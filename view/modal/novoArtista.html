@@ -1,11 +1,10 @@
-<div class="modal-content" ng-controller="novoArtistaCtrl">
-	<div class="modal-header">
+<div class="modal-header">
 	  <h5 class="modal-title" id="novoArtistaLabel">Cadastro de artistas</h5>
-	  <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cadastroEfetuado = false">
+	  <button type="button" class="close" ng-click="close()" aria-label="Close">
 	    <span aria-hidden="true">&times;</span>
 	  </button>
 	</div>
-	<div class="modal-body">
+<div class="modal-body">
 	  	<form name="artistaForm" novalidate>
 	  		<div class="form-group">
 	      		<label for="artist-name" class="col-form-label">Nome:</label>
@@ -35,10 +34,8 @@
 		<div ng-show="hasSuccess()" class="alert alert-success">
 			Artista adicionado com sucesso.
 		</div>
-	</div>
-	<div class="modal-footer">
+</div>
+<div class="modal-footer">
 	  <button class="btn btn-primary btn-block" ng-click="adicionarArtista(artista)" ng-disabled="artistaForm.nome.$invalid">Adicionar artista</button>
-	  <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" ng-click="cadastroEfetuado = false">Fechar</button>
-	</div>
-
+	  <button type="button" class="btn btn-secondary btn-block" ng-click="close()">Fechar</button>
 </div>

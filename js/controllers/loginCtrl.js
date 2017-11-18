@@ -1,4 +1,4 @@
-angular.module("musiteca").controller("loginCtrl", function($scope, $timeout, artistasAPI, artistasFavoritosAPI, $filter, $location) {
+angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModalInstance, $scope, $timeout, artistasAPI, artistasFavoritosAPI, $filter, $location) {
 
 
     $scope.typePassword = "password";
@@ -15,6 +15,18 @@ angular.module("musiteca").controller("loginCtrl", function($scope, $timeout, ar
             $scope.iconPassword = "fa fa-lg fa-eye text-primary mb-3 sr-icons";
 
         };
+    };
+
+    $scope.close = function() {
+        $uibModalInstance.dismiss('cancel');
+    }
+
+    $scope.openModal = function (template) {
+      $scope.close();
+      var modalInstance = $uibModal.open({
+        templateUrl: 'view/modal/' + template + '.html',
+        controller: 'loginCtrl'
+      });
     };
 
 });

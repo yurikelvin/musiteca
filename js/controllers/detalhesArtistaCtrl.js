@@ -1,6 +1,5 @@
-angular.module("musiteca").controller("detalhesArtistaCtrl", function($scope, item, artistasAPI) {
+angular.module("musiteca").controller("detalhesArtistaCtrl", function($uibModal, $uibModalInstance, $scope, item, artistasAPI) {
 
-  console.log(item);
 	$scope.artista = item;
 	$scope.albuns = artistasAPI.getAlbuns(item.id);
 	$scope.musicas = artistasAPI.getMusicas(item.id);
@@ -23,6 +22,24 @@ angular.module("musiteca").controller("detalhesArtistaCtrl", function($scope, it
 
     $scope.defineUltimaOuvida = function(ultimaOuvida) {
     	$scope.artista.ultimaOuvida = ultimaOuvida.nome;
+    };
+
+    $scope.cancel = function() {
+      $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.viewAlbum = function (itemSelected) {
+      $scope.cancel();
+      var modalInstance = $uibModal.open({
+        templateUrl: 'view/modal/detalhesAlbum.html',
+        controller: 'detalhesAlbumCtrl',
+        size: 'lg',
+        resolve: {
+          item: function () {
+            return itemSelected;
+          }
+        }
+      });
     };
 
 

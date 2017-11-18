@@ -76,7 +76,7 @@
 <body id="page-top" class="rating">
 
 	<!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" ng-controller="mainCtrl">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">Musiteca</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,22 +93,22 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#portfolio">Músicas</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-            </li>
             <li class="nav-item dropdown" >
-			    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-show="false">
 			      Cadastro <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
 			    </a>
 			    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			    	<button type="buttom" class="dropdown-item" data-toggle="modal" data-target="#artistaModal"><i class="fa fa-plus" aria-hidden="true"></i> Novo Artista</button>
-			    	<button type="buttom" class="dropdown-item" data-toggle="modal" data-target="#albumModal"><i class="fa fa-plus" aria-hidden="true"></i> Novo Álbum</button>
+			    	<button type="buttom" class="dropdown-item" ng-click="openModal('novoArtista')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Artista</button>
+			    	<button type="buttom" class="dropdown-item" ng-click="openModal('novoAlbum')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Álbum</button>
 			    	<div class="dropdown-divider"></div>
-			    	<button type="buttom" class="dropdown-item" data-toggle="modal" data-target="#musicaModal"><i class="fa fa-plus" aria-hidden="true"></i> Nova Música</button>
+			    	<button type="buttom" class="dropdown-item" ng-click="openModal('novaMusica')"><i class="fa fa-plus" aria-hidden="true"></i> Nova Música</button>
 			    </div>
       		</li>
       		<li class="nav-item">
-              <a class="nav-link js-scroll-trigger" data-toggle="modal" data-target="#loginModal" href="">Login <i class="fa fa-user-o" aria-hidden="true"></i></a>
+              <a class="nav-link js-scroll-trigger" ng-click="openModal('login')" href="">Login <i class="fa fa-user-o" aria-hidden="true"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contato</a>
             </li>
           </ul>
         </div>
@@ -126,20 +126,21 @@
           </div>
           <div class="col-lg-8 mx-auto">
             <p class="mb-5" style="font-size: 20px; font-weight: bold;">Com a Músiteca você pode moldar sua própria biblioteca de músicas da forma que você queira.</p>
-            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Descubra Mais</a>
           </div>
         </div>
       </div>
     </header>
 
-    <section class="bg-primary" id="services">
+    <section class="bg-primary" id="about" ng-controller="mainCtrl">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading text-white">We've got what you need!</h2>
+            <h2 class="section-heading text-white">Músiteca</h2>
             <hr class="light my-4">
-            <p class="text-faded mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
-            <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+            <p class="text-faded mb-4">Músiteca foi desenvolvido para servir como um serviço de músicas que atenda as necessidades dos usuários, deixando livremente a criação de artistas, álbuns, músicas, playlists e favoritos. Crie já uma conta e experimente!</p>
+            <p class="text-faded mb-4">Crie já uma conta e experimente!</p>
+            <a class="btn btn-light btn-xl js-scroll-trigger" ng-click="openModal('login')" href="">Fazer login</a>
           </div>
         </div>
       </div>
@@ -172,11 +173,14 @@
       <div class="container" ng-show="artistas.length > 0">
         <div class="row">
           <div class="col-lg-3 col-md-6 text-center" ng-repeat="artista in artistas | filter: {nome: buscaArtista}">
-          	  <div class="circular--landscape">
+          	  <div class="circular--landscape" ng-if="artista.imagem != 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
+  				<img src="{{artista.imagem}}" />
+			  </div>
+			  <div style="margin-left: 23px" class="circular--square" ng-if="artista.imagem == 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
   				<img src="{{artista.imagem}}" />
 			  </div>
 			  <br/>
-              <a href="" ng-click="viewArtista(artista)">{{artista.nome}}</a>
+              <a href="" ng-click="view(artista, 'detalhesArtista')">{{artista.nome}}</a>
               <input class="check_box" type="checkbox" ng-attr-id="{{'c' + artista.id}}" ng-model="artista.selecionado" ng-disabled="artista.statusCheck == false"/>
 				<label class="check_box" ng-attr-for="{{'c' +artista.id}}">
 	  				<i ng-class="iconStar" ng-click="changeIcon(artista.selecionado)"></i>
@@ -185,10 +189,10 @@
         </div>
       </div>
     </section>
-
-    <section class="p-0" id="albuns">
+    <hr/>
+    <section class="p-0" id="albuns" ng-controller="musitecaCtrl">
       <div class="container-fluid p-0">
-        <div class="row no-gutters popup-gallery">
+        <div class="row no-gutters">
           <div class="col-lg-4 col-sm-6" ng-repeat="album in albuns">
             <a class="portfolio-box" href="">
               <img class="img-fluid" style="width: 650px; height: 320px;" src="{{album.imagem}}" alt="">
@@ -197,7 +201,7 @@
                   <div class="project-category text-faded">
                     {{album.artistaNome}}
                   </div>
-                  <div class="project-name">
+                  <div class="project-name" ng-click="view(album, 'detalhesAlbum')">
                     {{album.nome}}
                   </div>
                 </div>
@@ -219,57 +223,27 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="section-heading">Let's Get In Touch!</h2>
+            <h2 class="section-heading">Contato</h2>
             <hr class="my-4">
-            <p class="mb-5">Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+            <p class="mb-5">Deseja entrar em contato comigo? Abaixo está minha página no Github e o E-mail para contato.</p>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-4 ml-auto text-center">
-            <i class="fa fa-phone fa-3x mb-3 sr-contact"></i>
-            <p>123-456-6789</p>
+            <i class="fa fa fa-github fa-3x mb-3 sr-contact"></i>
+            <p> <a href="https://github.com/yurikelvin" target="_blank">Perfil no Github</a></p>
           </div>
-          <div class="col-lg-4 mr-auto text-center">
+		  <div class="col-lg-4 mr-auto text-center">
             <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
-            <p>
-              <a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>
+			<p>
+              <a href="mailto:y.kelviny@gmail.com">y.kelviny@gmail.com</a>
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Modal forms -->
-
-    <div class="modal fade" id="artistaModal" tabindex="-1" role="dialog" aria-labelledby="novoArtistaLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div data-ng-include="'view/modal/novoArtista.html'"></div>
-	  </div>
-	</div>
-
-	<div class="modal fade" id="albumModal" tabindex="-1" role="dialog" aria-labelledby="novoAlbumLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div data-ng-include="'view/modal/novoAlbum.html'"></div>
-	  </div>
-	</div>
-
-	<div class="modal fade" id="musicaModal" tabindex="-1" role="dialog" aria-labelledby="novaMusicaLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div data-ng-include="'view/modal/novaMusica.html'"></div>
-	  </div>
-	</div>
-
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
-	    <div data-ng-include="'view/modal/login.html'"></div>
-	  </div>
-	</div>
-
-	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-		  <div data-ng-include="'view/modal/register.html'"></div>
-		</div>
-	</div>
+    <div ng-include="'view/footer.html'"></div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>

@@ -1,7 +1,7 @@
-<div class="modal-content" ng-controller="loginCtrl">
+<div class="modal-content">
 	<div class="modal-header">
 	  <h5 class="modal-title" id="registerLabel">Cadastro de Usuário</h5>
-	  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	  <button type="button" class="close" ng-click="close()" aria-label="Close">
 	    <span aria-hidden="true">&times;</span>
 	  </button>
 	</div>
@@ -26,7 +26,7 @@
 		</form>
 		<br/>
 		<p>Já possui login?</p>
-		<a href="" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Logar</a>
+		<a href="" ng-click="openModal('login')">Logar</a>
 		<br/>
 		<hr/>
 
@@ -46,7 +46,7 @@
 	</div>
 	<div class="modal-footer">
 	  <button class="btn btn-primary btn-block" ng-click="adicionarArtista(artista)" ng-disabled="artistaForm.nome.$invalid">Logar</button>
-	  <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" ng-click="cadastroEfetuado = false">Fechar</button>
+	  <button type="button" class="btn btn-secondary btn-block" ng-click="close()">Fechar</button>
 	</div>
 
 </div>
