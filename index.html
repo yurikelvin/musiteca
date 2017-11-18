@@ -94,7 +94,7 @@
               <a class="nav-link js-scroll-trigger" href="#portfolio">Músicas</a>
             </li>
             <li class="nav-item dropdown" >
-			    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-show="false">
+			    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      Cadastro <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
 			    </a>
 			    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -192,7 +192,17 @@
     <hr/>
     <section class="p-0" id="albuns" ng-controller="musitecaCtrl">
       <div class="container-fluid p-0">
-        <div class="row no-gutters">
+        <div class="container" ng-show="albuns.length == 0">
+      	  <div class="col-lg-8 mx-auto text-center">
+            <div class="service-box mt-5 mx-auto">
+              <h2 class="section-heading">Álbuns</h2>
+              <hr/>
+              <i class="fa fa-4x fa-meh-o text-primary mb-3 sr-icons"></i>
+              <h3 class="mb-3">Oops! Não há nenhum álbum cadastrado no momento.</h3>
+            </div>
+        </div>
+        </div>
+        <div class="row no-gutters" ng-show="albuns.length > 0">
           <div class="col-lg-4 col-sm-6" ng-repeat="album in albuns">
             <a class="portfolio-box" href="">
               <img class="img-fluid" style="width: 650px; height: 320px;" src="{{album.imagem}}" alt="">
