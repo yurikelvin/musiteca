@@ -1,10 +1,5 @@
 angular.module("musiteca").config(function ($routeProvider) {
 
-	/** Rotas pertinentes ao menu**/
-	$routeProvider.when("/menu", {
-		templateUrl: "view/menu.html"
-	});
-
 	/** Rotas pertinentes ao usuario**/
 	$routeProvider.when("/artistasFavoritos",  {
 		templateUrl: "view/artistasFavoritos.html",
@@ -33,15 +28,10 @@ angular.module("musiteca").config(function ($routeProvider) {
 		controller: "musitecaCtrl"
 	});
 
-	$routeProvider.when("/artistas/detalhes/:id", {
-		templateUrl: "view/detalhesArtista.html",
-		controller: "detalhesArtistaCtrl",
-	});
-
 	$routeProvider.when("/album/detalhes/:id", {
 		templateUrl: "view/detalhesAlbum.html",
 		controller: "detalhesAlbumCtrl",
 	});
 
-	//$routeProvider.otherwise({redirectTo: "/menu"});
+	$routeProvider.otherwise({redirectTo: "/"});
 });

@@ -1,8 +1,9 @@
-angular.module("musiteca").controller("detalhesArtistaCtrl", function($scope, $routeParams, artistasAPI, albunsAPI) {
+angular.module("musiteca").controller("detalhesArtistaCtrl", function($scope, item, artistasAPI) {
 
-	$scope.artista = artistasAPI.getArtista($routeParams.id);
-	$scope.albuns = artistasAPI.getAlbuns($routeParams.id);
-	$scope.musicas = artistasAPI.getMusicas($routeParams.id);
+  console.log(item);
+	$scope.artista = item;
+	$scope.albuns = artistasAPI.getAlbuns(item.id);
+	$scope.musicas = artistasAPI.getMusicas(item.id);
 
 	$scope.$watch("rate", function(newValue, oldValue) {
    		if ($scope.rate > 0) {

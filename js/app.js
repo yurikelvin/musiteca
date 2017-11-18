@@ -1,1 +1,1 @@
-angular.module("musiteca", ["ngMessages", "ngRoute"]);
+angular.module("musiteca", ["ngMessages", "ngRoute",'ngAnimate', 'ngSanitize', "ui.bootstrap"]);

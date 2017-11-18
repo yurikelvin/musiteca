@@ -1,6 +1,6 @@
 <div class="modal-content" ng-controller="loginCtrl">
 	<div class="modal-header">
-	  <h5 class="modal-title" id="loginLabel">Cadastro de Usuário</h5>
+	  <h5 class="modal-title" id="registerLabel">Cadastro de Usuário</h5>
 	  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	    <span aria-hidden="true">&times;</span>
 	  </button>
@@ -11,35 +11,22 @@
 	      		<label for="register-name" class="col-form-label">Nome do usuário:</label>
 				<input id="register-name" class="form-control" title="Login contém entre 4 e 14 caracteres" type="text" ng-model="usuario.nome" name="nome" placeholder="Digite um nome de login para o usuário" ng-required="true" ng-minlength="6" ng-maxlength="14"/>
 			</div>
-
 			<div class="form-group">
 				<label for="register-pass" class="col-form-label">Senha do usuário:</label>
-	
 				<input autocomplete="off" id="register-pass" class="form-control" type="password" ng-model="usuario.password" name="password" placeholder="Digite uma senha a ser cadastrada" ng-required="true" ng-minlength="8" ng-maxlength="24"/>
 
 				<label for="register-confirm" class="col-form-label">Confirme a senha cadastrada:</label>
-	
-				<input autocomplete="off" id="register-confirm" class="form-control" type="password" name="confirmPassword" ng-model="confirmSenha" placeholder="Repita a senha cadastrada acima" ng-required="true" ng-minlength="8" ng-maxlength="24" compare-to="usuario.password"/>
-
-
-
-				<div ng-messages="registerForm.confirmPassword.$error">
-
-					<div ng-message="compareTo" class="alert alert-danger">Senhas não conferem.</div>
-				</div>
-
-
-
+				<input autocomplete="off" id="register-confirm" class="form-control" type="password" name="confirmPassword" ng-model="confirmSenha" placeholder="Repita a senha cadastrada acima" ng-required="true" ng-minlength="8" ng-maxlength="24" />
 				<small class="form-text text-muted">Não compartilhe sua senha com ninguém.</small>
 				<small class="form-text text-muted">A senha é única e intransferível.</small>
+				<br/>
+				<label for="register-confirm" class="col-form-label">E-mail:</label>
+				<input autocomplete="off" id="register-confirm" class="form-control" type="password" name="confirmPassword" ng-model="confirmSenha" placeholder="Digite um e-mail válido." ng-required="true" ng-minlength="8" ng-maxlength="24" />
 			</div>
 		</form>
-
 		<br/>
-
 		<p>Já possui login?</p>
 		<a href="" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Logar</a>
-
 		<br/>
 		<hr/>
 

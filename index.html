@@ -7,7 +7,7 @@
     <meta name="author" content="">
 
 	<title>Musiteca</title>
-	<link href="img/disco.png" rel="shortcut icon" type="image/png"/>
+	<link href="img/favicon-music.ico" rel="shortcut icon" type="image/png"/>
 
 	<!-- Styles -->
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css"/>
@@ -37,7 +37,10 @@
 	<script src="lib/angular/angular-route.js"></script>
 	<script src="lib/angular/angular-locale_pt-br.js"></script>
 	<script src="lib/angular/angular-messages.js"></script>
+	<script src="lib/angular/angular-animate.js"></script>
+	<script src="lib/angular/angular-sanitize.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="lib/angular/ui-bootstrap-tpls-3.0.0-beta.3.min.js"></script>
 
 	<!-- App -->
 	<script src="js/app.js"></script>
@@ -57,7 +60,6 @@
 
 	<!-- Diretivas -->
 	<script src="js/directives/starRatingDirective.js"></script>
-	<script src="js/directives/passwordVerifyDirective.js"></script>
 
 	<!-- Configurações -->
 	<script src="js/config/routeConfig.js"></script>
@@ -71,9 +73,7 @@
 
 
 </head>
-<body id="page-top" class="rating" ng-controller="mainCtrl">
-
-	<div ng-view></div>
+<body id="page-top" class="rating">
 
 	<!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -96,7 +96,7 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" >
 			    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      Cadastro <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
 			    </a>
@@ -145,7 +145,7 @@
       </div>
     </section>
 
-    <section id="artistas">
+    <section id="artistas" ng-controller="musitecaCtrl">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -154,12 +154,10 @@
             <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="artistas.length > 0">
 				<input autocomplete="off" type="{{pasType}}" ng-model="buscaArtista" placeholder=" Filtrar" class="form-control"/>
 				<div class="search-icon">
-				    <i class="fa fa-search text-primary mb-3 sr-icons" ng-click="changeImg()"></i>
+				    <i class="fa fa-search text-primary mb-3 sr-icons"></i>
 				</div>
 	  		</div>
-
 	  		<br/>
-
           </div>
         </div>
       </div>
@@ -178,7 +176,11 @@
   				<img src="{{artista.imagem}}" />
 			  </div>
 			  <br/>
-              <a href="">{{artista.nome}}</a>
+              <a href="" ng-click="viewArtista(artista)">{{artista.nome}}</a>
+              <input class="check_box" type="checkbox" ng-attr-id="{{'c' + artista.id}}" ng-model="artista.selecionado" ng-disabled="artista.statusCheck == false"/>
+				<label class="check_box" ng-attr-for="{{'c' +artista.id}}">
+	  				<i ng-class="iconStar" ng-click="changeIcon(artista.selecionado)"></i>
+			  	</label>
           </div>
         </div>
       </div>
@@ -265,7 +267,6 @@
 
 	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-		 
 		  <div data-ng-include="'view/modal/register.html'"></div>
 		</div>
 	</div>
