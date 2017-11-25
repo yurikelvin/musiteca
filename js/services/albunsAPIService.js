@@ -85,6 +85,37 @@ angular.module("musiteca").factory("albunsAPI", function() {
 
 		resetAlbum: function() {
 			albunsData = [];
+		}, 
+
+		hasAlbum: function(album) {
+			var resposta = false;
+
+			for(i = 0; i < albunsData.length; i ++) {
+				if(albunsData[i].nome.toLowerCase() == album.nome.toLowerCase()) {
+					resposta = true;
+				}
+			}
+
+			return resposta;
+
+		},
+
+		hasMusic: function(musica, idAlbum) {
+			var resposta = false;
+
+			var album = pegaAlbum(idAlbum);
+
+			if(album != null && album.musicas != null) {
+
+				for(i = 0; i < album.musicas.length; i ++){
+					if(album.musicas[i].nome.toLowerCase() == musica.nome.toLowerCase()) {
+						resposta = true;
+					}
+				}
+			}
+
+			return resposta;
+
 		}
 
 	};

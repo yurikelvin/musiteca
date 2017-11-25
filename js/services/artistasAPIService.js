@@ -1,4 +1,4 @@
-angular.module("musiteca").factory("artistasAPI", function() {
+angular.module("musiteca").factory("artistasAPI", ["albunsAPI", function(albunsAPI) {
 
 	var artistasData = [];
 	var id = 0;
@@ -27,19 +27,7 @@ angular.module("musiteca").factory("artistasAPI", function() {
 
 		getArtista: function(id) {
 
-			var artista = null;
-
-			_id = parseInt(id);
-
-			for(i = 0; i < artistasData.length; i ++) {
-				if(artistasData[i] != null) {
-					if(artistasData[i].id == _id) {
-						artista = artistasData[i];
-					}
-				}
-			}
-
-			return artista;
+			return getArtist(id);
 		},
 
 		getAlbuns: function(id) {
@@ -48,32 +36,23 @@ angular.module("musiteca").factory("artistasAPI", function() {
 			return artista.albuns;
 		},
 
-		getAlbum: function(idAlbum, idArtist) {
-			var artista = getArtist(idArtist);
-
-			var artistaAlbuns = artista.albuns;
-
-			var album;
-
-			if(artista.albuns != null) {
-				for(i = 0; i < artista.albuns.length; i ++) {
-					if(artista.albuns[i].idAlbum == idAlbum) {
-						album = albuns[i];
-					}
-				}
-			}
-			return album;
+		getAlbum: function(idAlbum) {
+			return albunsAPI.getAlbum(idAlbum);
 		},
 
 		addAlbum: function(id, album) {
 
 			var artista = getArtist(id);
 
+			album.artistaNome = artista.nome;
+
 			if(artista.albuns == null) {
 				artista.albuns = [];
 			}
 
+
 			artista.albuns.push(album);
+			albunsAPI.addAlbum(id, album);
 		},
 
 		getMusicas: function(id) {
@@ -95,6 +74,10 @@ angular.module("musiteca").factory("artistasAPI", function() {
 			return musicas;
 		},
 
+		getAlbuns: function() {
+			return albunsAPI.getAlbuns();
+		},
+
 		addArtista: function(artista) {
 			artista.id = ++id;
 			artista.ultimaOuvida = "Não definido ainda";
@@ -105,13 +88,29 @@ angular.module("musiteca").factory("artistasAPI", function() {
 			artistasData.push(artista);
 		},
 
+		addMusic: function(musica, idAlbum) {
+			albunsAPI.addMusic(musica, idAlbum);
+		},
+
 		setArtistas: function(artistas) {
 			artistasData = artistas;
 		},
 
 		resetArtistas: function() {
 			artistasData = [];
+		},
+
+		getMusicasAlbum: function(id) {
+			return albunsAPI.getMusicasAlbum(id);
+		},
+
+		hasAlbum: function(album) {
+			return albunsAPI.hasAlbum(album);
+		},
+
+		hasMusic: function(music, idAlbum) {
+			return albunsAPI.hasMusic(music, idAlbum);
 		}
 
 	};
-});
+}]);

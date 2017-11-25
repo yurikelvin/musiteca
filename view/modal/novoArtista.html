@@ -1,41 +1,43 @@
-<div class="modal-header">
-	  <h5 class="modal-title" id="novoArtistaLabel">Cadastro de artistas</h5>
-	  <button type="button" class="close" ng-click="close()" aria-label="Close">
-	    <span aria-hidden="true">&times;</span>
-	  </button>
+<div class="modal-content">
+	<div class="modal-header">
+		  <h5 class="modal-title" id="novoArtistaLabel">Cadastro de artistas</h5>
+		  <button type="button" class="close" ng-click="close()" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+	<div class="modal-body">
+		  	<form name="artistaForm" novalidate>
+		  		<div class="form-group">
+		      		<label for="artist-name" class="col-form-label">Nome:</label>
+					<input id="artist-name" class="form-control" ntype="text" ng-model="artista.nome" name="nome" placeholder="Nome do artista" ng-required="true"/>
+				</div>
+				<div class="form-group">
+					<label for="artist-name" class="col-form-label">Imagem:</label>
+					<input id="artist-img" class="form-control" type="text" ng-model="artista.imagem" name="imagem" placeholder="Imagem do artista" ng-required="true"/>
+					<small class="form-text text-muted">Insira uma imagem em forma de url.</small>
+					<small class="form-text text-muted">Exemplo: https://minhaFoto.com.br/foto.png</small>
+				</div>
+			</form>
+
+			<br/>
+			<hr/>
+
+			<div ng-show="artistaForm.nome.$dirty" ng-messages="artistaForm.nome.$error">
+			    <div ng-message="required" class="alert alert-danger">
+			        Por favor, preencha o nome do artista!
+			    </div>
+			</div>
+
+			<div ng-show="hasArtista()" class="alert alert-danger">
+					Artista já cadastrado no sistema.
+			</div>
+
+			<div ng-show="hasSuccess()" class="alert alert-success">
+				Artista adicionado com sucesso.
+			</div>
 	</div>
-<div class="modal-body">
-	  	<form name="artistaForm" novalidate>
-	  		<div class="form-group">
-	      		<label for="artist-name" class="col-form-label">Nome:</label>
-				<input id="artist-name" class="form-control" ntype="text" ng-model="artista.nome" name="nome" placeholder="Nome do artista" ng-required="true"/>
-			</div>
-			<div class="form-group">
-				<label for="artist-name" class="col-form-label">Imagem:</label>
-				<input id="artist-img" class="form-control" type="text" ng-model="artista.imagem" name="imagem" placeholder="Imagem do artista" ng-required="true"/>
-				<small class="form-text text-muted">Insira uma imagem em forma de url.</small>
-				<small class="form-text text-muted">Exemplo: https://minhaFoto.com.br/foto.png</small>
-			</div>
-		</form>
-
-		<br/>
-		<hr/>
-
-		<div ng-show="artistaForm.nome.$dirty" ng-messages="artistaForm.nome.$error">
-		    <div ng-message="required" class="alert alert-danger">
-		        Por favor, preencha o nome do artista!
-		    </div>
-		</div>
-
-		<div ng-show="hasArtista()" class="alert alert-danger">
-				Artista já cadastrado no sistema.
-		</div>
-
-		<div ng-show="hasSuccess()" class="alert alert-success">
-			Artista adicionado com sucesso.
-		</div>
-</div>
-<div class="modal-footer">
-	  <button class="btn btn-primary btn-block" ng-click="adicionarArtista(artista)" ng-disabled="artistaForm.nome.$invalid">Adicionar artista</button>
-	  <button type="button" class="btn btn-secondary btn-block" ng-click="close()">Fechar</button>
+	<div class="modal-footer">
+		  <button class="btn btn-primary btn-block" ng-click="adicionarArtista(artista)" ng-disabled="artistaForm.nome.$invalid">Adicionar artista</button>
+		  <button type="button" class="btn btn-secondary btn-block" ng-click="close()">Fechar</button>
+	</div>
 </div>

@@ -2,17 +2,16 @@ angular.module("musiteca").controller("novaMusicaCtrl", function($uibModalInstan
 
 	$scope.artistas = artistasAPI.getArtistas();
 
-	$scope.albuns = albunsAPI.getAlbuns();
+	$scope.albuns = artistasAPI.getAlbuns();
 
 	$scope.temMusic = false;
 	$scope.cadastroEfetuado = false;
 
 
 	$scope.adicionarMusica = function(musica, idAlbum, idArtist) {
-		var contemMusicaRepetida = $scope.contemMusicaRepetida(musica, idAlbum);
 
-		if(!contemMusicaRepetida) {
-			albunsAPI.addMusic(musica, idAlbum);
+		if(!$scope.contemMusicaRepetida(musica,idAlbum)) {
+			artistasAPI.addMusic(musica, idAlbum);
 			$scope.cadastroEfetuado = true;
 		} else {
 			$scope.temMusic = true;
@@ -26,23 +25,10 @@ angular.module("musiteca").controller("novaMusicaCtrl", function($uibModalInstan
 	};
 
 	$scope.contemMusicaRepetida = function(musica, idAlbum) {
-		var musicas = albunsAPI.getMusicas(idAlbum);
+		
+		return artistasAPI.hasMusic(musica, idAlbum);
 
-		var contem = false;
-
-		if(musicas != null) {
-
-			for(i = 0; i < musicas.length; i ++) {
-				if(musicas[i].nome.toLowerCase() == musica.nome.toLowerCase()) {
-					contem = true;
-				}
-			}
-		}
-
-		return contem;
-
-
-	}
+	};
 
 	$scope.hasMusic = function() {
 

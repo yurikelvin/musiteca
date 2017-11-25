@@ -1,19 +1,14 @@
-angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstance, $scope, artistasAPI, albunsAPI) {
+angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstance, $scope, artistasAPI) {
 
 	$scope.artistas = artistasAPI.getArtistas();
-	$scope.albuns = albunsAPI.getAlbuns();
+	$scope.albuns = artistasAPI.getAlbuns();
 
 
 	$scope.adicionarAlbum = function(id, album) {
 
-		if(!$scope.verificaAlbum($scope.albuns, album)) {
+		if(!$scope.verificaAlbum(album)) {
 
-			var artistaRelacionado = artistasAPI.getArtista(id);
-			album.artistaNome = artistaRelacionado.nome;
-			var copyAlbum = angular.copy(album);
-
-			artistasAPI.addAlbum(id, copyAlbum);
-			albunsAPI.addAlbum(id, copyAlbum);
+			artistasAPI.addAlbum(id, angular.copy(album));
 
 			$scope.cadastroEfetuado = true;
 		} else {
@@ -28,17 +23,8 @@ angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstanc
 	$scope.temAlbum = false;
 	$scope.cadastroEfetuado = false;
 
-	$scope.verificaAlbum = function (albuns, album) {
-		var resposta = false;
-
-		for(i = 0; i < albuns.length; i ++) {
-			if(albuns[i].nome.toLowerCase() == album.nome.toLowerCase()) {
-				resposta = true;
-			}
-		}
-
-
-		return resposta;
+	$scope.verificaAlbum = function (album) {
+		return artistasAPI.hasAlbum(album);
 	};
 
 	$scope.hasAlbum = function() {

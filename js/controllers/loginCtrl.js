@@ -2,17 +2,18 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
 
 
     $scope.typePassword = "password";
-    $scope.iconPassword = "fa fa-lg fa-eye text-primary mb-3 sr-icons";
+    $scope.iconPassword = "fa fa-lg fa-eye-slash text-primary mb-3 sr-icons";
     $scope.registrar = false;
 
     $scope.changeTypePassword = function() {
 
         if($scope.typePassword == "password") {
             $scope.typePassword = "text";
-            $scope.iconPassword = "fa fa-lg fa-eye-slash text-primary mb-3 sr-icons";
+            $scope.iconPassword = "fa fa-lg fa-eye text-primary mb-3 sr-icons";
         } else {
             $scope.typePassword = "password";
-            $scope.iconPassword = "fa fa-lg fa-eye text-primary mb-3 sr-icons";
+            $scope.iconPassword = "fa fa-lg fa-eye-slash text-primary mb-3 sr-icons";
+
 
         };
     };
