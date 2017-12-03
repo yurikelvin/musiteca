@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html ng-app="musiteca" lang="pt-br">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-	<title>Musiteca</title>
-	<link href="img/favicon-music.ico" rel="shortcut icon" type="image/png"/>
+    <title>Musiteca</title>
+    <link href="img/favicon-music.ico" rel="shortcut icon" type="image/png"/>
 
 	<!-- Styles -->
-	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css"/>
-	<link rel="stylesheet" type="text/css" href="css/app.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/app.css"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -27,20 +27,20 @@
 
     <script src="lib/jquery/jquery.min.js"></script>
 
-	<!-- Plugin starRate -->
-	<script src="js/star-rating.js" type="text/javascript"></script>
-	<link href="css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+    <!-- Plugin starRate -->
+    <script src="js/star-rating.js" type="text/javascript"></script>
+    <link href="css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
 
 
     <!-- Angular -->
-	<script src="lib/angular/angular.js"></script>
-	<script src="lib/angular/angular-route.js"></script>
-	<script src="lib/angular/angular-locale_pt-br.js"></script>
-	<script src="lib/angular/angular-messages.js"></script>
-	<script src="lib/angular/angular-animate.js"></script>
-	<script src="lib/angular/angular-sanitize.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="lib/angular/ui-bootstrap-tpls-3.0.0-beta.3.min.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-locale_pt-br.js"></script>
+    <script src="lib/angular/angular-messages.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+    <script src="lib/angular/angular-sanitize.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="lib/angular/ui-bootstrap-tpls-3.0.0-beta.3.min.js"></script>
 
 	<!-- App -->
 	<script src="js/app.js"></script>
@@ -48,15 +48,17 @@
 
 	<!-- Controladores -->
 	<script src="js/controllers/musitecaCtrl.js"></script>
-	<script src="js/controllers/novoArtistaCtrl.js"></script>
+	<script src="js/controllers/modal/novoArtistaCtrl.js"></script>
 	<script src="js/controllers/detalhesArtistaCtrl.js"></script>
 	<script src="js/controllers/detalhesAlbumCtrl.js"></script>
 	<script src="js/controllers/detalhesPlaylistCtrl.js"></script>
-	<script src="js/controllers/novaMusicaCtrl.js"></script>
-	<script src="js/controllers/novoAlbumCtrl.js"></script>
+	<script src="js/controllers/modal/novaMusicaCtrl.js"></script>
+	<script src="js/controllers/modal/novoAlbumCtrl.js"></script>
+    <script src="js/controllers/modal/novaPlaylistCtrl.js"></script>
 	<script src="js/controllers/playlistsCtrl.js"></script>
 	<script src="js/controllers/mainCtrl.js"></script>
 	<script src="js/controllers/loginCtrl.js"></script>
+
 
 	<!-- Diretivas -->
 	<script src="js/directives/starRatingDirective.js"></script>
@@ -64,12 +66,11 @@
 	<!-- Configurações -->
 	<script src="js/config/routeConfig.js"></script>
 
-	<!-- Serviços -->
-	<script src="js/services/artistasAPIService.js"></script>
-	<script src="js/services/albunsAPIService.js"></script>
-	<script src="js/services/artistasFavoritosAPIService.js"></script>
-	<script src="js/services/playlistsAPIService.js"></script>
-
+    <!-- Serviços -->
+    <script src="js/services/artistasAPIService.js"></script>
+    <script src="js/services/albunsAPIService.js"></script>
+    <script src="js/services/artistasFavoritosAPIService.js"></script>
+    <script src="js/services/playlistsAPIService.js"></script>
 
 
 </head>
@@ -91,7 +92,10 @@
               <a class="nav-link js-scroll-trigger" href="#albuns">Álbuns</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">Músicas</a>
+              <a class="nav-link js-scroll-trigger" href="#musicas">Músicas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#playlists">Playlists</a>
             </li>
             <li class="nav-item dropdown" >
 			    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -102,6 +106,9 @@
 			    	<button type="buttom" class="dropdown-item" ng-click="openModal('novoAlbum')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Álbum</button>
 			    	<div class="dropdown-divider"></div>
 			    	<button type="buttom" class="dropdown-item" ng-click="openModal('novaMusica')"><i class="fa fa-plus" aria-hidden="true"></i> Nova Música</button>
+                    <div class="dropdown-divider"></div>
+                    <button type="buttom" class="dropdown-item" ng-click="openModal('novaPlaylist')"><i class="fa fa-plus" aria-hidden="true"></i>
+                 Nova Playlist</button>
 			    </div>
       		</li>
       		<li class="nav-item">
@@ -153,7 +160,7 @@
             <h2 class="section-heading">Artistas</h2>
             <hr class="my-4">
             <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="artistas.length > 0">
-				<input autocomplete="off" type="{{pasType}}" ng-model="buscaArtista" placeholder=" Filtrar" class="form-control"/>
+				<input autocomplete="off" ng-model="buscaArtista" placeholder=" Filtrar" class="form-control"/>
 				<div class="search-icon">
 				    <i class="fa fa-search text-primary mb-3 sr-icons"></i>
 				</div>
@@ -172,27 +179,28 @@
       </div>
       <div class="container" ng-show="artistas.length > 0">
         <div class="row">
-          <div class="col-lg-3 col-md-6 text-center" ng-repeat="artista in artistas | filter: {nome: buscaArtista}">
-          	  <div class="circular--landscape" ng-if="artista.imagem != 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
-  				<img src="{{artista.imagem}}" />
-			  </div>
-			  <div style="margin-left: 23px" class="circular--square" ng-if="artista.imagem == 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
-  				<img src="{{artista.imagem}}" />
-			  </div>
-			  <br/>
-              <a href="" ng-click="view(artista, 'detalhesArtista')">{{artista.nome}}</a>
-              <input class="check_box" type="checkbox" ng-attr-id="{{'c' + artista.id}}" ng-model="artista.selecionado" ng-disabled="artista.statusCheck == false"/>
-				<label class="check_box" ng-attr-for="{{'c' +artista.id}}">
-	  				<i ng-class="iconStar" ng-click="changeIcon(artista.selecionado)"></i>
-			  	</label>
+        <div class="col-lg-3 col-md-6 text-center" ng-repeat="artista in artistas | filter: {nome: buscaArtista}">
+            <div class="circular--landscape" ng-if="artista.imagem != 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
+                <img src="{{artista.imagem}}" />
+            </div>
+          <div style="margin-left: 23px" class="circular--square" ng-if="artista.imagem == 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
+                <img src="{{artista.imagem}}" />
+          </div>
+          <br/>
+          <a href="" ng-click="view(artista, 'detalhesArtista')">{{artista.nome}}</a>
+          <input class="check_box" type="checkbox" ng-attr-id="{{'c' + artista.id}}" ng-model="artista.selecionado" ng-disabled="artista.statusCheck == false"/>
+          <label class="check_box" ng-attr-for="{{'c' +artista.id}}" ng-click="adicionaFavoritos(artistas)">
+                <i class="fa" ng-class="{'fa-2x fa-star-o text-warning': !artista.selecionado, 'fa-2x fa-star text-warning': artista.selecionado}"></i>
+          	</label>
           </div>
         </div>
       </div>
     </section>
     <hr/>
+
     <section class="p-0" id="albuns" ng-controller="musitecaCtrl">
       <div class="container-fluid p-0">
-        <div class="container" ng-show="albuns.length == 0">
+        <div class="container" ng-show="albuns.length == 0 && artistas.length == 0">
       	  <div class="col-lg-8 mx-auto text-center">
             <div class="service-box mt-5 mx-auto">
               <h2 class="section-heading">Álbuns</h2>
@@ -222,11 +230,100 @@
       </div>
     </section>
 
-    <section class="bg-dark text-white">
+    <section id="musicas" ng-controller="mainCtrl">
       <div class="container text-center">
-        <h2 class="mb-4">Playlists</h2>
-        <a class="btn btn-light btn-xl sr-button" href="http://startbootstrap.com/template-overviews/creative/">Download Now!</a>
+        <h2 class="mb-4">Músicas</h2>
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="musicas.length > 0">
+  				<input autocomplete="off" ng-model="buscaMusica" placeholder=" Filtrar Música" class="form-control"/>
+  				<div class="search-icon">
+  				    <i class="fa fa-search text-primary mb-3 sr-icons"></i>
+  				</div>
+  	  		</div>
+            <table class="table table-striped" ng-show="musicas.length > 0">
+                <tr>
+                    <th><a class="link-neon" href="" ng-click="ordenarPor('nome')" style="color: #00BFFF;">Nome</a></th>
+                    <th>Duração</th>
+                    <th>Ano de Lançamento</th>
+                    <th>Álbum Associado</th>
+                    <th>Artista</th>
+                </tr>
+                <tr ng-repeat="musica in musicas | filter: {nome: buscaMusica} | limitTo: 10 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+                        <td><a style="color: #00BFFF; pointer-events: none;" href="">{{musica.nome}}</a></td>
+                        <td>{{musica.duracao}}</td>
+                        <td>{{musica.ano}}</td>
+                        <td>{{musica.albumNome}}</td>
+                        <td>{{musica.nomeArtist}}</td>
+                </tr>
+            </table>
+
+            <div ng-show="musicas.length == 0">
+                <div class="col-lg-8 mx-auto text-center">
+                  <div class="service-box mt-5 mx-auto">
+                    <i class="fa fa-4x fa-meh-o text-primary mb-3 sr-icons"></i>
+                    <h3 class="mb-3">Oops! Não há nenhuma música cadastrada no momento.</h3>
+                  </div>
+                </div>
+            </div>
+        </div>
       </div>
+    </section>
+
+    <section class="bg-dark text-white" id="playlists">
+      <div class="container text-center" ng-controller="playlistsCtrl">
+        <h2 class="mb-4">Playlists</h2>
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <button class="btn btn-playlist" ng-click="showBuscar()" ng-show="playlists.length > 0">Filtrar Playlist</button>
+            <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="buscarPlaylist">
+                <br/>
+                <input autocomplete="off" ng-model="buscaPlaylist" placeholder=" Filtrar" class="form-control"/>
+                <div class="search-icon2">
+                    <i class="fa fa-search text-secondary"></i>
+                </div>
+            </div>
+            <table class="table table-striped" ng-show="playlists.length > 0">
+                <tr>
+                    <th>Selecionar</th>
+                    <th><a class="link-neon" href="" ng-click="ordenarPor('nome')" style="color: #42DCA3;">Nome</a></th>
+                    <th>Criada em</th>
+                </tr>
+                <tr ng-repeat="playlist in playlists | filter: {nome: buscarPlaylist} | limitTo: 10 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+                        <td><input type="checkbox" ng-attr-id="{{'p' + playlist.idPlaylist}}" ng-model="playlist.selected"/>
+                            <label ng-attr-for="{{'p' +playlist.idPlaylist}}">
+                                <i class="fa" ng-class="{'fa-lg fa-square-o text-white': !playlist.selected, 'fa-lg fa-check-square-o text-white': playlist.selected}"></i>
+                            </label></td>
+                        <td><a style="color: #42DCA3;" href="" ng-click="view(playlist, 'detalhesPlaylist')">{{playlist.nome}}</a></td>
+                        <td>{{playlist.data  | date:'mediumDate'}}</td>
+                </tr>
+            </table>
+
+            <div ng-show="playlists.length == 0">
+                <div class="col-lg-8 mx-auto text-center">
+                  <div class="service-box mt-5 mx-auto">
+                    <i class="fa fa-4x fa-meh-o text-danger mb-3 sr-icons"></i>
+                    <h3 class="mb-3">Oops! Não há nenhuma playlist cadastrada no momento.</h3>
+                  </div>
+                </div>
+            </div>
+
+            <div ng-show="isPlaylistSelecionado(playlists)"    >
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <button class="btn btn-danger btn-xl" ng-click="confirmRemovePlaylist(playlists)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remover Playlist(s)</button>
+            </div>
+        </div>
+      </div>
+    <div class="container text-center" ng-controller="mainCtrl">
+        <br/>
+        <br/>
+        <br/>
+      <button class="btn btn-light btn-xl sr-button" ng-click="openModal('novaPlaylist')"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+   Nova Playlist</button>
+    </div>
     </section>
 
     <section id="contact">

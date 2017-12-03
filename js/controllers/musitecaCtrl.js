@@ -1,26 +1,16 @@
-angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, artistasAPI, albunsAPI, artistasFavoritosAPI, $filter) {
+angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, artistasAPI, artistasFavoritosAPI, $filter) {
 
 	$scope.app = "Musiteca!";
 
 	$scope.artistas = artistasAPI.getArtistas();
 	$scope.artistasFavoritos = artistasFavoritosAPI.getArtistasFavoritos();
-    $scope.albuns = albunsAPI.getAlbuns();
+    $scope.albuns = artistasAPI.getAlbuns();
 
 
     $scope.ordenarPor = function(campo) {
         $scope.criterioDeOrdenacao = campo;
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
     };
-
-    $scope.iconStar = "fa fa-2x fa-star-o text-warning";
-  
-    $scope.changeIcon = function(isChecked){
-        if(isChecked) {
-            $scope.iconStar = "fa fa-2x fa-star text-warning";
-        } else {
-            $scope.iconStar = "fa fa-2x fa-star-o text-warning";
-        }
-    }
 
   	$scope.isArtistaSelecionado = function(artistas){
         return artistas.some(function(artista) {

@@ -11,5 +11,9 @@ angular.module("musiteca").controller("mainCtrl", function($uibModal, $scope, ar
       });
     };
 
+    $scope.ordenarPor = function(campo) {
+        $scope.criterioDeOrdenacao = campo;
+        $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
+    };
 
 });

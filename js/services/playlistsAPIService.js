@@ -3,7 +3,7 @@ angular.module("musiteca").factory("playlistsAPI", function() {
 	var playlistsData = [];
 	var idPlaylist = 0;
 
-	getPlaylist = function(idPlaylist) {
+	pegaPlaylist = function(idPlaylist) {
 		var playlist = null;
 
 		var id = parseInt(idPlaylist);
@@ -34,7 +34,7 @@ angular.module("musiteca").factory("playlistsAPI", function() {
 		},
 
 		addMusicas: function(idPlaylist, musicas) {
-			var playlist = getPlaylist(idPlaylist);
+			var playlist = pegaPlaylist(idPlaylist);
 
 			for(i = 0; i < musicas.length; i ++) {
 				playlist.musicas.push(musicas[i]);
@@ -42,7 +42,7 @@ angular.module("musiteca").factory("playlistsAPI", function() {
 		},
 
 		getMusicasPlaylist: function(idPlaylist) {
-			var playlist = getPlaylist(idPlaylist);
+			var playlist = pegaPlaylist(idPlaylist);
 
 			return playlist.musicas;
 		},
@@ -52,7 +52,7 @@ angular.module("musiteca").factory("playlistsAPI", function() {
 		},
 
 		getPlaylist: function(idPlaylist) {
-			var playlist = getPlaylist(idPlaylist);
+			var playlist = pegaPlaylist(idPlaylist);
 
 			return playlist;
 		},
@@ -71,7 +71,7 @@ angular.module("musiteca").factory("playlistsAPI", function() {
 		},
 
 		setMusicasToPlaylist: function(idPlaylist, musicas) {
-			var playlist = getPlaylist(idPlaylist);
+			var playlist = pegaPlaylist(idPlaylist);
 
 			playlist.musicas = musicas;
 		},

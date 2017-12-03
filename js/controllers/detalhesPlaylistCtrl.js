@@ -1,8 +1,8 @@
-angular.module("musiteca").controller("detalhesPlaylistCtrl", function($scope, $routeParams, playlistsAPI, albunsAPI) {
+angular.module("musiteca").controller("detalhesPlaylistCtrl", function($uibModalInstance, $scope, item, playlistsAPI, albunsAPI) {
 
-	$scope.playlist = playlistsAPI.getPlaylist($routeParams.idPlaylist);
-  $scope.musicasPlaylist = playlistsAPI.getMusicasPlaylist($routeParams.idPlaylist);
-  $scope.musicasSistema = albunsAPI.getMusicas();
+    $scope.playlist = item;
+    $scope.musicasPlaylist = playlistsAPI.getMusicasPlaylist(item.idPlaylist);
+    $scope.musicasSistema = albunsAPI.getMusicas();
 
   $scope.removeMusicasPlaylist = function(musicas) {
 
@@ -14,9 +14,9 @@ angular.module("musiteca").controller("detalhesPlaylistCtrl", function($scope, $
         }
       });
 
-      playlistsAPI.setMusicasToPlaylist($routeParams.idPlaylist, musicasRemanescentes);
-      $scope.musicasPlaylist = playlistsAPI.getMusicasPlaylist($routeParams.idPlaylist);
-      $scope.playlist = playlistsAPI.getPlaylist($routeParams.idPlaylist);
+      playlistsAPI.setMusicasToPlaylist(item.idPlaylist, musicasRemanescentes);
+      $scope.musicasPlaylist = playlistsAPI.getMusicasPlaylist(item.idPlaylist);
+      $scope.playlist = playlistsAPI.getPlaylist(item.idPlaylist);
   };
 
   $scope.confirmRemoveMusicasPlaylist = function(musicas) {
@@ -79,6 +79,10 @@ angular.module("musiteca").controller("detalhesPlaylistCtrl", function($scope, $
 
   $scope.addToPlaylist = function(musica) {
     $scope.playlist.musicas.push(musica);
+  };
+
+  $scope.cancel = function() {
+      $uibModalInstance.dismiss('cancel');
   };
 
 

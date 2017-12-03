@@ -33,6 +33,10 @@ angular.module("musiteca").factory("artistasAPI", ["albunsAPI", function(albunsA
 		getAlbuns: function(id) {
 			var artista = getArtist(id);
 
+            if(artista == null) {
+                return albunsAPI.getAlbuns();
+            }
+
 			return artista.albuns;
 		},
 
@@ -72,10 +76,6 @@ angular.module("musiteca").factory("artistasAPI", ["albunsAPI", function(albunsA
 				}
 			}
 			return musicas;
-		},
-
-		getAlbuns: function() {
-			return albunsAPI.getAlbuns();
 		},
 
 		addArtista: function(artista) {

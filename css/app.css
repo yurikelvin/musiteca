@@ -169,3 +169,21 @@
             right: 25px;
             margin-top: -12px;
         }
+
+        .search-icon2 {
+            position: absolute;
+            top: 63%;
+            right: 25px;
+            margin-top: -12px;
+        }
+
+        .btn-playlist {
+          color: #fff;
+          border: 1px solid #fff;
+          background-color: transparent; }
+          .btn-playlist:focus, .btn-playlist:hover {
+            color: #fff;
+            outline: none;
+            background-color: #42DCA3;
+            }
+        }
