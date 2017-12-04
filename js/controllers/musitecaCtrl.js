@@ -1,31 +1,16 @@
-angular.module("musiteca").controller("musitecaCtrl", function($scope, $timeout, artistasAPI, artistasFavoritosAPI, $filter, $location) {
+angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, artistasAPI, artistasFavoritosAPI, $filter) {
 
 	$scope.app = "Musiteca!";
 
 	$scope.artistas = artistasAPI.getArtistas();
 	$scope.artistasFavoritos = artistasFavoritosAPI.getArtistasFavoritos();
+    $scope.albuns = artistasAPI.getAlbuns();
 
 
     $scope.ordenarPor = function(campo) {
         $scope.criterioDeOrdenacao = campo;
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
     };
-
-    $scope.star = {
-		id: 4,
-		name: 'light',
-		icon: {
-		  on: 'img/star.png',
-		  off: 'img/starE.png'
-		}
-	};
-  
-	$scope.getIcon = function(data, isChecked){
-    	if (data.icon) {
-      		if (isChecked) return data.icon.on;
-      	else return data.icon.off;
-    	}
-  	}
 
   	$scope.isArtistaSelecionado = function(artistas){
         return artistas.some(function(artista) {
@@ -122,6 +107,19 @@ angular.module("musiteca").controller("musitecaCtrl", function($scope, $timeout,
         for(i = 0; i < artistas.length; i ++) {
             artistas[i].select = false;
         }
+    };
+
+    $scope.view = function (itemSelected, template) {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'view/modal/' + template + '.html',
+        controller: template + 'Ctrl',
+        size: 'lg',
+        resolve: {
+          item: function () {
+            return itemSelected;
+          }
+        }
+      });
     };
 
 });

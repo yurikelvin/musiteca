@@ -1,0 +1,44 @@
+<div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cadastro de Músicas</h5>
+          <button type="button" class="close" ng-click="close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        	<form name="musicForm" novalidate>
+
+        		<label for="music-name" class="col-form-label">Nome:</label>
+				<input id="music-name" class="form-control" name="nome" type="text" ng-model="musica.nome" placeholder="Nome da música" ng-required="true"/>
+
+				<label for="music-duracao" class="col-form-label">Duração:</label>
+				<input id="music-duracao" class="form-control" name="duracao" type="text" ng-model="musica.duracao" placeholder="Duração da música" ng-required="true"/>
+
+				<label for="music-ano" class="col-form-label">Ano de lançamento:</label>
+				<input id="music-ano" class="form-control" name="ano" type="text" ng-model="musica.ano" placeholder="Ano de lançamento" ng-required="true"/>
+
+				<label for="music-album" class="col-form-label">Álbum associado:</label>
+				<select id="music-album" class="form-control" ng-model="selectedAlbum" ng-options="'Nome: ' + album.nome + ', Ano: ' + album.ano + ', Artista: ' + album.artistaNome for album in albuns | orderBy:'nome'" ng-init="" ng-required="true">
+		                <option value="">Selecione um álbum</option>
+		        </select>
+
+		        <label for="music-artist" class="col-form-label">Artista associado:</label>
+				<select id="music-artist" class="form-control" ng-model="selectedArtist" ng-options="artista.nome for artista in artistas | orderBy:'nome'" ng-required="true">
+		                <option value="">Selecione um artista</option>
+		        </select>
+			</form>
+
+			<div ng-show="hasMusic()" class="alert alert-danger">
+		    	Música já existente no álbum.
+		    </div>
+
+		    <div ng-show="hasSuccess()" class="alert alert-success">
+		    	Música adicionada ao álbum com sucesso.
+		    </div>
+        </div>
+        <div class="modal-footer">
+        	<button class="btn btn-primary btn-block" ng-click="adicionarMusica(musica, selectedAlbum.idAlbum, selectedArtist.id)" ng-disabled="musicForm.$invalid">Adicionar música</button>
+        	<button type="button" class="btn btn-secondary btn-block" ng-click="close()">Fechar</button>
+        </div>
+
+</div>

@@ -1,8 +1,8 @@
-angular.module("musiteca").controller("detalhesArtistaCtrl", function($scope, $routeParams, artistasAPI, albunsAPI) {
+angular.module("musiteca").controller("detalhesArtistaCtrl", function($uibModal, $uibModalInstance, $scope, item, artistasAPI) {
 
-	$scope.artista = artistasAPI.getArtista($routeParams.id);
-	$scope.albuns = artistasAPI.getAlbuns($routeParams.id);
-	$scope.musicas = artistasAPI.getMusicas($routeParams.id);
+	$scope.artista = item;
+	$scope.albuns = artistasAPI.getAlbuns(item.id);
+	$scope.musicas = artistasAPI.getMusicas(item.id);
 
 	$scope.$watch("rate", function(newValue, oldValue) {
    		if ($scope.rate > 0) {
@@ -22,6 +22,24 @@ angular.module("musiteca").controller("detalhesArtistaCtrl", function($scope, $r
 
     $scope.defineUltimaOuvida = function(ultimaOuvida) {
     	$scope.artista.ultimaOuvida = ultimaOuvida.nome;
+    };
+
+    $scope.cancel = function() {
+      $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.viewAlbum = function (itemSelected) {
+      $scope.cancel();
+      var modalInstance = $uibModal.open({
+        templateUrl: 'view/modal/detalhesAlbum.html',
+        controller: 'detalhesAlbumCtrl',
+        size: 'lg',
+        resolve: {
+          item: function () {
+            return itemSelected;
+          }
+        }
+      });
     };
 
 

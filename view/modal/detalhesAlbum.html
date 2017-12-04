@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="detalhesAlbumLabel"></h5>
+  <button type="button" class="close" ng-click="cancel()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+	<div class="container" style="text-align:center;">
+		<h2>{{album.nome}}</h2>
+		<h3><small class="form-text text-muted">&copy; {{album.artistaNome}}</small></h3>
+			<div ng-show="album.imagem != null">
+		<hr/>
+		<div class="jumbotron" style="background-color: white;">
+			<figure class="foto-legenda">
+				<img src="{{album.imagem}}"></img>
+				    <figcaption>
+		   				<h3>Capa do álbum {{album.nome}}</h3>
+		    			<p> Artista: {{album.artistaNome}}</p>
+					</figcaption>
+			</figure>
+		</div>
+		</div>
+		<div ng-show="musicas.length > 0">
+			<hr/>
+			<h3>Músicas <i class="fa fa-music fa-lg" aria-hidden="true"></i></h3>
+			<table class="table table-striped">
+				<tr>
+					<th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
+					<th><a href="" ng-click="ordenarPor('duracao')">Duração</a></th>
+					<th><a href="" ng-click="ordenarPor('ano')">Ano</a></th>
+					<th>Álbum <img src="img/disco.png" height="16" width="16"/></th>
+
+				</tr>
+				<tr ng-repeat="musica in musicas | filter: {nome: criterioDeBusca} | limitTo: 5 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+						<td>{{musica.nome}}</td>
+						<td>{{musica.duracao}}</td>
+						<td>{{musica.ano}}</td>
+						<td>{{musica.albumNome}}</td>	
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+
+</div>
+

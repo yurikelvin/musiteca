@@ -122,3 +122,68 @@
             height: 100%;
 
         }
+
+        .circular--landscape {
+          display: inline-block;
+          position: relative;
+          width: 200px;
+          height: 200px;
+          overflow: hidden;
+          border-radius: 50%;
+          box-shadow: 1px 1px 4px black;
+        }
+
+        .circular--landscape img {
+          width: auto;
+          height: 100%;
+          margin-left: -50px;
+        }
+
+        .circular--square {
+          position: relative;
+          width: 200px;
+          height: 200px;
+          overflow: hidden;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .circular--square img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 25px;
+            margin-top: -12px;
+        }
+
+        .password-icon {
+            position: relative;
+            top: -23px;
+            left: 430px;
+            right: 25px;
+            margin-top: -12px;
+        }
+
+        .search-icon2 {
+            position: absolute;
+            top: 63%;
+            right: 25px;
+            margin-top: -12px;
+        }
+
+        .btn-playlist {
+          color: #fff;
+          border: 1px solid #fff;
+          background-color: transparent; }
+          .btn-playlist:focus, .btn-playlist:hover {
+            color: #fff;
+            outline: none;
+            background-color: #42DCA3;
+            }
+        }

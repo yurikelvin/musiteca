@@ -1,0 +1,52 @@
+<div class="modal-content">
+	<div class="modal-header">
+	  <h5 class="modal-title" id="registerLabel">Cadastro de Usuário</h5>
+	  <button type="button" class="close" ng-click="close()" aria-label="Close">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<div class="modal-body">
+	  	<form name="registerForm" novalidate>
+	  		<div class="form-group">
+	      		<label for="register-name" class="col-form-label">Nome do usuário:</label>
+				<input id="register-name" class="form-control" title="Login contém entre 4 e 14 caracteres" type="text" ng-model="usuario.nome" name="nome" placeholder="Digite um nome de login para o usuário" ng-required="true" ng-minlength="6" ng-maxlength="14"/>
+			</div>
+			<div class="form-group">
+				<label for="register-pass" class="col-form-label">Senha do usuário:</label>
+				<input autocomplete="off" id="register-pass" class="form-control" type="password" ng-model="usuario.password" name="password" placeholder="Digite uma senha a ser cadastrada" ng-required="true" ng-minlength="8" ng-maxlength="24"/>
+
+				<label for="register-confirm" class="col-form-label">Confirme a senha cadastrada:</label>
+				<input autocomplete="off" id="register-confirm" class="form-control" type="password" name="confirmPassword" ng-model="confirmSenha" placeholder="Repita a senha cadastrada acima" ng-required="true" ng-minlength="8" ng-maxlength="24" />
+				<small class="form-text text-muted">Não compartilhe sua senha com ninguém.</small>
+				<small class="form-text text-muted">A senha é única e intransferível.</small>
+				<br/>
+				<label for="register-confirm" class="col-form-label">E-mail:</label>
+				<input autocomplete="off" id="register-confirm" class="form-control" type="password" name="confirmPassword" ng-model="confirmSenha" placeholder="Digite um e-mail válido." ng-required="true" ng-minlength="8" ng-maxlength="24" />
+			</div>
+		</form>
+		<br/>
+		<p>Já possui login?</p>
+		<a href="" ng-click="openModal('login')">Logar</a>
+		<br/>
+		<hr/>
+
+		<div ng-show="loginForm.nome.$dirty" ng-messages="loginForm.nome.$error">
+		    <div ng-message="required" class="alert alert-danger">
+		        Por favor, preencha o campo username !
+		    </div>
+		</div>
+
+		<div ng-show="hasArtista()" class="alert alert-danger">
+				Já existe um usuário com este nome cadastrado no sistema.
+		</div>
+
+		<div ng-show="hasSuccess()" class="alert alert-info">
+			Usuário cadastrado com sucesso.
+		</div>
+	</div>
+	<div class="modal-footer">
+	  <button class="btn btn-primary btn-block" ng-click="adicionarArtista(artista)" ng-disabled="artistaForm.nome.$invalid">Logar</button>
+	  <button type="button" class="btn btn-secondary btn-block" ng-click="close()">Fechar</button>
+	</div>
+
+</div>

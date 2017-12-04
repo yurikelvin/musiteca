@@ -1,0 +1,54 @@
+ <div class="modal-content">
+	<div class="modal-header">
+	  <h5 class="modal-title" id="loginLabel">Login</h5>
+	  <button type="button" class="close" ng-click="close()" aria-label="Close">
+	    <span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<div class="modal-body">
+	  	<form name="loginForm" novalidate>
+	  		<div class="form-group">
+	      		<label for="login-name" class="col-form-label">Username:</label>
+				<input id="login-name" class="form-control" title="Login contém entre 4 e 14 caracteres" type="text" ng-model="login.nome" name="nome" placeholder="Login do usuário" ng-required="true" ng-minlength="6" ng-maxlength="14"/>
+			</div>
+
+			<div class="form-group">
+				<label for="login-pass" class="col-form-label">Password:</label>
+
+				<input autocomplete="off" id="login-pass" class="form-control" type="{{typePassword}}" ng-model="login.password" name="password" placeholder="Senha do usuário" ng-required="true" ng-minlength="8" ng-maxlength="24"/>
+				<div class="password-icon">
+					  <i ng-class="iconPassword" ng-click="changeTypePassword()"></i>
+				</div>
+				<small class="form-text text-muted">Não compartilhe sua senha com ninguém.</small>
+				<small class="form-text text-muted">A senha é única e intransferível.</small>
+			</div>
+		</form>
+
+		<br/>
+
+		<p>Ainda não possui uma conta?</p>
+		<a href="" ng-click="openModal('register')">Registrar</a>
+
+		<br/>
+		<hr/>
+
+		<div ng-show="loginForm.nome.$dirty" ng-messages="loginForm.nome.$error">
+		    <div ng-message="required" class="alert alert-danger">
+		        Por favor, preencha o campo username !
+		    </div>
+		</div>
+
+		<div ng-show="hasArtista()" class="alert alert-danger">
+				Já existe um usuário com este nome cadastrado no sistema.
+		</div>
+
+		<div ng-show="hasSuccess()" class="alert alert-info">
+			Usuário cadastrado com sucesso.
+		</div>
+	</div>
+	<div class="modal-footer">
+	  <button class="btn btn-primary btn-block" ng-click="adicionarArtista(artista)" ng-disabled="artistaForm.nome.$invalid">Logar</button>
+	  <button type="button" class="btn btn-secondary btn-block" ng-click="close()">Fechar</button>
+	</div>
+
+</div>
