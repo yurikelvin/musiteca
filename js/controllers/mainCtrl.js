@@ -2,7 +2,7 @@ angular.module("musiteca").controller("mainCtrl", function($uibModal, $scope, us
 
     usuariosAPI.adicionaUsuario("tsubakker", "teste123", "Yuri");
 
-    $scope.teste = usuariosAPI;
+    $scope.logged = false;
 
     $scope.artistas = usuariosAPI.getArtistas("tsubakker");
     $scope.albuns = usuariosAPI.getAlbuns("tsubakker");
