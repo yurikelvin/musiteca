@@ -40,16 +40,15 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
     };
 
 
-    $scope.adicionaFavoritos = function(artistas) {
-        var artistasFavoritos = artistas.filter(function (artista) {
-            if(artista.selecionado == true && artista.favorito == false) {
-            	return artista;
-            };
-        });
+    $scope.adicionaFavoritos = function() {
 
-        for(i = 0; i < artistasFavoritos.length; i ++) {
-        	usuariosAPI.adicionaFavoritos(artistasFavoritos[i].nome);
+        for(k = 0; k < $scope.artistas.length; k ++) {
+            if($scope.artistas[k].selecionado == true && $scope.artistas[k].favorito == false) {
+                usuariosAPI.adicionaFavoritos("tsubakker", $scope.artistas[k].nome);
+            }
         }
+
+        $scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos("tsubakker");
 
         $scope.hasSucessFavoritos = true;
         $timeout(function(){

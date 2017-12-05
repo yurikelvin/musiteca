@@ -198,8 +198,8 @@
               </div>
             </div>
           </div>
+          <hr/>
     </section>
-    <hr/>
 
     <section class="p-0" id="albuns" ng-controller="musitecaCtrl">
       <div class="container-fluid p-0">
@@ -327,6 +327,52 @@
       <button class="btn btn-light btn-xl sr-button" ng-click="openModal('novaPlaylist')"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
    Nova Playlist</button>
     </div>
+    </section>
+
+    <section id="favoritos" ng-controller="musitecaCtrl">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Artistas Favoritos</h2>
+                <hr class="my-4">
+                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="artistas.length > 0">
+                    <input autocomplete="off" ng-model="buscaArtistaFavorito" placeholder=" Filtrar Artista Favorito" class="form-control"/>
+                    <div class="search-icon">
+                        <i class="fa fa-search text-primary mb-3 sr-icons"></i>
+                    </div>
+                </div>
+                <br/>
+              </div>
+            </div>
+          </div>
+          <div class="container" ng-show="artistas.length == 0">
+          	<div class="col-lg-8 mx-auto text-center">
+                <div class="service-box mt-5 mx-auto">
+                  <i class="fa fa-4x fa-meh-o text-primary mb-3 sr-icons"></i>
+                  <h3 class="mb-3">Oops! Não há nenhum artista favorito cadastrado no momento.</h3>
+                </div>
+            </div>
+          </div>
+          {{artistasFavoritos}}
+          <div class="container" ng-show="artistas.length > 0">
+            <div class="row">
+            <div class="col-lg-3 col-md-6 text-center" ng-repeat="artistaFavorito in artistasFavoritos | filter: {nome: buscaArtistaFavorito}">
+                <input class="check_box" type="checkbox" ng-attr-id="{{'cd' + artistaFavorito.nome}}" ng-model="artistaFavorito.select"/>
+                <label style="position: relative; margin: 1px 200px auto auto;" class="check_box" ng-attr-for="{{'cd' +artistaFavorito.nome}}">
+                      <i class="fa" ng-class="{'fa-2x fa-square-o text-info': !artistaFavorito.select, 'fa-2x fa-check-square-o text-info': artistaFavorito.select}"></i>
+                    </label>
+                <div class="circular--landscape" ng-if="artistaFavorito.imagem != 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
+                    <img src="{{artistaFavorito.imagem}}" />
+                </div>
+              <div style="margin-left: 23px" class="circular--square" ng-if="artistaFavorito.imagem == 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
+                    <img src="{{artistaFavorito.imagem}}" />
+              </div>
+              <br/>
+              <a href="" ng-click="view(artistaFavorito, 'detalhesArtista')">{{artistaFavorito.nome}}</a>
+              </div>
+            </div>
+          </div>
+          <hr/>
     </section>
 
     <section id="contact">

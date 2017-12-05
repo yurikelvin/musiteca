@@ -1,4 +1,4 @@
-angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModalInstance, $scope, $timeout, artistasAPI, artistasFavoritosAPI, $filter, $location) {
+angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModalInstance, $scope) {
 
 
     $scope.typePassword = "password";

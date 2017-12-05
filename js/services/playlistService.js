@@ -4,6 +4,7 @@ angular.module("musiteca").service("playlist", function() {
         this.nome = nome;
         this.imagem = imagem;
         this.descricao = descricao;
+        this.data = new Date();
 
         this.adicionaMusicas = function(musicas) {
             this.musicas.push(...musicas);
