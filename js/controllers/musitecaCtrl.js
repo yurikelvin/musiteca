@@ -1,10 +1,21 @@
-angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, artistasAPI, artistasFavoritosAPI, $filter) {
+angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, usuariosAPI, $filter) {
 
-	$scope.app = "Musiteca!";
+	$scope.artistas = usuariosAPI.getArtistas("tsubakker");
+	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos("tsubakker");
+    $scope.albuns = usuariosAPI.getAlbuns("tsubakker");
 
-	$scope.artistas = artistasAPI.getArtistas();
-	$scope.artistasFavoritos = artistasFavoritosAPI.getArtistasFavoritos();
-    $scope.albuns = artistasAPI.getAlbuns();
+    $scope.$on('albuns:updated', function(event) {
+        $scope.albuns = usuariosAPI.getAlbuns("tsubakker");
+    });
+
+    $scope.$on('artistas:updated', function(event) {
+        $scope.artistas = usuariosAPI.getArtistas("tsubakker");
+    });
+
+    $scope.$on('artistaFavorito:updated', function(event) {
+        $scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos("tsubakker");
+    });
+
 
 
     $scope.ordenarPor = function(campo) {
@@ -14,7 +25,7 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
 
   	$scope.isArtistaSelecionado = function(artistas){
         return artistas.some(function(artista) {
-            return artista.selecionado && artista.statusCheck;
+            return artista.selecionado && !artista.favorito;
         });
 
 
@@ -31,16 +42,15 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
 
     $scope.adicionaFavoritos = function(artistas) {
         var artistasFavoritos = artistas.filter(function (artista) {
-            if(artista.selecionado == true && artista.statusCheck == true) {
+            if(artista.selecionado == true && artista.favorito == false) {
             	return artista;
             };
         });
 
         for(i = 0; i < artistasFavoritos.length; i ++) {
-        	artistasFavoritos[i].statusCheck = false;
+        	usuariosAPI.adicionaFavoritos(artistasFavoritos[i].nome);
         }
 
-        artistasFavoritosAPI.addArtistasFavoritos(artistasFavoritos);
         $scope.hasSucessFavoritos = true;
         $timeout(function(){
         	$scope.hasSucessFavoritos = false;
@@ -53,7 +63,7 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
     	for(i = 0; i < artistas.length; i ++) {
     		if(artistas[i].select) {
     			artistas[i].selecionado = false; // change the icon on check_box in artistas
-    			artistas[i].statusCheck = true; // change to enable the check_box in artistas
+    			artistas[i].favorito = false; // change to enable the check_box in artistas
     		} else {
     			artistasAPermanecer.push(artistas[i]);
     		}
@@ -62,8 +72,8 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
         $scope.cleanSelect(artistas);
 
 
-    	artistasFavoritosAPI.setArtistasFavoritos(artistasAPermanecer);
-    	$scope.artistasFavoritos = artistasFavoritosAPI.getArtistasFavoritos();
+    	usuariosAPI.setArtistasFavoritos(artistasAPermanecer);
+    	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
     };
 
     $scope.hasSucessFavoritos = false;

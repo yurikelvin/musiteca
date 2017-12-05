@@ -1,12 +1,10 @@
-angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInstance, $scope, artistasAPI) {
-
-	$scope.artistas = artistasAPI.getArtistas();
+angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInstance, $scope, usuariosAPI) {
 
 
 	$scope.adicionarArtista = function(artista) {
 
-		if(!$scope.verificaArtista($scope.artistas, artista)) {
-			artistasAPI.addArtista(angular.copy(artista));
+		if(!usuariosAPI.contemArtista("tsubakker", artista.nome)) {
+			usuariosAPI.adicionaArtista("tsubakker", artista.nome, artista.imagem);
 			$scope.cadastroEfetuado = true;
 		} else {
 			$scope.temArtista = true;
@@ -18,19 +16,6 @@ angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInsta
 
 	$scope.temArtista = false;
 	$scope.cadastroEfetuado = false;
-
-	$scope.verificaArtista = function (artistas, artista) {
-		var resposta = false;
-
-		for(i = 0; i < artistas.length; i ++) {
-			if(artistas[i].nome.toLowerCase() == artista.nome.toLowerCase()) {
-				resposta = true;
-			}
-		}
-
-
-		return resposta;
-	};
 
 	$scope.hasArtista = function() {
 

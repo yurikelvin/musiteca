@@ -31,8 +31,8 @@
                     <th>Artista</th>
                 </tr>
                 <tr ng-repeat="musica in musicas | filter: {nome: criterioDeBusca} | limitTo: 10 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-                    <td><input type="checkbox" ng-attr-id="{{'mp' + musica.idMusic}}" ng-model="musica.selectPlaylist" />
-                        <label ng-attr-for="{{'mp' +musica.idMusic}}">
+                    <td><input type="checkbox" ng-attr-id="{{'mp' + musica.nome}}" ng-model="musica.selectPlaylist" />
+                        <label ng-attr-for="{{'mp' +musica.nome}}">
         	  					<img ng-src="{{getIcon(check, musica.selectPlaylist)}}"/>
         						</label></td>
                     <td>{{musica.nome}}</td>

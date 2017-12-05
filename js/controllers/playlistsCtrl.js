@@ -1,7 +1,11 @@
-angular.module("musiteca").controller("playlistsCtrl", function($uibModal, $scope, $timeout, albunsAPI, playlistsAPI, $filter, $location) {
+angular.module("musiteca").controller("playlistsCtrl", function($uibModal, $scope, $timeout, usuariosAPI, $filter, $location) {
 
-	$scope.musicas = albunsAPI.getMusicas();
-    $scope.playlists = playlistsAPI.getPlaylists();
+	$scope.musicas = usuariosAPI.getMusicas("tsubakker");
+    $scope.playlists = usuariosAPI.getPlaylists("tsubakker");
+
+    $scope.$on('musicas:updated', function(event) {
+        $scope.musicas = usuariosAPI.getMusicas("tsubakker");
+    });
 
     $scope.ordenarPor = function(campo) {
         $scope.criterioDeOrdenacao = campo;
@@ -20,8 +24,8 @@ angular.module("musiteca").controller("playlistsCtrl", function($uibModal, $scop
 
 
 
-    	playlistsAPI.setPlaylists(playlistsAPermanecer);
-    	$scope.playlists = playlistsAPI.getPlaylists();
+    	usuariosAPI.setPlaylists("tsubakker", playlistsAPermanecer);
+    	$scope.playlists = usuariosAPI.getPlaylists("tsubakker");
     };
 
     $scope.confirmRemovePlaylist = function(playlists) {

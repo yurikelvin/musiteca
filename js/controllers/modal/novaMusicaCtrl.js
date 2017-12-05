@@ -1,17 +1,17 @@
-angular.module("musiteca").controller("novaMusicaCtrl", function($uibModalInstance, $scope, artistasAPI, albunsAPI, $filter, $location) {
+angular.module("musiteca").controller("novaMusicaCtrl", function($uibModalInstance, $scope, usuariosAPI) {
 
-	$scope.artistas = artistasAPI.getArtistas();
+	$scope.artistas = usuariosAPI.getArtistas("tsubakker");
 
-	$scope.albuns = artistasAPI.getAlbuns();
+	$scope.albuns = usuariosAPI.getAlbuns("tsubakker");
 
 	$scope.temMusic = false;
 	$scope.cadastroEfetuado = false;
 
 
-	$scope.adicionarMusica = function(musica, idAlbum, idArtist) {
+	$scope.adicionarMusica = function(musica, nomeAlbum, nomeArtist) {
 
-		if(!$scope.contemMusicaRepetida(musica,idAlbum)) {
-			artistasAPI.addMusic(musica, idAlbum);
+		if(!usuariosAPI.contemMusica("tsubakker", nomeArtist, nomeAlbum, musica.nome)) {
+            usuariosAPI.adicionaMusica("tsubakker", nomeArtist, nomeAlbum, musica.nome, musica.duracao, musica.ano);
 			$scope.cadastroEfetuado = true;
 		} else {
 			$scope.temMusic = true;
@@ -23,13 +23,7 @@ angular.module("musiteca").controller("novaMusicaCtrl", function($uibModalInstan
 		$scope.musicForm.$setPristine();
 
 	};
-
-	$scope.contemMusicaRepetida = function(musica, idAlbum) {
-		
-		return artistasAPI.hasMusic(musica, idAlbum);
-
-	};
-
+    
 	$scope.hasMusic = function() {
 
 		if($scope.musicForm.nome.$valid && ($scope.temMusic == true)) {

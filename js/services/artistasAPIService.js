@@ -25,7 +25,7 @@ angular.module("musiteca").factory("artistasAPI", ["albunsAPI", function(albunsA
 			return artistasData;
 		},
 
-		getArtista: function(id) {
+		getArtista: function(artistas, id) {
 
 			return getArtist(id);
 		},

@@ -1,8 +1,7 @@
-angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInstance, $scope, $timeout, albunsAPI, playlistsAPI, $filter, $location) {
+angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInstance, $scope, $timeout, usuariosAPI, $filter, $location) {
 
-	$scope.musicas = albunsAPI.getMusicas();
-    $scope.playlists = playlistsAPI.getPlaylists();
-
+	$scope.musicas = usuariosAPI.getMusicas("tsubakker");
+    $scope.playlists = usuariosAPI.getPlaylists("tsubakker");
 
     $scope.playlistAdicionada = false;
     $scope.temPlaylist = false;
@@ -26,11 +25,11 @@ angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInst
 
     $scope.adicionaPlaylist = function(playlist) {
 
-        if(!playlistsAPI.contemPlaylist(playlist.nome)) {
+        if(!usuariosAPI.contemPlaylist("tsubakker", playlist.nome)) {
 
             var musicasSelecionadas = [];
 
-
+            usuariosAPI.adicionaPlaylist("tsubakker", playlist.nome, playlist.imagem, playlist.descricao);
             if($scope.musicas.length > 0) {
                 musicasSelecionadas = $scope.musicas.filter(function (musica) {
                     if(musica.selectPlaylist) {
@@ -38,10 +37,9 @@ angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInst
                     };
                 });
 
-                playlist.musicas = musicasSelecionadas;
+                usuariosAPI.adicionaPlaylist("tsubakker", playlist.nome, musicasSelecionadas);
             };
 
-            playlistsAPI.addPlaylist(playlist);
             $scope.playlistAdicionada = true;
         } else {
             $scope.temPlaylist = true;

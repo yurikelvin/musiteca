@@ -1,8 +1,8 @@
-angular.module("musiteca").controller("detalhesArtistaCtrl", function($uibModal, $uibModalInstance, $scope, item, artistasAPI) {
+angular.module("musiteca").controller("detalhesArtistaCtrl", function($uibModal, $uibModalInstance, $scope, item, usuariosAPI) {
 
 	$scope.artista = item;
-	$scope.albuns = artistasAPI.getAlbuns(item.id);
-	$scope.musicas = artistasAPI.getMusicas(item.id);
+	$scope.albuns = usuariosAPI.getAlbuns("tsubakker", item.artistaNome);
+	$scope.musicas = usuariosAPI.getMusicas("tsubakker", item.artistaNome);
 
 	$scope.$watch("rate", function(newValue, oldValue) {
    		if ($scope.rate > 0) {

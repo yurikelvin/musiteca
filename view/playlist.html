@@ -13,13 +13,13 @@
 		</tr>
 
 		<tr ng-repeat="playlist in playlists | filter: {nome: criterioDeBusca} | limitTo: 10 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-				<td><input type="checkbox" ng-attr-id="{{'p' + playlist.idPlaylist}}" ng-model="playlist.selected"/>
+				<td><input type="checkbox" ng-attr-id="{{'p' + playlist.nome}}" ng-model="playlist.selected"/>
 					<label ng-attr-for="{{'p' +playlist.idPlaylist}}">
 						<img ng-src="{{getIcon(check, playlist.selected)}}"/>
 					</label></td>
 				<td><a href="#!playlist/{{playlist.idPlaylist}}">{{playlist.nome}}</a></td>
 				<td>{{playlist.data  | date:'mediumDate'}}</td>
-				
+
 		</tr>
 	</table>
 

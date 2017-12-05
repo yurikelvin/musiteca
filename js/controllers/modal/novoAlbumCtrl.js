@@ -1,15 +1,12 @@
-angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstance, $scope, artistasAPI) {
+angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstance, $scope, usuariosAPI) {
 
-	$scope.artistas = artistasAPI.getArtistas();
-	$scope.albuns = artistasAPI.getAlbuns();
+	$scope.artistas = usuariosAPI.getArtistas("tsubakker");
 
 
-	$scope.adicionarAlbum = function(id, album) {
+	$scope.adicionarAlbum = function(nomeArtista, album) {
 
-		if(!$scope.verificaAlbum(album)) {
-
-			artistasAPI.addAlbum(id, angular.copy(album));
-
+		if(!usuariosAPI.contemAlbum("tsubakker", nomeArtista, album.nome)) {
+            usuariosAPI.adicionaAlbum("tsubakker", nomeArtista, album.nome, album.ano, album.imagem);
 			$scope.cadastroEfetuado = true;
 		} else {
 			$scope.temAlbum = true;
@@ -22,10 +19,6 @@ angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstanc
 
 	$scope.temAlbum = false;
 	$scope.cadastroEfetuado = false;
-
-	$scope.verificaAlbum = function (album) {
-		return artistasAPI.hasAlbum(album);
-	};
 
 	$scope.hasAlbum = function() {
 
