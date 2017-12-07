@@ -43,7 +43,7 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
     $scope.adicionaFavoritos = function() {
 
         for(k = 0; k < $scope.artistas.length; k ++) {
-            if($scope.artistas[k].selecionado == true && $scope.artistas[k].favorito == false) {
+            if($scope.artistas[k].selecionado === true && $scope.artistas[k].favorito === false) {
                 usuariosAPI.adicionaFavoritos("tsubakker", $scope.artistas[k].nome);
             }
         }
@@ -71,8 +71,8 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
         $scope.cleanSelect(artistas);
 
 
-    	usuariosAPI.setArtistasFavoritos(artistasAPermanecer);
-    	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
+    	usuariosAPI.setArtistasFavoritos("tsubakker", artistasAPermanecer);
+    	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos("tsubakker");
     };
 
     $scope.hasSucessFavoritos = false;
