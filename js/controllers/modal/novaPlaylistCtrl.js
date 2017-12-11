@@ -1,7 +1,7 @@
 angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInstance, $scope, $timeout, usuariosAPI, $filter, $location) {
 
-	$scope.musicas = usuariosAPI.getMusicas("tsubakker");
-    $scope.playlists = usuariosAPI.getPlaylists("tsubakker");
+	$scope.musicas = usuariosAPI.getMusicas();
+    $scope.playlists = usuariosAPI.getPlaylists();
 
     $scope.playlistAdicionada = false;
     $scope.temPlaylist = false;
@@ -14,7 +14,7 @@ angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInst
     $scope.limpaSelectNewPlaylist = function() {
         if($scope.musicas.length > 0) {
             for(i = 0; i < $scope.musicas.length; i ++) {
-                if($scope.musicas[i].selectPlaylist != null && ($scope.musicas[i].selectPlaylist == true)) {
+                if($scope.musicas[i].selectPlaylist != null && ($scope.musicas[i].selectPlaylist === true)) {
                     $scope.musicas[i].selectPlaylist = false;
                 }
             }
@@ -25,11 +25,11 @@ angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInst
 
     $scope.adicionaPlaylist = function(playlist) {
 
-        if(!usuariosAPI.contemPlaylist("tsubakker", playlist.nome)) {
+        if(!usuariosAPI.contemPlaylist(playlist.nome)) {
 
             var musicasSelecionadas = [];
 
-            usuariosAPI.adicionaPlaylist("tsubakker", playlist.nome, playlist.imagem, playlist.descricao);
+            usuariosAPI.adicionaPlaylist( playlist.nome, playlist.imagem, playlist.descricao);
             if($scope.musicas.length > 0) {
                 musicasSelecionadas = $scope.musicas.filter(function (musica) {
                     if(musica.selectPlaylist) {
@@ -37,7 +37,7 @@ angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInst
                     };
                 });
 
-                usuariosAPI.adicionaPlaylist("tsubakker", playlist.nome, musicasSelecionadas);
+                usuariosAPI.adicionaPlaylist( playlist.nome, musicasSelecionadas);
             };
 
             $scope.playlistAdicionada = true;

@@ -1,21 +1,16 @@
 angular.module("musiteca").controller("mainCtrl", function($uibModal, $scope, usuariosAPI) {
 
-    usuariosAPI.adicionaUsuario("tsubakker", "teste123", "Yuri");
-
     $scope.teste = usuariosAPI;
 
     $scope.logged = false;
-
-    $scope.artistas = usuariosAPI.getArtistas("tsubakker");
-    $scope.albuns = usuariosAPI.getAlbuns("tsubakker");
-    $scope.musicas = usuariosAPI.getMusicas("tsubakker");
+    $scope.hasUser = false;
 
     $scope.$on('albuns:updated', function(event) {
-        $scope.albuns = usuariosAPI.getAlbuns("tsubakker");
+        $scope.albuns = usuariosAPI.getAlbuns();
     });
 
     $scope.$on('musicas:updated', function(event) {
-        $scope.musicas = usuariosAPI.getMusicas("tsubakker");
+        $scope.musicas = usuariosAPI.getMusicas();
     });
 
     $scope.openModal = function(template) {

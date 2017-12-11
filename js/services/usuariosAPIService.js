@@ -1,140 +1,116 @@
 angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario) {
 
-    this.usuarios = [];
+    this.user = new usuario("tsubakker", "123", "yuri");
+    this.user.role = "guest";
 
-    this.adicionaUsuario = function(login, senha, nome) {
-        if(!this.contemUsuario(login)) {
-            this.usuarios.push(new usuario(login, senha, nome));
-        }
-    };
+    // this.adicionaUsuario = function(login, senha, nome) {
+    //     if(!this.contemUsuario(login)) {
+    //         this.usuarios.push(new usuario(login, senha, nome));
+    //     }
+    // };
+    //
+    // this.contemUsuario = function(login) {
+    //     return this.getUsuario(login) == null;
+    // };
+    //
+    this.getUser = function() {
 
-    this.contemUsuario = function(login) {
-        if(this.getUsuario(login) == null) {
-            return false;
-        } else {
-            return true;
-        }
-    };
-
-    this.getUsuario = function(login) {
-        let usuario = null;
-        for(i = 0; i < this.usuarios.length; i ++) {
-            if(this.usuarios[i].login.toLowerCase() == login.toLowerCase()) {
-                usuario = this.usuarios[i];
-            }
-        }
-        return usuario;
+        return this.user;
     };
 
     /* Espaco de artista */
 
-    this.adicionaArtista = function(login, nome, imagem) {
-        let usuario = this.getUsuario(login);
-        usuario.adicionaArtista(nome, imagem);
+    this.adicionaArtista = function(nome, imagem) {
+        this.user.adicionaArtista(nome, imagem);
         $rootScope.$broadcast('artistas:updated');
     };
 
-    this.contemArtista = function(login, nome) {
-        let usuario = this.getUsuario(login);
-        return usuario.contemArtista(nome);
+    this.contemArtista = function(nome) {
+        return this.user.contemArtista(nome);
     };
 
-    this.setUltimaOuvida = function(login, nomeArtista, ultima) {
-        let usuario = this.getUsuario(login);
-        usuario.setUltimaOuvida(nomeArtista, ultima);
+    this.setUltimaOuvida = function(nomeArtista, ultima) {
+        this.user.setUltimaOuvida(nomeArtista, ultima);
     };
 
-    this.getArtistas = function(login) {
-        let usuario = this.getUsuario(login);
-        return usuario.getArtistas();
+    this.getArtistas = function() {
+        return this.user.getArtistas();
     };
 
     /* Espaco de Album */
 
-    this.adicionaAlbum = function(login, nomeArtista, nomeAlbum, anoLancamento, imagem) {
-        let usuario = this.getUsuario(login);
-        usuario.adicionaAlbum(nomeArtista, nomeAlbum, anoLancamento, imagem);
+    this.adicionaAlbum = function(nomeArtista, nomeAlbum, anoLancamento, imagem) {
+        this.user.adicionaAlbum(nomeArtista, nomeAlbum, anoLancamento, imagem);
         $rootScope.$broadcast('albuns:updated');
     };
 
-    this.getAlbuns = function(login, nomeArtista) {
-        let usuario = this.getUsuario(login);
-        return usuario.getAlbuns(nomeArtista);
+    this.getAlbuns = function(nomeArtista) {
+        return this.user.getAlbuns(nomeArtista);
     };
 
-    this.contemAlbum = function(login, nomeArtista, nomeAlbum) {
-        let usuario = this.getUsuario(login);
-        return usuario.contemAlbum(nomeArtista, nomeAlbum);
+    this.contemAlbum = function(nomeArtista, nomeAlbum) {
+        return this.user.contemAlbum(nomeArtista, nomeAlbum);
     };
 
     /* Espaco de Musica */
 
-    this.adicionaMusica = function(login, nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento) {
-        let usuario = this.getUsuario(login);
-        usuario.adicionaMusica(nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento);
+    this.adicionaMusica = function(nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento) {
+        this.user.adicionaMusica(nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento);
         $rootScope.$broadcast('musicas:updated');
     };
 
-    this.getMusicas = function(login, nomeArtista, nomeAlbum) {
-        let usuario = this.getUsuario(login);
-        return usuario.getMusicas(nomeArtista, nomeAlbum);
+    this.getMusicas = function(nomeArtista, nomeAlbum) {
+        return this.user.getMusicas(nomeArtista, nomeAlbum);
     };
 
-    this.contemMusica = function(login, nomeArtista, nomeAlbum, nomeMusica) {
-        let usuario = this.getUsuario(login);
-        return usuario.contemMusica(nomeArtista, nomeAlbum, nomeMusica);
+    this.contemMusica = function(nomeArtista, nomeAlbum, nomeMusica) {
+        return this.user.contemMusica(nomeArtista, nomeAlbum, nomeMusica);
     };
 
     /* Espaco de Playlist */
 
-    this.adicionaPlaylist = function(login, nomePlaylist, imagem, descricao) {
-        let usuario = this.getUsuario(login);
-        usuario.adicionaPlaylist(nomePlaylist, imagem, descricao);
+    this.adicionaPlaylist = function(nomePlaylist, imagem, descricao) {
+        this.user.adicionaPlaylist(nomePlaylist, imagem, descricao);
         $rootScope.$broadcast('playlists:updated');
     };
 
-    this.contemPlaylist = function(login, nomePlaylist) {
-        let usuario = this.getUsuario(login);
-        return usuario.contemPlaylist(nomePlaylist);
+    this.contemPlaylist = function(nomePlaylist) {
+        return this.user.contemPlaylist(nomePlaylist);
     };
 
-    this.setPlaylists = function(login, playlists) {
-        let usuario = this.getUsuario(login);
-        usuario.setPlaylist(playlists);
+    this.setPlaylists = function(playlists) {
+        this.user.setPlaylist(playlists);
         $rootScope.$broadcast('playlists:updated');
     };
 
-    this.getPlaylists = function(login) {
-        return this.getUsuario(login).getPlaylists();
+    this.getPlaylists = function() {
+        return this.user.getPlaylists();
 
     };
 
-    this.setMusicasPlaylist = function(login,nomePlaylist, musicas) {
-        let usuario = this.getUsuario(login);
-        usuario.setMusicasPlaylist(nomePlaylist, musicas);
+    this.setMusicasPlaylist = function(nomePlaylist, musicas) {
+        this.user.setMusicasPlaylist(nomePlaylist, musicas);
         $rootScope.$broadcast('musicasPlaylist:updated');
     };
 
-    this.getMusicasPlaylist = function(login, nomePlaylist) {
-        let usuario = this.getUsuario(login);
-        return usuario.getMusicasPlaylist(nomePlaylist);
+    this.getMusicasPlaylist = function(nomePlaylist) {
+        return this.user.getMusicasPlaylist(nomePlaylist);
     };
 
     /* Espaco de Artista Favorito */
-    this.adicionaFavoritos = function(login, nomeArtista) {
-        let usuario = this.getUsuario(login);
-        usuario.adicionaFavoritos(nomeArtista);
+    this.adicionaFavoritos = function(nomeArtista) {
+        this.user.adicionaFavoritos(nomeArtista);
         $rootScope.$broadcast('artistaFavorito:updated');
     };
 
-    this.getArtistasFavoritos = function(login) {
-        let usuario = this.getUsuario(login);
-        return usuario.getFavoritos();
+    this.getArtistasFavoritos = function() {
+        return this.user.getFavoritos();
     };
 
-    this.setArtistasFavoritos = function(login, artistas) {
-        let usuario = this.getUsuario(login);
-        usuario.setFavoritos(artistas);
+    this.setArtistasFavoritos = function(artistas) {
+        this.user.setFavoritos(artistas);
     };
+
+    console.log("eu executei ein");
 
 });

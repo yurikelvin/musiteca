@@ -1,19 +1,20 @@
 angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, usuariosAPI, $filter) {
 
-	$scope.artistas = usuariosAPI.getArtistas("tsubakker");
-	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos("tsubakker");
-    $scope.albuns = usuariosAPI.getAlbuns("tsubakker");
+	$scope.artistas = usuariosAPI.getArtistas();
+	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
+    $scope.albuns = usuariosAPI.getAlbuns();
+    $scope.musicas = usuariosAPI.getMusicas();
 
     $scope.$on('albuns:updated', function(event) {
-        $scope.albuns = usuariosAPI.getAlbuns("tsubakker");
+        $scope.albuns = usuariosAPI.getAlbuns();
     });
 
     $scope.$on('artistas:updated', function(event) {
-        $scope.artistas = usuariosAPI.getArtistas("tsubakker");
+        $scope.artistas = usuariosAPI.getArtistas();
     });
 
     $scope.$on('artistaFavorito:updated', function(event) {
-        $scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos("tsubakker");
+        $scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
     });
 
 
@@ -44,11 +45,11 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
 
         for(k = 0; k < $scope.artistas.length; k ++) {
             if($scope.artistas[k].selecionado === true && $scope.artistas[k].favorito === false) {
-                usuariosAPI.adicionaFavoritos("tsubakker", $scope.artistas[k].nome);
+                usuariosAPI.adicionaFavoritos( $scope.artistas[k].nome);
             }
         }
 
-        $scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos("tsubakker");
+        $scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
 
         $scope.hasSucessFavoritos = true;
         $timeout(function(){
@@ -71,8 +72,8 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
         $scope.cleanSelect(artistas);
 
 
-    	usuariosAPI.setArtistasFavoritos("tsubakker", artistasAPermanecer);
-    	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos("tsubakker");
+    	usuariosAPI.setArtistasFavoritos( artistasAPermanecer);
+    	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
     };
 
     $scope.hasSucessFavoritos = false;
