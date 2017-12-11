@@ -80,12 +80,7 @@ angular.module("musiteca").controller("playlistsCtrl", function($uibModal, $scop
     };
 
     $scope.showBuscar = function() {
-        if($scope.buscarPlaylist) {
-            $scope.buscarPlaylist = false;
-        } else {
-            $scope.buscarPlaylist = true;
-        }
-
+        $scope.buscarPlaylist = !$scope.buscarPlaylist;
     };
 
     $scope.buscarPlaylist = false;

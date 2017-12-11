@@ -14,7 +14,7 @@ angular.module("musiteca").controller("mainCtrl", function($uibModal, $scope, us
     });
 
     $scope.openModal = function(template) {
-        var modalInstance = $uibModal.open({
+        let modalInstance = $uibModal.open({
             templateUrl: 'view/modal/' + template + '.html',
             controller: template + 'Ctrl'
         });

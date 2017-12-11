@@ -15,7 +15,7 @@ angular.module("musiteca").service("musica", function() {
         };
 
         this.getAnoLancamento = function () {
-            return this.anolancamento;
+            return this.ano;
         };
     };
 

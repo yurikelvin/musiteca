@@ -1,5 +1,6 @@
 angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, usuariosAPI, $filter) {
 
+    $scope.usuario = usuariosAPI.getUser();
 	$scope.artistas = usuariosAPI.getArtistas();
 	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
     $scope.albuns = usuariosAPI.getAlbuns();

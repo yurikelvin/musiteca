@@ -16,7 +16,7 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
 
     $scope.changeTypePassword = function() {
 
-        if($scope.typePassword == "password") {
+        if($scope.typePassword === "password") {
             $scope.typePassword = "text";
             $scope.iconPassword = "fa fa-lg fa-eye text-primary mb-3 sr-icons";
         } else {
@@ -29,7 +29,7 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
 
     $scope.close = function() {
         $uibModalInstance.dismiss('cancel');
-    }
+    };
 
     $scope.openModal = function (template) {
       $scope.close();

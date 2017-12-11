@@ -1,7 +1,7 @@
 angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario) {
 
     this.user = new usuario("tsubakker", "123", "yuri");
-    this.user.role = "guest";
+    this.user.role = "user";
 
     // this.adicionaUsuario = function(login, senha, nome) {
     //     if(!this.contemUsuario(login)) {
@@ -56,7 +56,6 @@ angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario)
 
     this.adicionaMusica = function(nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento) {
         this.user.adicionaMusica(nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento);
-        $rootScope.$broadcast('musicas:updated');
     };
 
     this.getMusicas = function(nomeArtista, nomeAlbum) {

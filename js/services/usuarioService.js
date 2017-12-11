@@ -17,7 +17,7 @@ angular.module("musiteca").service("usuario", function(artista, playlist) {
 
         this.getLogin = function() {
             return this.login;
-        }
+        };
         /* Aqui começa os artistas */
         this.adicionaArtista = function(nome, imagem) {
             if(!this.contemArtista(nome)) {
@@ -38,7 +38,7 @@ angular.module("musiteca").service("usuario", function(artista, playlist) {
         this.getArtista = function(nome) {
             let artista = null;
             for(i = 0; i < this.artistas.length; i++) {
-                if(this.artistas[i].getNome().toLowerCase() == nome.toLowerCase()) {
+                if(this.artistas[i].getNome().toLowerCase() === nome.toLowerCase()) {
                     artista = this.artistas[i];
                 }
             }
@@ -51,11 +51,7 @@ angular.module("musiteca").service("usuario", function(artista, playlist) {
         };
 
         this.contemArtista = function(nome) {
-            if(this.getArtista(nome) == null) {
-                return false;
-            }
-
-            return true;
+            return this.getArtista(nome) != null;
         };
 
         /* Aqui começa os Álbuns */
@@ -77,7 +73,7 @@ angular.module("musiteca").service("usuario", function(artista, playlist) {
                     for(k = 0; k < albunsDaVez.length; k++) {
                         albunsCadastrados.push(albunsDaVez[k]);
                     }
-                };
+                }
             }
 
             return albunsCadastrados;
@@ -132,7 +128,7 @@ angular.module("musiteca").service("usuario", function(artista, playlist) {
             let contem = false;
 
             for(i = 0; i < this.playlists.length; i++) {
-                if(this.playlists[i].nome.toLowerCase() == nomePlaylist.toLowerCase()) {
+                if(this.playlists[i].nome.toLowerCase() === nomePlaylist.toLowerCase()) {
                     contem = true;
                 }
             }
@@ -152,7 +148,7 @@ angular.module("musiteca").service("usuario", function(artista, playlist) {
             let playlist = null;
 
             for(i = 0; i < this.playlists.length; i++) {
-                if(this.playlists[i].nome.toLowerCase() == nomePlaylist.toLowerCase()) {
+                if(this.playlists[i].nome.toLowerCase() === nomePlaylist.toLowerCase()) {
                     playlist = this.playlists[i];
                 }
             }
@@ -169,7 +165,7 @@ angular.module("musiteca").service("usuario", function(artista, playlist) {
         this.getMusicasPlaylist = function(nomePlaylist) {
             let playlist = this.getPlaylist(nomePlaylist);
             return playlist.getMusicasPlaylist();
-        }
+        };
 
         /* Favoritos */
 

@@ -18,12 +18,12 @@
 				<input id="music-ano" class="form-control" name="ano" type="text" ng-model="musica.ano" placeholder="Ano de lançamento" ng-required="true"/>
 
 				<label for="music-album" class="col-form-label">Álbum associado:</label>
-				<select id="music-album" class="form-control" ng-model="selectedAlbum" ng-options="'Nome: ' + album.nome + ', Ano: ' + album.ano + ', Artista: ' + album.artistaNome for album in albuns | orderBy:'nome'" ng-init="" ng-required="true">
+				<select id="music-album" class="form-control" ng-model="selectedAlbum" ng-options="'Nome: ' + album.nome + ', Ano: ' + album.ano + ', Artista: ' + album.artistaNome for album in albuns" ng-init="" ng-required="true">
 		                <option value="">Selecione um álbum</option>
 		        </select>
 
 		        <label for="music-artist" class="col-form-label">Artista associado:</label>
-				<select id="music-artist" class="form-control" ng-model="selectedArtist" ng-options="artista.nome for artista in artistas | orderBy:'nome'" ng-required="true">
+				<select id="music-artist" class="form-control" ng-model="selectedArtist" ng-options="artista.nome for artista in artistas" ng-required="true">
 		                <option value="">Selecione um artista</option>
 		        </select>
 			</form>
@@ -37,7 +37,7 @@
 		    </div>
         </div>
         <div class="modal-footer">
-        	<button class="btn btn-primary btn-block" ng-click="adicionarMusica(musica, selectedAlbum.nome, selectedArtist.nome)" ng-disabled="musicForm.$invalid">Adicionar música</button>
+        	<button class="btn btn-primary btn-block" ng-click="adicionarMusica(musica, selectedAlbum, selectedArtist)" ng-disabled="musicForm.$invalid">Adicionar música</button>
         	<button type="button" class="btn btn-secondary btn-block" ng-click="close()">Fechar</button>
         </div>
 

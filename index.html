@@ -10,7 +10,7 @@
     <link href="img/favicon-music.ico" rel="shortcut icon" type="image/png"/>
 
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/app.css"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -25,7 +25,7 @@
     <!-- Custom styles for this template -->
     <link href="css/creative.min.css" rel="stylesheet">
 
-    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Plugin starRate -->
     <script src="js/star-rating.js" type="text/javascript"></script>
@@ -33,32 +33,17 @@
 
 
     <!-- Angular -->
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular/angular-route.js"></script>
-    <script src="lib/angular/angular-locale_pt-br.js"></script>
-    <script src="lib/angular/angular-messages.js"></script>
-    <script src="lib/angular/angular-animate.js"></script>
-    <script src="lib/angular/angular-sanitize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/i18n/angular-locale_pt-br.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-messages.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-sanitize.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="lib/angular/ui-bootstrap-tpls-3.0.0-beta.3.min.js"></script>
 
     <!-- App -->
     <script src="js/app.js"></script>
-
-
-    <!-- Controladores -->
-    <script src="js/controllers/musitecaCtrl.js"></script>
-    <script src="js/controllers/modal/novoArtistaCtrl.js"></script>
-    <script src="js/controllers/detalhesArtistaCtrl.js"></script>
-    <script src="js/controllers/detalhesAlbumCtrl.js"></script>
-    <script src="js/controllers/detalhesPlaylistCtrl.js"></script>
-    <script src="js/controllers/modal/novaMusicaCtrl.js"></script>
-    <script src="js/controllers/modal/novoAlbumCtrl.js"></script>
-    <script src="js/controllers/modal/novaPlaylistCtrl.js"></script>
-    <script src="js/controllers/playlistsCtrl.js"></script>
-    <script src="js/controllers/mainCtrl.js"></script>
-    <script src="js/controllers/loginCtrl.js"></script>
-
 
     <!-- Diretivas -->
     <script src="js/directives/starRatingDirective.js"></script>
@@ -75,9 +60,22 @@
     <script src="js/services/usuarioService.js"></script>
     <script src="js/services/usuariosAPIService.js"></script>
 
+    <!-- Controladores -->
+    <script src="js/controllers/musitecaCtrl.js"></script>
+    <script src="js/controllers/modal/novoArtistaCtrl.js"></script>
+    <script src="js/controllers/detalhesArtistaCtrl.js"></script>
+    <script src="js/controllers/detalhesAlbumCtrl.js"></script>
+    <script src="js/controllers/detalhesPlaylistCtrl.js"></script>
+    <script src="js/controllers/modal/novaMusicaCtrl.js"></script>
+    <script src="js/controllers/modal/novoAlbumCtrl.js"></script>
+    <script src="js/controllers/modal/novaPlaylistCtrl.js"></script>
+    <script src="js/controllers/playlistsCtrl.js"></script>
+    <script src="js/controllers/mainCtrl.js"></script>
+    <script src="js/controllers/loginCtrl.js"></script>
+
 
 </head>
-<body id="page-top" class="rating">
+<body id="page-top" class="rating" ng-controller="mainCtrl">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" ng-controller="mainCtrl">
@@ -89,7 +87,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#artistas" restrict access="user">Artistas</a>
+                  <a class="nav-link js-scroll-trigger" href="#artistas" restrict access="user">Artistas</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#albuns" restrict access="user">Álbuns</a>
@@ -105,12 +103,12 @@
                   Cadastro <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <button type="buttom" class="dropdown-item" ng-click="openModal('novoArtista')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Artista</button>
-                    <button type="buttom" class="dropdown-item" ng-click="openModal('novoAlbum')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Álbum</button>
+                    <button type="button" class="dropdown-item" ng-click="openModal('novoArtista')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Artista</button>
+                    <button type="button" class="dropdown-item" ng-click="openModal('novoAlbum')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Álbum</button>
                     <div class="dropdown-divider"></div>
-                    <button type="buttom" class="dropdown-item" ng-click="openModal('novaMusica')"><i class="fa fa-plus" aria-hidden="true"></i> Nova Música</button>
+                    <button type="button" class="dropdown-item" ng-click="openModal('novaMusica')"><i class="fa fa-plus" aria-hidden="true"></i> Nova Música</button>
                     <div class="dropdown-divider"></div>
-                    <button type="buttom" class="dropdown-item" ng-click="openModal('novaPlaylist')"><i class="fa fa-plus" aria-hidden="true"></i>
+                    <button type="button" class="dropdown-item" ng-click="openModal('novaPlaylist')"><i class="fa fa-plus" aria-hidden="true"></i>
                  Nova Playlist</button>
                 </div>
             </li>
