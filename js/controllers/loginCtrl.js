@@ -4,6 +4,7 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
     $scope.typePassword = "password";
     $scope.iconPassword = "fa fa-lg fa-eye-slash text-primary mb-3 sr-icons";
     $scope.registrar = false;
+    $scope.temUsuario = false;
 
 
     $scope.logar = function(usuario) {
@@ -13,6 +14,16 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
         $scope.close();
         $scope.$apply();
     };
+
+    $scope.adicionarUsuario = function(usuario) {
+        if(!usuariosAPI.hasUser(usuario)) {
+
+        } else {
+            $scope.temUsuario = true;
+        }
+    };
+
+
 
     $scope.changeTypePassword = function() {
 
@@ -33,7 +44,7 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
 
     $scope.openModal = function (template) {
       $scope.close();
-      var modalInstance = $uibModal.open({
+      let modalInstance = $uibModal.open({
         templateUrl: 'view/modal/' + template + '.html',
         controller: 'loginCtrl'
       });

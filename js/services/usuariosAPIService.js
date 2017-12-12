@@ -110,6 +110,5 @@ angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario)
         this.user.setFavoritos(artistas);
     };
 
-    console.log("eu executei ein");
 
 });

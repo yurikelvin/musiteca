@@ -20,7 +20,7 @@
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
     <!-- Plugin CSS -->
-    <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/creative.min.css" rel="stylesheet">
@@ -87,19 +87,22 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="#artistas" restrict access="user">Artistas</a>
+                  <a class="nav-link js-scroll-trigger" href="#artistas">Artistas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#albuns" restrict access="user">Álbuns</a>
+              <a class="nav-link js-scroll-trigger" href="#albuns" >Álbuns</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#musicas" restrict access="user">Músicas</a>
+              <a class="nav-link js-scroll-trigger" href="#musicas" >Músicas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#playlists" restrict access="user">Playlists</a>
+              <a class="nav-link js-scroll-trigger" href="#playlists" >Playlists</a>
            </li>
+            <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="#favoritos" >Favoritos</a>
+            </li>
             <li class="nav-item dropdown" restrict access="user">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#!/usuario" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Cadastro <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -112,10 +115,10 @@
                  Nova Playlist</button>
                 </div>
             </li>
-            <li class="nav-item" restrict access="guest">
+            <li class="nav-item">
               <a class="nav-link js-scroll-trigger" ng-click="openModal('login')" href="">Login <i class="fa fa-user-o" aria-hidden="true"></i></a>
             </li>
-            <li class="nav-item" restrict access="user">
+            <li class="nav-item" restrict access="USER">
                   <a class="nav-link js-scroll-trigger" href="">Logout <i class="fa fa-user" aria-hidden="true"></i></a>
               </li>
             <li class="nav-item">
@@ -151,7 +154,7 @@
             <hr class="light my-4">
             <p class="text-faded mb-4">Músiteca foi desenvolvido para servir como um serviço de músicas que atenda as necessidades dos usuários, deixando livremente a criação de artistas, álbuns, músicas, playlists e favoritos.</p>
             <p class="text-faded mb-4">Crie já uma conta e experimente!</p>
-            <a class="btn btn-light btn-xl js-scroll-trigger" ng-click="openModal('login')" href="" restrict access="guest">Fazer login</a>
+            <a class="btn btn-light btn-xl js-scroll-trigger" ng-click="openModal('login')" href="">Fazer login</a>
           </div>
         </div>
       </div>
@@ -191,9 +194,9 @@
 
 
     <!-- Plugin JavaScript -->
-    <script src="lib/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="lib/scrollreveal/scrollreveal.min.js"></script>
-    <script src="lib/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.min.js"></script>
