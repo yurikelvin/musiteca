@@ -13,7 +13,7 @@ angular.module("musiteca").service("artista", function(album) {
 
         this.getAlbuns = function() {
             return this.albuns;
-        }
+        };
 
         this.getNome = function() {
             return this.nome;
@@ -58,7 +58,7 @@ angular.module("musiteca").service("artista", function(album) {
         this.getAlbum = function(nome) {
             let album = null;
             for( i = 0; i < this.albuns.length; i ++) {
-                if(this.albuns[i].getNome().toLowerCase() == nome.toLowerCase()) {
+                if(this.albuns[i].getNome().toLowerCase() === nome.toLowerCase()) {
                     album = this.albuns[i];
                 }
             }
@@ -89,11 +89,9 @@ angular.module("musiteca").service("artista", function(album) {
         };
 
         this.contemAlbum = function(nomeAlbum) {
-            if(this.getAlbum(nomeAlbum) == null) {
-                return false;
-            }
+            return this.getAlbum(nomeAlbum) != null;
 
-            return true;
+
         };
     };
 

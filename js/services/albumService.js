@@ -8,7 +8,7 @@ angular.module("musiteca").service("album", function(musica) {
 
         this.getMusicas = function() {
             return this.musicas;
-        }
+        };
 
         this.getNome = function() {
             return this.nome;
@@ -41,7 +41,7 @@ angular.module("musiteca").service("album", function(musica) {
         this.getMusica = function(nome) {
             let musica = null;
             for( i = 0; i < this.musicas.length; i ++) {
-                if(this.musicas[i].getNome().toLowerCase() == nome.toLowerCase()) {
+                if(this.musicas[i].getNome().toLowerCase() === nome.toLowerCase()) {
                     musica = this.musicas[i];
                 }
             }
@@ -56,11 +56,7 @@ angular.module("musiteca").service("album", function(musica) {
         };
 
         this.contemMusica = function(nome) {
-            if(this.getMusica(nome) == null) {
-                return false;
-            } else {
-                return true;
-            }
+            return this.getMusica(nome) != null;
         };
     };
 

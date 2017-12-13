@@ -1,5 +1,9 @@
 angular.module("musiteca").config(function ($routeProvider) {
 
+    $routeProvider.when("/usuario",  {
+        templateUrl: "view/usuarioLogado.html"
+    });
+
     /**
 	
 	$routeProvider.when("/artistasFavoritos",  {

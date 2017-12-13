@@ -3,8 +3,8 @@ angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInsta
 
 	$scope.adicionarArtista = function(artista) {
 
-		if(!usuariosAPI.contemArtista("tsubakker", artista.nome)) {
-			usuariosAPI.adicionaArtista("tsubakker", artista.nome, artista.imagem);
+		if(!usuariosAPI.contemArtista( artista.nome)) {
+			usuariosAPI.adicionaArtista( artista.nome, artista.imagem);
 			$scope.cadastroEfetuado = true;
 		} else {
 			$scope.temArtista = true;

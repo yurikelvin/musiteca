@@ -1,12 +1,12 @@
 angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstance, $scope, usuariosAPI) {
 
-	$scope.artistas = usuariosAPI.getArtistas("tsubakker");
+	$scope.artistas = usuariosAPI.getArtistas();
 
 
 	$scope.adicionarAlbum = function(nomeArtista, album) {
 
-		if(!usuariosAPI.contemAlbum("tsubakker", nomeArtista, album.nome)) {
-            usuariosAPI.adicionaAlbum("tsubakker", nomeArtista, album.nome, album.ano, album.imagem);
+		if(!usuariosAPI.contemAlbum( nomeArtista, album.nome)) {
+            usuariosAPI.adicionaAlbum( nomeArtista, album.nome, album.ano, album.imagem);
 			$scope.cadastroEfetuado = true;
 		} else {
 			$scope.temAlbum = true;

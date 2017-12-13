@@ -1,8 +1,8 @@
 angular.module("musiteca").controller("detalhesPlaylistCtrl", function($uibModalInstance, $scope, item, usuariosAPI) {
 
     $scope.playlist = item;
-    $scope.musicasPlaylist = usuariosAPI.getMusicasPlaylist("tsubakker", item.nome);
-    $scope.musicasSistema = usuariosAPI.getMusicas("tsubakker");
+    $scope.musicasPlaylist = usuariosAPI.getMusicasPlaylist( item.nome);
+    $scope.musicasSistema = usuariosAPI.getMusicas();
 
   $scope.removeMusicasPlaylist = function(musicas) {
 
