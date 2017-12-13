@@ -18,6 +18,10 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
         $scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
     });
 
+    $scope.$on('musicas:updated', function(event) {
+        $scope.musicas = usuariosAPI.getMusicas();
+    });
+
 
 
     $scope.ordenarPor = function(campo) {

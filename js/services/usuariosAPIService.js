@@ -1,18 +1,69 @@
-angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario) {
+angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario, $http) {
 
-    this.user = new usuario("tsubakker", "123", "yuri");
-    this.user.role = "user";
+    this.user = new usuario();
 
-    // this.adicionaUsuario = function(login, senha, nome) {
-    //     if(!this.contemUsuario(login)) {
-    //         this.usuarios.push(new usuario(login, senha, nome));
-    //     }
-    // };
-    //
-    // this.contemUsuario = function(login) {
-    //     return this.getUsuario(login) == null;
-    // };
-    //
+    let that = this;
+
+    this.buildUser = function(data) {
+        this.user = new usuario(data.login, data.senha, data.nome);
+
+        var carrega = function() {
+            $http.get("http://localhost:8080/usuarios/u/" + data.login + "/artistas")
+                .then(function (response) {
+                    loadArtistas(response.data);
+                    carregaAlbuns();
+                }, function (response) {
+                    console.log(response.status);
+                });
+        };
+
+        let carregaAlbuns = function () {
+            $http.get("http://localhost:8080/usuarios/u/" + data.login + "/albuns")
+                .then(function (response) {
+                    loadAlbuns(response.data);
+                    carregaMusicas();
+                }, function (response) {
+                    console.log(response.status);
+                });
+        };
+
+        let carregaMusicas = function() {
+            $http.get("http://localhost:8080/usuarios/u/" + data.login + "/musicas")
+                .then(function (response) {
+                    loadMusicas(response.data);
+                }, function (response) {
+                    console.log(response.status);
+                });
+        };
+
+        carrega();
+
+    };
+
+    let loadArtistas = function (data) {
+        let artistas = data;
+        for(i = 0; i < artistas.length; i ++) {
+            let artistaDaVez = artistas[i];
+            that.adicionaArtista(artistaDaVez.nome, artistaDaVez.imagem);
+        }
+    };
+
+    let loadAlbuns = function(data) {
+        let albuns = data;
+        for(i = 0; i < albuns.length; i ++) {
+            let albumDaVez = albuns[i];
+            that.adicionaAlbum(albumDaVez.artistaNome, albumDaVez.nome, albumDaVez.ano, albumDaVez.imagem);
+        }
+    };
+
+    let loadMusicas = function(data) {
+        let musicas = data;
+        for(i = 0; i < musicas.length; i++) {
+            let musicaDaVez = musicas[i];
+            that.adicionaMusica(musicaDaVez.nomeArtist, musicaDaVez.albumNome, musicaDaVez.nome, musicaDaVez.duracao, musicaDaVez.ano);
+        }
+    };
+
     this.getUser = function() {
 
         return this.user;
@@ -56,6 +107,7 @@ angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario)
 
     this.adicionaMusica = function(nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento) {
         this.user.adicionaMusica(nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento);
+        $rootScope.$broadcast('musicas:updated');
     };
 
     this.getMusicas = function(nomeArtista, nomeAlbum) {
