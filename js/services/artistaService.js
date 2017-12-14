@@ -1,10 +1,22 @@
 angular.module("musiteca").service("artista", function(album) {
-    return function(nome, imagem) {
+    return function(nome, imagem, favorito, rate, ultimaOuvida) {
         this.albuns = [];
         this.nome = nome;
         this.imagem = imagem;
         this.ultimaOuvida = "Não definido ainda";
         this.favorito = false;
+        this.rate = 0;
+        if(favorito != null && favorito == true) {
+            this.favorito = true;
+        }
+
+        if(rate != null) {
+            this.rate = rate;
+        }
+
+        if(ultimaOuvida != null && ultimaOuvida != "Não definido ainda") {
+            this.ultimaOuvida = ultimaOuvida;
+        }
 
         this.setUltimaOuvida = function(ultima) {
             this.ultimaOuvida = ultima;

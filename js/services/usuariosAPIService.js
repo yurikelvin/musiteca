@@ -4,10 +4,47 @@ angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario,
 
     let that = this;
 
+    let loadArtistas = function (data) {
+        let artistas = data;
+        for(i = 0; i < artistas.length; i ++) {
+            let artistaDaVez = artistas[i];
+            that.adicionaArtista(artistaDaVez.nome, artistaDaVez.imagem, artistaDaVez.favorito, artistaDaVez.rate, artistaDaVez.ultimaOuvida);
+            if(artistaDaVez.favorito == true) {
+                that.adicionaFavoritos(artistaDaVez.nome);
+            }
+        }
+    };
+
+    let loadAlbuns = function(data) {
+        let albuns = data;
+        for(i = 0; i < albuns.length; i ++) {
+            let albumDaVez = albuns[i];
+            that.adicionaAlbum(albumDaVez.artistaNome, albumDaVez.nome, albumDaVez.ano, albumDaVez.imagem);
+        }
+    };
+
+    let loadMusicas = function(data) {
+        let musicas = data;
+        for(i = 0; i < musicas.length; i++) {
+            let musicaDaVez = musicas[i];
+            that.adicionaMusica(musicaDaVez.nomeArtist, musicaDaVez.albumNome, musicaDaVez.nome, musicaDaVez.duracao, musicaDaVez.ano);
+        }
+    };
+
+    let loadPlaylists = function(data) {
+        let playlists = data;
+        for(i = 0; i < playlists.length; i++) {
+            let playlist = playlists[i];
+            that.adicionaPlaylist(playlist.nome, playlist.imagem, playlist.descricao);
+            let musicas = playlist.musicas;
+            that.setMusicasPlaylist(playlist.nome, musicas);
+        };
+    };
+
     this.buildUser = function(data) {
         this.user = new usuario(data.login, data.senha, data.nome);
 
-        var carrega = function() {
+        let carrega = function() {
             $http.get("http://localhost:8080/usuarios/u/" + data.login + "/artistas")
                 .then(function (response) {
                     loadArtistas(response.data);
@@ -31,79 +68,22 @@ angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario,
             $http.get("http://localhost:8080/usuarios/u/" + data.login + "/musicas")
                 .then(function (response) {
                     loadMusicas(response.data);
-                    carregaPlaylists();
-                    carregaFavoritos();
+                    loadPlaylists(data.playlists);
                 }, function (response) {
                     console.log(response.status);
                 });
         };
 
-        let carregaPlaylists = function() {
-          $http.get("http://localhost:8080/usuarios/u/" + data.login + "/playlists")
-              .then(function(response) {
-                  loadPlaylists(response.data)
-              }, function(response) {
-
-              })
-        };
-
-        let carregaFavoritos = function() {
-            $http.get("http://localhost:8080/usuarios/u/" + data.login + "/favoritos")
-                .then(function(response) {
-                    loadFavoritos(response.data);
-                }, function(response) {
-
-                })
-        };
 
         carrega();
-
     };
 
-    let loadArtistas = function (data) {
-        let artistas = data;
-        for(i = 0; i < artistas.length; i ++) {
-            let artistaDaVez = artistas[i];
-            that.adicionaArtista(artistaDaVez.nome, artistaDaVez.imagem);
-        }
-    };
-
-    let loadAlbuns = function(data) {
-        let albuns = data;
-        for(i = 0; i < albuns.length; i ++) {
-            let albumDaVez = albuns[i];
-            that.adicionaAlbum(albumDaVez.artistaNome, albumDaVez.nome, albumDaVez.ano, albumDaVez.imagem);
-        }
-    };
-
-    let loadMusicas = function(data) {
-        let musicas = data;
-        for(i = 0; i < musicas.length; i++) {
-            let musicaDaVez = musicas[i];
-            that.adicionaMusica(musicaDaVez.nomeArtist, musicaDaVez.albumNome, musicaDaVez.nome, musicaDaVez.duracao, musicaDaVez.ano);
-        }
-    };
-
-    let loadFavoritos = function(data) {
-        this.favoritos = data;
-    };
-
-    let loadPlaylists = function(data) {
-        let playlists = data;
-        for(i = 0; i < playlists.length; i++) {
-            let playlist = playlists[i];
-            that.adicionaPlaylist(playlist.nome, playlist.imagem, playlist.descricao);
-            let musicas = playlist.musicas;
-            that.setMusicasPlaylist(playlist.nome, musicas);
-        }
-    };
 
     this.carregaUsuario = function(login, token) {
         localStorage.setItem("login", login);
         $http.get("http://localhost:8080/usuarios/u/" + login)
             .then(function(response) {
                 that.buildUser(response.data);
-                console.log("ta carregando chefe");
             }, function(response) {
 
             })
@@ -111,7 +91,9 @@ angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario,
 
     this.updateUser = function() {
       let usuario = this.getUser();
-      $http.put("http://localhost:8080/usuarios/u/" + usuario.login, usuario);
+      $http.post("http://localhost:8080/usuarios", usuario, {headers: {
+              'Content-Type': 'application/json'
+          }});
     };
 
     this.getUser = function() {
@@ -121,8 +103,8 @@ angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario,
 
     /* Espaco de artista */
 
-    this.adicionaArtista = function(nome, imagem) {
-        this.user.adicionaArtista(nome, imagem);
+    this.adicionaArtista = function(nome, imagem, favorito, rate, ultimaOuvida) {
+        this.user.adicionaArtista(nome, imagem, favorito, rate, ultimaOuvida);
         $rootScope.$broadcast('artistas:updated');
     };
 

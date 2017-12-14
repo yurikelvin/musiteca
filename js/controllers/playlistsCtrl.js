@@ -3,6 +3,10 @@ angular.module("musiteca").controller("playlistsCtrl", function($uibModal, $scop
 	$scope.musicas = usuariosAPI.getMusicas();
     $scope.playlists = usuariosAPI.getPlaylists();
 
+    $scope.$on('playlists:updated', function(event) {
+        $scope.playlists = usuariosAPI.getPlaylists();
+    })
+
     $scope.$on('musicas:updated', function(event) {
         $scope.musicas = usuariosAPI.getMusicas();
     });

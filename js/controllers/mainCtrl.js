@@ -1,39 +1,28 @@
-angular.module("musiteca").controller("mainCtrl", function($uibModal, $scope, usuariosAPI) {
+angular.module("musiteca").controller("mainCtrl", function($interval, $uibModal, $scope, usuariosAPI) {
 
     $scope.teste = usuariosAPI;
 
     $scope.logged = false;
     $scope.hasUser = false;
 
-    var carregaDados = function() {
-        let login = localStorage.getItem("login");
-        let token = localStorage.getItem("userToken")
-        usuariosAPI.carregaUsuario(login, token);
+    var interval;
+
+    var autoSave = function() {
+        interval = $interval(function() {
+            usuariosAPI.updateUser();
+        }, 30000, 0);
     }
 
-    $scope.$on('artistas:updated', function(event) {
-       usuariosAPI.updateUser();
-    })
-
-    $scope.$on('albuns:updated', function(event) {
-        usuariosAPI.updateUser();
-    });
-
-    $scope.$on('musicas:updated', function(event) {
-        usuariosAPI.updateUser();
-    });
-
-    $scope.$on('playlists:updated', function(event) {
-        usuariosAPI.updateUser();
-    });
-
-    $scope.$on('musicasPlaylist', function(event) {
-        usuariosAPI.updateUser();
-    });
-
-    $scope.$on('artistaFavorito:updated', function(event) {
-        usuariosAPI.updateUser();
-    });
+    var carregaDados = function() {
+        let login = localStorage.getItem("login");
+        if(login != "null" && login != "") {
+            let token = localStorage.getItem("userToken")
+            usuariosAPI.carregaUsuario(login, token);
+             autoSave();
+        } else {
+            $interval.cancel(interval);
+        }
+    };
 
     $scope.openModal = function(template) {
         let modalInstance = $uibModal.open({
@@ -49,4 +38,5 @@ angular.module("musiteca").controller("mainCtrl", function($uibModal, $scope, us
 
 
     carregaDados();
+
 });

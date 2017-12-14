@@ -19,13 +19,13 @@ angular.module("musiteca").service("usuario", function(artista, playlist) {
             return this.login;
         };
         /* Aqui começa os artistas */
-        this.adicionaArtista = function(nome, imagem) {
+        this.adicionaArtista = function(nome, imagem, favorito, rate, ultimaOuvida) {
             if(!this.contemArtista(nome)) {
                 if(imagem == null) {
                     imagem = "https://www.atomix.com.au/media/2015/06/atomix_user31.png";
                 }
 
-                this.artistas.push(new artista(nome, imagem));
+                this.artistas.push(new artista(nome, imagem, favorito, rate, ultimaOuvida));
             }
         };
 
@@ -173,10 +173,24 @@ angular.module("musiteca").service("usuario", function(artista, playlist) {
             this.favoritos = favoritos;
         };
 
+        this.contemFavorito = function(nomeArtista) {
+            let contem = false;
+
+            for(i = 0; i < this.favoritos.length; i++) {
+                if(this.favoritos[i].nome.toLowerCase() === nomeArtista.toLowerCase()) {
+                    contem = true;
+                }
+            }
+
+            return contem;
+        };
+
         this.adicionaFavoritos = function(nomeArtista) {
-            let artista = this.getArtista(nomeArtista);
-            artista.favorito = true;
-            this.favoritos.push(artista);
+            if(!this.contemFavorito(nomeArtista)) {
+                let artista = this.getArtista(nomeArtista);
+                artista.favorito = true;
+                this.favoritos.push(artista);
+            }
         };
 
         this.getFavoritos = function() {
