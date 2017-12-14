@@ -5,12 +5,34 @@ angular.module("musiteca").controller("mainCtrl", function($uibModal, $scope, us
     $scope.logged = false;
     $scope.hasUser = false;
 
+    var carregaDados = function() {
+        let login = localStorage.getItem("login");
+        let token = localStorage.getItem("userToken")
+        usuariosAPI.carregaUsuario(login, token);
+    }
+
+    $scope.$on('artistas:updated', function(event) {
+       usuariosAPI.updateUser();
+    })
+
     $scope.$on('albuns:updated', function(event) {
-        $scope.albuns = usuariosAPI.getAlbuns();
+        usuariosAPI.updateUser();
     });
 
     $scope.$on('musicas:updated', function(event) {
-        $scope.musicas = usuariosAPI.getMusicas();
+        usuariosAPI.updateUser();
+    });
+
+    $scope.$on('playlists:updated', function(event) {
+        usuariosAPI.updateUser();
+    });
+
+    $scope.$on('musicasPlaylist', function(event) {
+        usuariosAPI.updateUser();
+    });
+
+    $scope.$on('artistaFavorito:updated', function(event) {
+        usuariosAPI.updateUser();
     });
 
     $scope.openModal = function(template) {
@@ -26,5 +48,5 @@ angular.module("musiteca").controller("mainCtrl", function($uibModal, $scope, us
     };
 
 
-
+    carregaDados();
 });

@@ -13,7 +13,7 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
                 'Content-Type': 'application/json'
             }}).then(function(response) {
            localStorage.setItem("userToken", response.data.token);
-           carregaUsuario(usuario.login);
+           usuariosAPI.carregaUsuario(usuario.login);
         }, function(response) {
             console.log("deu altas merd");
         });
@@ -23,15 +23,6 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
         $location.path("/usuario");
     };
 
-    var carregaUsuario = function(login, token) {
-        $http.get("http://localhost:8080/usuarios/u/" + login)
-            .then(function(response) {
-                usuariosAPI.buildUser(response.data);
-                console.log("ta carregando chefe");
-            }, function(response) {
-
-            })
-    }
 
     $scope.adicionarUsuario = function(usuario) {
         let data = {

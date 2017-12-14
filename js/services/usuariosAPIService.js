@@ -31,9 +31,29 @@ angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario,
             $http.get("http://localhost:8080/usuarios/u/" + data.login + "/musicas")
                 .then(function (response) {
                     loadMusicas(response.data);
+                    carregaPlaylists();
+                    carregaFavoritos();
                 }, function (response) {
                     console.log(response.status);
                 });
+        };
+
+        let carregaPlaylists = function() {
+          $http.get("http://localhost:8080/usuarios/u/" + data.login + "/playlists")
+              .then(function(response) {
+                  loadPlaylists(response.data)
+              }, function(response) {
+
+              })
+        };
+
+        let carregaFavoritos = function() {
+            $http.get("http://localhost:8080/usuarios/u/" + data.login + "/favoritos")
+                .then(function(response) {
+                    loadFavoritos(response.data);
+                }, function(response) {
+
+                })
         };
 
         carrega();
@@ -62,6 +82,36 @@ angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario,
             let musicaDaVez = musicas[i];
             that.adicionaMusica(musicaDaVez.nomeArtist, musicaDaVez.albumNome, musicaDaVez.nome, musicaDaVez.duracao, musicaDaVez.ano);
         }
+    };
+
+    let loadFavoritos = function(data) {
+        this.favoritos = data;
+    };
+
+    let loadPlaylists = function(data) {
+        let playlists = data;
+        for(i = 0; i < playlists.length; i++) {
+            let playlist = playlists[i];
+            that.adicionaPlaylist(playlist.nome, playlist.imagem, playlist.descricao);
+            let musicas = playlist.musicas;
+            that.setMusicasPlaylist(playlist.nome, musicas);
+        }
+    };
+
+    this.carregaUsuario = function(login, token) {
+        localStorage.setItem("login", login);
+        $http.get("http://localhost:8080/usuarios/u/" + login)
+            .then(function(response) {
+                that.buildUser(response.data);
+                console.log("ta carregando chefe");
+            }, function(response) {
+
+            })
+    };
+
+    this.updateUser = function() {
+      let usuario = this.getUser();
+      $http.put("http://localhost:8080/usuarios/u/" + usuario.login, usuario);
     };
 
     this.getUser = function() {
