@@ -1,28 +1,17 @@
-angular.module("musiteca").controller("mainCtrl", function($interval, $uibModal, $scope, usuariosAPI) {
+angular.module("musiteca").controller("mainCtrl", function($http, $location, $uibModal, $scope, usuariosAPI) {
 
     $scope.teste = usuariosAPI;
 
     $scope.logged = false;
     $scope.hasUser = false;
 
-    var interval;
-
-    var autoSave = function() {
-        interval = $interval(function() {
-            usuariosAPI.updateUser();
-        }, 30000, 0);
-    }
-
-    var carregaDados = function() {
-        let login = localStorage.getItem("login");
-        if(login != "null" && login != "") {
-            let token = localStorage.getItem("userToken")
-            usuariosAPI.carregaUsuario(login, token);
-             autoSave();
-        } else {
-            $interval.cancel(interval);
-        }
+    $scope.logout = function() {
+        usuariosAPI.updateUser();
+        localStorage.setItem("login", "");
+        localStorage.setItem("userToken", "");
+        $location.path("/");
     };
+
 
     $scope.openModal = function(template) {
         let modalInstance = $uibModal.open({
@@ -35,8 +24,5 @@ angular.module("musiteca").controller("mainCtrl", function($interval, $uibModal,
         $scope.criterioDeOrdenacao = campo;
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
     };
-
-
-    carregaDados();
 
 });

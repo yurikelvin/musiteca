@@ -2,16 +2,18 @@ angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInsta
 
 
 	$scope.adicionarArtista = function(artista) {
-
-		if(!usuariosAPI.contemArtista( artista.nome)) {
-			usuariosAPI.adicionaArtista( artista.nome, artista.imagem);
-			$scope.cadastroEfetuado = true;
-		} else {
-			$scope.temArtista = true;
-		}
-
-		delete $scope.artista;
-		$scope.artistaForm.$setPristine();
+		usuariosAPI.contemArtista(artista)
+			.then(function(response){
+				usuariosAPI.saveArtista(artista).then(function(response) {
+                    $scope.cadastroEfetuado = true;
+					delete $scope.artista;
+                    $scope.artistaForm.$setPristine();
+				});
+			}, function(response) {
+                $scope.temArtista = true;
+                delete $scope.artista;
+                $scope.artistaForm.$setPristine();
+			});
 	};
 
 	$scope.temArtista = false;

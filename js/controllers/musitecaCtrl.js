@@ -1,10 +1,10 @@
-angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, usuariosAPI, $filter) {
+angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModal, $timeout, usuariosAPI, artistas, albuns, musicas, favoritos, playlists) {
 
-    $scope.usuario = usuariosAPI.getUser();
-	$scope.artistas = usuariosAPI.getArtistas();
-	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
-    $scope.albuns = usuariosAPI.getAlbuns();
-    $scope.musicas = usuariosAPI.getMusicas();
+	$scope.artistas = artistas.data;
+	$scope.artistasFavoritos = favoritos.data;
+    $scope.albuns = albuns.data;
+    $scope.musicas = musicas.data;
+    $scope.playlists = playlists.data;
 
     $scope.$on('albuns:updated', function(event) {
         $scope.albuns = usuariosAPI.getAlbuns();
@@ -21,6 +21,10 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
     $scope.$on('musicas:updated', function(event) {
         $scope.musicas = usuariosAPI.getMusicas();
     });
+
+    $scope.$on('playlists:updated', function(event) {
+        $scope.playlists = usuariosAPI.getPlaylists();
+    })
 
 
 
@@ -125,7 +129,7 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
     };
 
     $scope.view = function (itemSelected, template) {
-      var modalInstance = $uibModal.open({
+      let modalInstance = $uibModal.open({
         templateUrl: 'view/modal/' + template + '.html',
         controller: template + 'Ctrl',
         size: 'lg',
@@ -136,5 +140,65 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
         }
       });
     };
+
+    $scope.removePlaylist = function(playlists) {
+
+        var playlistsAPermanecer = playlists.filter(function(playlist) {
+            if(!playlist.selected) {
+                return playlist;
+            }
+        });
+
+        $scope.cleanSelectPlaylist(playlists);
+
+
+
+        usuariosAPI.setPlaylists( playlistsAPermanecer);
+        $scope.playlists = usuariosAPI.getPlaylists();
+    };
+
+    $scope.confirmRemovePlaylist = function(playlists) {
+
+        swal({
+            title: "Você tem certeza?",
+            text: "Você tem certeza que deseja remover a(s) playlist(s) cadastradas?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $scope.$apply (function () {
+                        $scope.removePlaylist(playlists);
+                    });
+                    swal("Playlist(s) removida(s) com sucesso.", {icon: "success",});
+                } else {
+
+                    $scope.$apply(function() {
+                        $scope.cleanSelect(playlists);
+                    });
+                }
+            });
+    };
+
+    $scope.cleanSelectPlaylist = function(playlists) {
+        for(i = 0 ; i < playlists.length; i ++) {
+            playlists[i].selected = false;
+        };
+    };
+
+    $scope.isPlaylistSelecionado = function(playlists){
+        return playlists.some(function(playlist) {
+            return playlist.selected;
+        });
+
+
+    };
+
+    $scope.showBuscar = function() {
+        $scope.buscarPlaylist = !$scope.buscarPlaylist;
+    };
+
+    $scope.buscarPlaylist = false;
 
 });

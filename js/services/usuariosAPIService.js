@@ -1,198 +1,107 @@
-angular.module("musiteca").service("usuariosAPI", function ($rootScope, usuario, $http) {
+angular.module("musiteca").factory("usuariosAPI", function ($http, config) {
 
-    this.user = new usuario();
+    let usuario = {};
 
-    let that = this;
+    let login = function() {
+        return localStorage.getItem("login");
+    }
 
-    let loadArtistas = function (data) {
-        let artistas = data;
-        for(i = 0; i < artistas.length; i ++) {
-            let artistaDaVez = artistas[i];
-            that.adicionaArtista(artistaDaVez.nome, artistaDaVez.imagem, artistaDaVez.favorito, artistaDaVez.rate, artistaDaVez.ultimaOuvida);
-            if(artistaDaVez.favorito == true) {
-                that.adicionaFavoritos(artistaDaVez.nome);
-            }
-        }
+    let _setUser = function(user) {
+        usuario = user;
     };
 
-    let loadAlbuns = function(data) {
-        let albuns = data;
-        for(i = 0; i < albuns.length; i ++) {
-            let albumDaVez = albuns[i];
-            that.adicionaAlbum(albumDaVez.artistaNome, albumDaVez.nome, albumDaVez.ano, albumDaVez.imagem);
-        }
+    let _getArtistas = function() {
+        return $http.get(config.baseUrl + "/u/" + login() + "/artistas");
     };
 
-    let loadMusicas = function(data) {
-        let musicas = data;
-        for(i = 0; i < musicas.length; i++) {
-            let musicaDaVez = musicas[i];
-            that.adicionaMusica(musicaDaVez.nomeArtist, musicaDaVez.albumNome, musicaDaVez.nome, musicaDaVez.duracao, musicaDaVez.ano);
-        }
+    let _getAlbuns = function() {
+        return $http.get(config.baseUrl + "/u/" + usuario.login + "/albuns");
     };
 
-    let loadPlaylists = function(data) {
-        let playlists = data;
-        for(i = 0; i < playlists.length; i++) {
-            let playlist = playlists[i];
-            that.adicionaPlaylist(playlist.nome, playlist.imagem, playlist.descricao);
-            let musicas = playlist.musicas;
-            that.setMusicasPlaylist(playlist.nome, musicas);
-        };
+    let _getAlbunsArtista = function(artista) {
+        return $http.get(config.baseUrl + "/u/" + usuario.login + "/albuns/" + artista);
     };
 
-    this.buildUser = function(data) {
-        this.user = new usuario(data.login, data.senha, data.nome);
-
-        let carrega = function() {
-            $http.get("http://localhost:8080/usuarios/u/" + data.login + "/artistas")
-                .then(function (response) {
-                    loadArtistas(response.data);
-                    carregaAlbuns();
-                }, function (response) {
-                    console.log(response.status);
-                });
-        };
-
-        let carregaAlbuns = function () {
-            $http.get("http://localhost:8080/usuarios/u/" + data.login + "/albuns")
-                .then(function (response) {
-                    loadAlbuns(response.data);
-                    carregaMusicas();
-                }, function (response) {
-                    console.log(response.status);
-                });
-        };
-
-        let carregaMusicas = function() {
-            $http.get("http://localhost:8080/usuarios/u/" + data.login + "/musicas")
-                .then(function (response) {
-                    loadMusicas(response.data);
-                    loadPlaylists(data.playlists);
-                }, function (response) {
-                    console.log(response.status);
-                });
-        };
-
-
-        carrega();
+    let _getMusicas = function() {
+        return $http.get(config.baseUrl + "/u/" + usuario.login + "/musicas");
     };
 
-
-    this.carregaUsuario = function(login, token) {
-        localStorage.setItem("login", login);
-        $http.get("http://localhost:8080/usuarios/u/" + login)
-            .then(function(response) {
-                that.buildUser(response.data);
-            }, function(response) {
-
-            })
+    let _getMusicasArtista = function(artista) {
+        return $http.get(config.baseUrl + "/u/" + usuario.login + "/musicas/" + artista);
     };
 
-    this.updateUser = function() {
-      let usuario = this.getUser();
-      $http.post("http://localhost:8080/usuarios", usuario, {headers: {
-              'Content-Type': 'application/json'
-          }});
+    let _getMusicasAlbum = function(artista, album) {
+        return $http.get(config.baseUrl + "/u/" + usuario.login + "/musicas/" + artista + "/" + album);
     };
 
-    this.getUser = function() {
-
-        return this.user;
+    let _getFavoritos = function() {
+        return $http.get(config.baseUrl + "/u/" + usuario.login + "/favoritos");
     };
 
-    /* Espaco de artista */
-
-    this.adicionaArtista = function(nome, imagem, favorito, rate, ultimaOuvida) {
-        this.user.adicionaArtista(nome, imagem, favorito, rate, ultimaOuvida);
-        $rootScope.$broadcast('artistas:updated');
+    let _getPlaylists = function() {
+        return $http.get(config.baseUrl + "/u/" + usuario.login + "/playlists");
     };
 
-    this.contemArtista = function(nome) {
-        return this.user.contemArtista(nome);
+    let _saveArtista = function(artista) {
+        return $http.post(config.baseUrl + "/u/" + login() + "/artistas", artista, {headers:{'Content-Type': 'application/json'}});
     };
 
-    this.setUltimaOuvida = function(nomeArtista, ultima) {
-        this.user.setUltimaOuvida(nomeArtista, ultima);
+    let _saveAlbum = function(album) {
+        return $http.post(config.baseUrl + "/u/" + usuario.login + "/albuns", album, {headers:{'Content-Type': 'application/json'}});
     };
 
-    this.getArtistas = function() {
-        return this.user.getArtistas();
+    let _saveMusica = function(musica) {
+        return $http.post(config.baseUrl + "/u/" + usuario.login + "/musicas", musica, {headers:{'Content-Type': 'application/json'}});
     };
 
-    /* Espaco de Album */
-
-    this.adicionaAlbum = function(nomeArtista, nomeAlbum, anoLancamento, imagem) {
-        this.user.adicionaAlbum(nomeArtista, nomeAlbum, anoLancamento, imagem);
-        $rootScope.$broadcast('albuns:updated');
+    let _saveFavorito = function(artista) {
+        return $http.post(config.baseUrl + "/u/" + usuario.login + "/favoritos", artista, {headers:{'Content-Type': 'application/json'}});
     };
 
-    this.getAlbuns = function(nomeArtista) {
-        return this.user.getAlbuns(nomeArtista);
+    let _savePlaylist = function(playlist) {
+        return $http.post(config.baseUrl + "/u/" + usuario.login + "/playlists", playlist, {headers:{'Content-Type': 'application/json'}});
     };
 
-    this.contemAlbum = function(nomeArtista, nomeAlbum) {
-        return this.user.contemAlbum(nomeArtista, nomeAlbum);
+    let _contemArtista = function(artista) {
+        return $http.post(config.baseUrl + "/u/" + login() + "/artistas/e", artista, {headers:{'Content-Type': 'application/json'}});
     };
 
-    /* Espaco de Musica */
-
-    this.adicionaMusica = function(nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento) {
-        this.user.adicionaMusica(nomeArtista, nomeAlbum, nomeMusica, duracao, anolancamento);
-        $rootScope.$broadcast('musicas:updated');
+    let _contemAlbum = function(album) {
+        return $http.post(config.baseUrl + "/u/" + usuario.login + "/albuns/e", album, {headers:{'Content-Type': 'application/json'}});
     };
 
-    this.getMusicas = function(nomeArtista, nomeAlbum) {
-        return this.user.getMusicas(nomeArtista, nomeAlbum);
+    let _contemUsuario = function(usuario) {
+        return $http.post(config.baseUrl + "/e", usuario, {headers:{'Content-Type': 'application/json'}});
     };
 
-    this.contemMusica = function(nomeArtista, nomeAlbum, nomeMusica) {
-        return this.user.contemMusica(nomeArtista, nomeAlbum, nomeMusica);
+    let _contemMusica = function(musica) {
+        return $http.post(config.baseUrl + "/u/" + usuario.login + "/musicas/e", musica, {headers:{'Content-Type': 'application/json'}});
     };
 
-    /* Espaco de Playlist */
-
-    this.adicionaPlaylist = function(nomePlaylist, imagem, descricao) {
-        this.user.adicionaPlaylist(nomePlaylist, imagem, descricao);
-        $rootScope.$broadcast('playlists:updated');
+    let _contemPlaylist = function(playlist) {
+        return $http.post(config.baseUrl + "/u/" + usuario.login + "/playlists/e", playlist, {headers:{'Content-Type': 'application/json'}});
     };
 
-    this.contemPlaylist = function(nomePlaylist) {
-        return this.user.contemPlaylist(nomePlaylist);
+    return {
+
+        setUser: _setUser,
+        getArtistas: _getArtistas,
+        getAlbuns: _getAlbuns,
+        getFavoritos: _getFavoritos,
+        getMusicas: _getMusicas,
+        getPlaylists: _getPlaylists,
+        getAlbunsArtista: _getAlbunsArtista,
+        getMusicasArtista: _getMusicasArtista,
+        getMusicasAlbum: _getMusicasAlbum,
+        saveArtista: _saveArtista,
+        saveAlbum: _saveAlbum,
+        saveMusica: _saveMusica,
+        saveFavorito: _saveFavorito,
+        savePlaylist: _savePlaylist,
+        contemArtista: _contemArtista,
+        contemAlbum: _contemAlbum,
+        contemMusica: _contemMusica,
+        contemPlaylist: _contemPlaylist,
+        contemUsuario: _contemUsuario
     };
-
-    this.setPlaylists = function(playlists) {
-        this.user.setPlaylist(playlists);
-        $rootScope.$broadcast('playlists:updated');
-    };
-
-    this.getPlaylists = function() {
-        return this.user.getPlaylists();
-
-    };
-
-    this.setMusicasPlaylist = function(nomePlaylist, musicas) {
-        this.user.setMusicasPlaylist(nomePlaylist, musicas);
-        $rootScope.$broadcast('musicasPlaylist:updated');
-    };
-
-    this.getMusicasPlaylist = function(nomePlaylist) {
-        return this.user.getMusicasPlaylist(nomePlaylist);
-    };
-
-    /* Espaco de Artista Favorito */
-    this.adicionaFavoritos = function(nomeArtista) {
-        this.user.adicionaFavoritos(nomeArtista);
-        $rootScope.$broadcast('artistaFavorito:updated');
-    };
-
-    this.getArtistasFavoritos = function() {
-        return this.user.getFavoritos();
-    };
-
-    this.setArtistasFavoritos = function(artistas) {
-        this.user.setFavoritos(artistas);
-    };
-
-
 });

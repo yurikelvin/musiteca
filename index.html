@@ -53,14 +53,10 @@
     <script src="js/config/routeConfig.js"></script>
     <script src="js/config/interceptors.js"></script>
     <script src="js/interceptors/tokenInterceptor.js"></script>
+    <script src="js/value/configValue.js"></script>
 
     <!-- Serviços -->
-    <script src="js/services/musicaService.js"></script>
-    <script src="js/services/albumService.js"></script>
-    <script src="js/services/artistaService.js"></script>
-    <script src="js/services/playlistService.js"></script>
-    <script src="js/services/usuarioService.js"></script>
-    <script src="js/services/usuariosAPIService.js"></script>
+      <script src="js/services/usuariosAPIService.js"></script>
 
     <!-- Controladores -->
     <script src="js/controllers/musitecaCtrl.js"></script>
@@ -71,7 +67,6 @@
     <script src="js/controllers/modal/novaMusicaCtrl.js"></script>
     <script src="js/controllers/modal/novoAlbumCtrl.js"></script>
     <script src="js/controllers/modal/novaPlaylistCtrl.js"></script>
-    <script src="js/controllers/playlistsCtrl.js"></script>
     <script src="js/controllers/mainCtrl.js"></script>
     <script src="js/controllers/loginCtrl.js"></script>
 
@@ -120,8 +115,8 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" ng-click="openModal('login')" href="">Login <i class="fa fa-user-o" aria-hidden="true"></i></a>
             </li>
-            <li class="nav-item" restrict access="USER">
-                  <a class="nav-link js-scroll-trigger" href="">Logout <i class="fa fa-user" aria-hidden="true"></i></a>
+            <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="" ng-click="logout()">Logout <i class="fa fa-user" aria-hidden="true"></i></a>
               </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contato</a>

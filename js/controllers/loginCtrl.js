@@ -6,6 +6,88 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
     $scope.registrar = false;
     $scope.temUsuario = false;
 
+    let loadArtistas = function (data) {
+        let artistas = data;
+        for(let i = 0; i < artistas.length; i ++) {
+            let artistaDaVez = artistas[i];
+            usuariosAPI.adicionaArtista(artistaDaVez.nome, artistaDaVez.imagem, artistaDaVez.favorito, artistaDaVez.rate, artistaDaVez.ultimaOuvida);
+            if(artistaDaVez.favorito === true) {
+                usuariosAPI.adicionaFavoritos(artistaDaVez.nome);
+            }
+        }
+
+        carregaAlbuns();
+    };
+
+    let loadAlbuns = function(data) {
+        let albuns = data;
+        for(let i = 0; i < albuns.length; i ++) {
+            let albumDaVez = albuns[i];
+            usuariosAPI.adicionaAlbum(albumDaVez.artistaNome, albumDaVez.nome, albumDaVez.ano, albumDaVez.imagem);
+        }
+
+        carregaMusicas();
+    };
+
+    let loadMusicas = function(data) {
+        let musicas = data;
+        for(let i = 0; i < musicas.length; i++) {
+            let musicaDaVez = musicas[i];
+            usuariosAPI.adicionaMusica(musicaDaVez.nomeArtist, musicaDaVez.albumNome, musicaDaVez.nome, musicaDaVez.duracao, musicaDaVez.ano);
+        }
+
+        carregaPlaylists();
+    };
+
+    let loadPlaylists = function(data) {
+        let playlists = data;
+        for(let i = 0; i < playlists.length; i++) {
+            let playlist = playlists[i];
+            usuariosAPI.adicionaPlaylist(playlist.nome, playlist.imagem, playlist.descricao);
+            let musicas = playlist.musicas;
+            usuariosAPI.setMusicasPlaylist(playlist.nome, musicas);
+        };
+    };
+
+    let carregaPlaylists = function() {
+        $http.get("http://localhost:8080/usuarios/u/" +  localStorage.getItem("login") + "/playlists")
+            .then(function (response) {
+                loadPlaylists(response.data);
+            }, function (response) {
+                console.log(response.status);
+            });
+    };
+
+    let carregaAlbuns = function () {
+        $http.get("http://localhost:8080/usuarios/u/" +  localStorage.getItem("login") + "/albuns")
+            .then(function (response) {
+                loadAlbuns(response.data);
+            }, function (response) {
+                console.log(response.status);
+            });
+    };
+
+    let carregaMusicas = function() {
+        $http.get("http://localhost:8080/usuarios/u/" + localStorage.getItem("login") + "/musicas")
+            .then(function (response) {
+                loadMusicas(response.data);
+            }, function (response) {
+                console.log(response.status);
+            });
+    };
+
+
+
+    var carregaUsuario = function(login) {
+        $http.get("http://localhost:8080/usuarios/u/" + login)
+            .then(function(response) {
+                usuariosAPI.setUser(response.data.login, response.data.senha, response.data.nome, response.data.role, response.data.email);
+                loadArtistas(response.data.artistas);
+            }, function(response) {
+
+            });
+    }
+
 
     $scope.logar = function(usuario) {
 
@@ -13,7 +95,8 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
                 'Content-Type': 'application/json'
             }}).then(function(response) {
            localStorage.setItem("userToken", response.data.token);
-           usuariosAPI.carregaUsuario(usuario.login);
+            localStorage.setItem("login", usuario.login);
+           carregaUsuario(usuario.login);
         }, function(response) {
             console.log("deu altas merd");
         });
@@ -25,89 +108,8 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
 
 
     $scope.adicionarUsuario = function(usuario) {
-        let data = {
-                "login": "testenovo",
-                "nome": "yuri kelvin",
-                "senha": "1234",
-                "role": "ADMIN",
-                "artistas": [
-                    {
-                        "nome": "Justin Timberlake",
-                        "imagem": "https://energy106.ca/wp-content/uploads/2017/10/160506132148-justin-timberlake-11-2015-super-169.jpg",
-                        "ultimaOuvida": "Não definido ainda",
-                        "favorito": true,
-                        "selecionado": true,
-                        "albuns": [
-                            {
-                                "nome": "The 20/20 Experience",
-                                "imagem": "https://store.hmv.com/HMVStore/media/product/893391/01-893391.jpg",
-                                "ano": "2013",
-                                "artistaNome": "Justin Timberlake",
-                                "musicas": [
-                                    {
-                                        "albumNome": "The 20/20 Experience",
-                                        "nomeArtist": "Justin Timberlake",
-                                        "nome": "Mirrors",
-                                        "duracao": "4 minutos",
-                                        "ano": "2013"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                "playlists":[
-                    {
-                        "musicas": [
-                            {
-                                "albumNome": "The 20/20 Experience",
-                                "nomeArtist": "Justin Timberlake",
-                                "nome": "Mirrors",
-                                "duracao": "4 minutos",
-                                "ano": "2013"
-                            }
-                        ],
-                        "nome":"Party",
-                        "imagem":"https://media.textadventures.co.uk/coverart/b69281d8-93b6-4c6a-a964-441dddfe8a9d.jpg",
-                        "descricao":"Esta descrição marota",
-                        "data":"2017-12-12T12:03:28.087Z"
-
-                    }
-                ],
-                "favoritos": [
-                    {
-                        "nome": "Justin Timberlake",
-                        "imagem": "https://energy106.ca/wp-content/uploads/2017/10/160506132148-justin-timberlake-11-2015-super-169.jpg",
-                        "ultimaOuvida": "Não definido ainda",
-                        "favorito": true,
-                        "selecionado": true,
-                        "albuns": [
-                            {
-                                "nome": "The 20/20 Experience",
-                                "imagem": "https://store.hmv.com/HMVStore/media/product/893391/01-893391.jpg",
-                                "ano": "2013",
-                                "artistaNome": "Justin Timberlake",
-                                "musicas": [
-                                    {
-                                        "albumNome": "The 20/20 Experience",
-                                        "nomeArtist": "Justin Timberlake",
-                                        "nome": "Mirrors",
-                                        "duracao": "4 minutos",
-                                        "ano": "2013"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ;
-        $http.post("http://localhost:8080/usuarios", data, {headers: {
-                'Content-Type': 'application/json'
-            }}).then(function(response) {
-        }, function(response) {
-
-        });
+        usuariosAPI.setUser(usuario);
+        localStorage.setItem("login", usuario.login);
     };
 
 
