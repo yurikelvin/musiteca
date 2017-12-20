@@ -1,20 +1,33 @@
-angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstance, $scope, usuariosAPI) {
+angular.module("musiteca").controller("novoAlbumCtrl", function($rootScope, $uibModalInstance, $scope, usuariosAPI) {
 
-	$scope.artistas = usuariosAPI.getArtistas();
+	$scope.artistas = [];
+
+	let carregaArtistas = function() {
+		usuariosAPI.getArtistas()
+			.then(function(response) {
+				$scope.artistas = response.data;
+			});
+	};
+
+    carregaArtistas();
 
 
 	$scope.adicionarAlbum = function(nomeArtista, album) {
-
-		if(!usuariosAPI.contemAlbum( nomeArtista, album.nome)) {
-            usuariosAPI.adicionaAlbum( nomeArtista, album.nome, album.ano, album.imagem);
-			$scope.cadastroEfetuado = true;
-		} else {
-			$scope.temAlbum = true;
-		}
-
-		delete $scope.album;
-		delete $scope.artistaAlbum;
-		$scope.albumForm.$setPristine();
+		album.artistaNome = nomeArtista;
+        usuariosAPI.contemAlbum( album )
+			.then(function(response) {
+				usuariosAPI.saveAlbum( album );
+				$scope.cadastroEfetuado = true;
+                delete $scope.album;
+                delete $scope.artistaAlbum;
+                $scope.albumForm.$setPristine();
+                $rootScope.$broadcast('albuns:updated');
+			}, function(response) {
+				$scope.temAlbum = true;
+                delete $scope.album;
+                delete $scope.artistaAlbum;
+                $scope.albumForm.$setPristine();
+			});
 	};
 
 	$scope.temAlbum = false;
@@ -22,7 +35,7 @@ angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstanc
 
 	$scope.hasAlbum = function() {
 
-		if($scope.albumForm.nome.$valid && ($scope.temAlbum == true)) {
+		if($scope.albumForm.nome.$valid && ($scope.temAlbum === true)) {
 			$scope.temAlbum = false;
 		}
 
@@ -32,7 +45,7 @@ angular.module("musiteca").controller("novoAlbumCtrl", function($uibModalInstanc
 
 	$scope.hasSuccess = function() {
 
-		if($scope.albumForm.nome.$valid && ($scope.cadastroEfetuado == true)) {
+		if($scope.albumForm.nome.$valid && ($scope.cadastroEfetuado === true)) {
 			$scope.cadastroEfetuado = false;
 		}
 

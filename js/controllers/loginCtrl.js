@@ -96,20 +96,25 @@ angular.module("musiteca").controller("loginCtrl", function($uibModal, $uibModal
             }}).then(function(response) {
            localStorage.setItem("userToken", response.data.token);
             localStorage.setItem("login", usuario.login);
-           carregaUsuario(usuario.login);
+            $location.path("/usuario");
         }, function(response) {
             console.log("deu altas merd");
         });
 
 
 
-        $location.path("/usuario");
+
     };
 
 
     $scope.adicionarUsuario = function(usuario) {
-        usuariosAPI.setUser(usuario);
-        localStorage.setItem("login", usuario.login);
+        usuariosAPI.contemUsuario( usuario )
+            .then(function(response) {
+                usuariosAPI.saveUsuario(usuario);
+                usuariosAPI.setUser(usuario);
+            }, function(response) {
+                console.log("ja tem esse usuario yuri");
+            });
     };
 
 

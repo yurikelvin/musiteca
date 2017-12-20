@@ -1,27 +1,51 @@
-angular.module("musiteca").controller("novaMusicaCtrl", function($uibModalInstance, $scope, usuariosAPI) {
+angular.module("musiteca").controller("novaMusicaCtrl", function($rootScope, $uibModalInstance, $scope, usuariosAPI) {
 
-	$scope.artistas = usuariosAPI.getArtistas();
+	$scope.artistas = [];
+    $scope.albuns = [];
 
-	$scope.albuns = usuariosAPI.getAlbuns();
+	let carregaArtistas = function() {
+		usuariosAPI.getArtistas()
+			.then(function(response) {
+				$scope.artistas = response.data;
+			});
+    };
+
+	let carregaAlbuns = function() {
+        usuariosAPI.getAlbuns()
+			.then(function(response) {
+				$scope.albuns = response.data;
+			})
+	};
+
+	carregaArtistas();
+	carregaAlbuns();
+
 
 	$scope.temMusic = false;
 	$scope.cadastroEfetuado = false;
 
 
 	$scope.adicionarMusica = function(musica, album, artista) {
+		musica.albumNome = album.nome;
+		musica.nomeArtist = artista.nome;
 
-		if(usuariosAPI.contemMusica( artista.nome, album.nome, musica.nome) === false) {
-            usuariosAPI.adicionaMusica( artista.nome, album.nome, musica.nome, musica.duracao, musica.ano);
-			$scope.cadastroEfetuado = true;
-		} else {
-			$scope.temMusic = true;
-		}
+		usuariosAPI.contemMusica(musica)
+			.then(function(response) {
+				usuariosAPI.saveMusica(musica);
+                $scope.cadastroEfetuado = true;
+                delete $scope.musica;
+                delete $scope.selectedArtist;
+                delete $scope.selectedAlbum;
+                $scope.musicForm.$setPristine();
+                $rootScope.$broadcast('musicas:updated');
 
-		delete $scope.musica;
-		delete $scope.selectedArtist;
-		delete $scope.selectedAlbum;
-		$scope.musicForm.$setPristine();
-
+			}, function(response) {
+                $scope.temMusic = true;
+                delete $scope.musica;
+                delete $scope.selectedArtist;
+                delete $scope.selectedAlbum;
+                $scope.musicForm.$setPristine();
+			});
 	};
     
 	$scope.hasMusic = function() {

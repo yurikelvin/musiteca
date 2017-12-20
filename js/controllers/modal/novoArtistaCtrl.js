@@ -1,4 +1,4 @@
-angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInstance, $scope, usuariosAPI) {
+angular.module("musiteca").controller("novoArtistaCtrl", function($rootScope, $uibModalInstance, $scope, usuariosAPI) {
 
 
 	$scope.adicionarArtista = function(artista) {
@@ -8,6 +8,7 @@ angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInsta
                     $scope.cadastroEfetuado = true;
 					delete $scope.artista;
                     $scope.artistaForm.$setPristine();
+                    $rootScope.$broadcast('artistas:updated');
 				});
 			}, function(response) {
                 $scope.temArtista = true;
@@ -21,7 +22,7 @@ angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInsta
 
 	$scope.hasArtista = function() {
 
-		if($scope.artistaForm.nome.$valid && ($scope.temArtista == true)) {
+		if($scope.artistaForm.nome.$valid && ($scope.temArtista === true)) {
 			$scope.temArtista = false;
 		}
 
@@ -31,7 +32,7 @@ angular.module("musiteca").controller("novoArtistaCtrl", function($uibModalInsta
 
 	$scope.hasSuccess = function() {
 
-		if($scope.artistaForm.nome.$valid && ($scope.cadastroEfetuado == true)) {
+		if($scope.artistaForm.nome.$valid && ($scope.cadastroEfetuado === true)) {
 			$scope.cadastroEfetuado = false;
 		}
 

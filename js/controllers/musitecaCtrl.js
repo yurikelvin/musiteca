@@ -7,24 +7,45 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
     $scope.playlists = playlists.data;
 
     $scope.$on('albuns:updated', function(event) {
-        $scope.albuns = usuariosAPI.getAlbuns();
+        $scope.albuns = usuariosAPI.getAlbuns().data;
     });
+
+    let carregaArtistas = function() {
+        usuariosAPI.getArtistas()
+            .then(function(response) {
+                $scope.artistas = response.data;
+            });
+    };
 
     $scope.$on('artistas:updated', function(event) {
-        $scope.artistas = usuariosAPI.getArtistas();
-    });
-
-    $scope.$on('artistaFavorito:updated', function(event) {
-        $scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
+        carregaArtistas();
     });
 
     $scope.$on('musicas:updated', function(event) {
-        $scope.musicas = usuariosAPI.getMusicas();
+        usuariosAPI.getMusicas()
+            .then(function(response) {
+                $scope.musicas = response.data;
+            });
     });
 
+    let carregaPlaylists = function() {
+        usuariosAPI.getPlaylists()
+            .then(function(response) {
+                $scope.playlists = response.data;
+            });
+    };
+
     $scope.$on('playlists:updated', function(event) {
-        $scope.playlists = usuariosAPI.getPlaylists();
-    })
+        carregaPlaylists();
+    });
+
+
+    let carregaFavoritos = function() {
+        usuariosAPI.getFavoritos()
+            .then(function(response) {
+                $scope.artistasFavoritos = response.data;
+            });
+    };
 
 
 
@@ -54,11 +75,13 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
 
         for(k = 0; k < $scope.artistas.length; k ++) {
             if($scope.artistas[k].selecionado === true && $scope.artistas[k].favorito === false) {
-                usuariosAPI.adicionaFavoritos( $scope.artistas[k].nome);
+                usuariosAPI.saveFavorito( $scope.artistas[k] )
+                    .then(function(response) {
+                        carregaArtistas();
+                        carregaFavoritos();
+                    });
             }
         }
-
-        $scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
 
         $scope.hasSucessFavoritos = true;
         $timeout(function(){
@@ -67,22 +90,21 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
     };
 
     $scope.removeArtistasFavoritos = function(artistas) {
-    	var artistasAPermanecer = [];
 
     	for(i = 0; i < artistas.length; i ++) {
     		if(artistas[i].select) {
     			artistas[i].selecionado = false; // change the icon on check_box in artistas
     			artistas[i].favorito = false; // change to enable the check_box in artistas
-    		} else {
-    			artistasAPermanecer.push(artistas[i]);
+                usuariosAPI.deleteFavorito(artistas[i].nome)
+                    .then(function(response) {
+                        carregaArtistas();
+                        carregaFavoritos();
+                    });
     		}
     	}
 
         $scope.cleanSelect(artistas);
 
-
-    	usuariosAPI.setArtistasFavoritos( artistasAPermanecer);
-    	$scope.artistasFavoritos = usuariosAPI.getArtistasFavoritos();
     };
 
     $scope.hasSucessFavoritos = false;
@@ -143,18 +165,16 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
 
     $scope.removePlaylist = function(playlists) {
 
-        var playlistsAPermanecer = playlists.filter(function(playlist) {
-            if(!playlist.selected) {
-                return playlist;
+        for(let i = 0; i < playlists.length; i ++) {
+            if(playlists[i].selected) {
+                usuariosAPI.deletePlaylist(playlists[i].nome)
+                    .then(function(response) {
+                        carregaPlaylists();
+                    });
             }
-        });
+        }
 
         $scope.cleanSelectPlaylist(playlists);
-
-
-
-        usuariosAPI.setPlaylists( playlistsAPermanecer);
-        $scope.playlists = usuariosAPI.getPlaylists();
     };
 
     $scope.confirmRemovePlaylist = function(playlists) {
@@ -184,7 +204,7 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
     $scope.cleanSelectPlaylist = function(playlists) {
         for(i = 0 ; i < playlists.length; i ++) {
             playlists[i].selected = false;
-        };
+        }
     };
 
     $scope.isPlaylistSelecionado = function(playlists){

@@ -1,7 +1,15 @@
-angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInstance, $scope, $timeout, usuariosAPI) {
+angular.module("musiteca").controller("novaPlaylistCtrl", function($rootScope, $uibModalInstance, $scope, $timeout, usuariosAPI) {
 
-	$scope.musicas = usuariosAPI.getMusicas();
-    $scope.playlists = usuariosAPI.getPlaylists();
+	$scope.musicas = [];
+
+	let carregaMusicas = function() {
+	    usuariosAPI.getMusicas()
+            .then(function(response) {
+                $scope.musicas = response.data;
+            });
+    };
+
+	carregaMusicas();
 
     $scope.playlistAdicionada = false;
     $scope.temPlaylist = false;
@@ -25,29 +33,32 @@ angular.module("musiteca").controller("novaPlaylistCtrl", function($uibModalInst
 
     $scope.adicionaPlaylist = function(playlist) {
 
-        if(!usuariosAPI.contemPlaylist(playlist.nome)) {
+        playlist.data = new Date();
+        usuariosAPI.contemPlaylist(playlist)
+            .then(function(response) {
+                let musicasSelecionadas = [];
 
-            let musicasSelecionadas = [];
+                if($scope.musicas.length > 0) {
+                    musicasSelecionadas = $scope.musicas.filter(function (musica) {
+                        if (musica.selectPlaylist) {
+                            return musica;
+                        }
+                    })
+                }
+                playlist.musicas = musicasSelecionadas;
+                usuariosAPI.savePlaylist(playlist);
+                $scope.playlistAdicionada = true;
+                delete $scope.playlist;
+                $scope.playlistForm.$setPristine();
+                $rootScope.$broadcast('playlists:updated');
+                $scope.limpaSelectNewPlaylist();
+            }, function(response) {
+                $scope.temPlaylist = true;
+                delete $scope.playlist;
+                $scope.playlistForm.$setPristine();
+                $scope.limpaSelectNewPlaylist();
+            });
 
-            usuariosAPI.adicionaPlaylist( playlist.nome, playlist.imagem, playlist.descricao);
-            if($scope.musicas.length > 0) {
-                musicasSelecionadas = $scope.musicas.filter(function (musica) {
-                    if(musica.selectPlaylist) {
-                        return musica;
-                    }
-                });
-
-                usuariosAPI.adicionaPlaylist( playlist.nome, musicasSelecionadas);
-            }
-
-            $scope.playlistAdicionada = true;
-        } else {
-            $scope.temPlaylist = true;
-        }
-
-        delete $scope.playlist;
-        $scope.playlistForm.$setPristine();
-        $scope.limpaSelectNewPlaylist();
     };
 
     $scope.check = {

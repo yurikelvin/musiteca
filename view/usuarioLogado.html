@@ -24,6 +24,7 @@
     </div>
     <div class="container" ng-show="artistas.length > 0">
         <div class="row">
+            {{artistas}}
             <div class="col-lg-3 col-md-6 text-center" ng-repeat="artista in artistas | filter: {nome: buscaArtista}">
                 <div class="circular--landscape" ng-if="artista.imagem != 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
                     <img src="{{artista.imagem}}" />
