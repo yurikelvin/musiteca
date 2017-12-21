@@ -16,12 +16,14 @@ angular.module("musiteca").controller("novoAlbumCtrl", function($rootScope, $uib
 		album.artistaNome = nomeArtista;
         usuariosAPI.contemAlbum( album )
 			.then(function(response) {
-				usuariosAPI.saveAlbum( album );
+				usuariosAPI.saveAlbum(album)
+					.then(function(response) {
+                        $rootScope.$broadcast('albuns:updated');
+					});
 				$scope.cadastroEfetuado = true;
                 delete $scope.album;
                 delete $scope.artistaAlbum;
                 $scope.albumForm.$setPristine();
-                $rootScope.$broadcast('albuns:updated');
 			}, function(response) {
 				$scope.temAlbum = true;
                 delete $scope.album;

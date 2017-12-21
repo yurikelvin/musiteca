@@ -31,13 +31,15 @@ angular.module("musiteca").controller("novaMusicaCtrl", function($rootScope, $ui
 
 		usuariosAPI.contemMusica(musica)
 			.then(function(response) {
-				usuariosAPI.saveMusica(musica);
+				usuariosAPI.saveMusica(musica)
+					.then(function(response){
+                        $rootScope.$broadcast('musicas:updated');
+					});
                 $scope.cadastroEfetuado = true;
                 delete $scope.musica;
                 delete $scope.selectedArtist;
                 delete $scope.selectedAlbum;
                 $scope.musicForm.$setPristine();
-                $rootScope.$broadcast('musicas:updated');
 
 			}, function(response) {
                 $scope.temMusic = true;

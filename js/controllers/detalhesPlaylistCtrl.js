@@ -1,23 +1,36 @@
 angular.module("musiteca").controller("detalhesPlaylistCtrl", function($uibModalInstance, $scope, item, usuariosAPI) {
 
     $scope.playlist = item;
-    $scope.musicasPlaylist = usuariosAPI.getMusicasPlaylist( item.nome);
-    $scope.musicasSistema = usuariosAPI.getMusicas();
+    $scope.musicasPlaylist = item.musicas;
+    $scope.musicasSistema = [];
+
+    let carregaMusicas = function() {
+        usuariosAPI.getMusicas()
+            .then(function(response) {
+                $scope.musicasSistema = response.data;
+            })
+    };
+
+    carregaMusicas();
+
+
 
   $scope.removeMusicasPlaylist = function(musicas) {
 
-      var musicasRemanescentes = musicas.filter(function(musica) {
-        if(!musica.selected) {
-          return musica;
-        } else {
-          musica.selected = false;
-        }
+      $scope.playlist.musicas = musicas.filter(function (musica) {
+          if (!musica.selected) {
+              return musica;
+          } else {
+              musica.selected = false;
+          }
       });
 
-      playlistsAPI.setMusicasToPlaylist(item.idPlaylist, musicasRemanescentes);
-      $scope.musicasPlaylist = playlistsAPI.getMusicasPlaylist(item.idPlaylist);
-      $scope.playlist = playlistsAPI.getPlaylist(item.idPlaylist);
-  };
+      usuariosAPI.savePlaylist(playlist)
+          .then(function(response) {
+              $scope.playlist = response.data;
+              $scope.musicasPlaylist = $scope.playlist.musicas;
+          });
+   };
 
   $scope.confirmRemoveMusicasPlaylist = function(musicas) {
     swal({
@@ -45,7 +58,7 @@ angular.module("musiteca").controller("detalhesPlaylistCtrl", function($uibModal
   $scope.cleanSelect = function(musicas) {
     for(i = 0; i < musicas.length; i ++) {
       musicas[i].selected = false;
-    };
+    }
   };
 
   $scope.isMusicasSelecionado = function(musicas){
@@ -79,6 +92,7 @@ angular.module("musiteca").controller("detalhesPlaylistCtrl", function($uibModal
 
   $scope.addToPlaylist = function(musica) {
     $scope.playlist.musicas.push(musica);
+    usuariosAPI.savePlaylist($scope.playlist);
   };
 
   $scope.cancel = function() {

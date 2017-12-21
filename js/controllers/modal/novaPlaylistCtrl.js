@@ -46,11 +46,13 @@ angular.module("musiteca").controller("novaPlaylistCtrl", function($rootScope, $
                     })
                 }
                 playlist.musicas = musicasSelecionadas;
-                usuariosAPI.savePlaylist(playlist);
+                usuariosAPI.savePlaylist(playlist)
+                    .then(function(response) {
+                        $rootScope.$broadcast('playlist:updated');
+                    });
                 $scope.playlistAdicionada = true;
                 delete $scope.playlist;
                 $scope.playlistForm.$setPristine();
-                $rootScope.$broadcast('playlists:updated');
                 $scope.limpaSelectNewPlaylist();
             }, function(response) {
                 $scope.temPlaylist = true;

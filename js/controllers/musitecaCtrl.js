@@ -7,7 +7,10 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
     $scope.playlists = playlists.data;
 
     $scope.$on('albuns:updated', function(event) {
-        $scope.albuns = usuariosAPI.getAlbuns().data;
+        usuariosAPI.getAlbuns()
+            .then(function(response) {
+                $scope.albuns = response.data;
+            });
     });
 
     let carregaArtistas = function() {
@@ -28,15 +31,15 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
             });
     });
 
-    let carregaPlaylists = function() {
+    let carregaPlaylist = function() {
         usuariosAPI.getPlaylists()
             .then(function(response) {
                 $scope.playlists = response.data;
             });
     };
 
-    $scope.$on('playlists:updated', function(event) {
-        carregaPlaylists();
+    $scope.$on('playlist:updated', function(event) {
+        carregaPlaylist();
     });
 
 
@@ -169,7 +172,7 @@ angular.module("musiteca").controller("musitecaCtrl",  function($scope, $uibModa
             if(playlists[i].selected) {
                 usuariosAPI.deletePlaylist(playlists[i].nome)
                     .then(function(response) {
-                        carregaPlaylists();
+                        carregaPlaylist();
                     });
             }
         }

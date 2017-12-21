@@ -4,7 +4,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Artistas</h2>
                 <hr class="my-4">
-                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="artistas.length > 0">
+                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-if="artistas.length > 0">
                     <input autocomplete="off" ng-model="buscaArtista" placeholder=" Filtrar" class="form-control"/>
                     <div class="search-icon">
                         <i class="fa fa-search text-primary mb-3 sr-icons"></i>
@@ -22,9 +22,8 @@
             </div>
         </div>
     </div>
-    <div class="container" ng-show="artistas.length > 0">
+    <div class="container" ng-if="artistas.length > 0">
         <div class="row">
-            {{artistas}}
             <div class="col-lg-3 col-md-6 text-center" ng-repeat="artista in artistas | filter: {nome: buscaArtista}">
                 <div class="circular--landscape" ng-if="artista.imagem != 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
                     <img src="{{artista.imagem}}" />
@@ -56,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <div class="row no-gutters" ng-show="albuns.length > 0">
+        <div class="row no-gutters" ng-if="albuns.length > 0">
             <div class="col-lg-4 col-sm-6" ng-repeat="album in albuns">
                 <a class="portfolio-box" href="">
                     <img class="img-fluid" style="width: 650px; height: 320px;" src="{{album.imagem}}" />
@@ -81,13 +80,13 @@
         <h2 class="mb-4">Músicas</h2>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="musicas.length > 0">
+                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-if="musicas.length > 0">
                     <input autocomplete="off" ng-model="buscaMusica" placeholder=" Filtrar Música" class="form-control"/>
                     <div class="search-icon">
                         <i class="fa fa-search text-primary mb-3 sr-icons"></i>
                     </div>
                 </div>
-                <table class="table table-striped" ng-show="musicas.length > 0">
+                <table class="table table-striped" ng-if="musicas.length > 0">
                     <tr>
                         <th><a class="link-neon" href="" ng-click="ordenarPor('nome')" style="color: #8B4513;">Nome</a></th>
                         <th>Duração</th>
@@ -123,7 +122,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Artistas Favoritos</h2>
                 <hr class="my-4">
-                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="artistasFavoritos.length > 0">
+                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-if="artistasFavoritos.length > 0">
                     <input autocomplete="off" ng-model="buscaArtistaFavorito" placeholder=" Filtrar Artista Favorito" class="form-control"/>
                     <div class="search-icon">
                         <i class="fa fa-search text-primary mb-3 sr-icons"></i>
@@ -141,7 +140,7 @@
             </div>
         </div>
     </div>
-    <div class="container" ng-show="artistas.length > 0">
+    <div class="container" ng-if="artistasFavoritos.length > 0">
         <div class="row">
             <div class="col-lg-3 col-md-6 text-center" ng-repeat="artistaFavorito in artistasFavoritos | filter: {nome: buscaArtistaFavorito}">
                 <input class="check_box" type="checkbox" ng-attr-id="{{'cd' + artistaFavorito.nome}}" ng-model="artistaFavorito.select"/>
@@ -176,14 +175,14 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <button class="btn btn-playlist" ng-click="showBuscar()" ng-show="playlists.length > 0">Filtrar Playlist</button>
-                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="buscarPlaylist">
+                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-if="buscarPlaylist">
                     <br/>
                     <input autocomplete="off" ng-model="buscaPlaylist" placeholder=" Filtrar" class="form-control"/>
                     <div class="search-icon2">
                         <i class="fa fa-search text-secondary"></i>
                     </div>
                 </div>
-                <table class="table table-striped" ng-show="playlists.length > 0">
+                <table class="table table-striped" ng-if="playlists.length > 0">
                     <tr>
                         <th>Selecionar</th>
                         <th><a class="link-neon" href="" ng-click="ordenarPor('nome')" style="color: #42DCA3;">Nome</a></th>

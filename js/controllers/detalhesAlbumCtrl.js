@@ -1,7 +1,16 @@
 angular.module("musiteca").controller("detalhesAlbumCtrl", function($uibModalInstance, $scope, item, usuariosAPI) {
 
   $scope.album = item;
-  $scope.musicas = usuariosAPI.getMusicas(item.artistaNome, item.nome);
+  $scope.musicas = [];
+
+  let carregaMusicas = function() {
+      usuariosAPI.getMusicasAlbum(item.artistaNome, item.nome)
+          .then(function(response) {
+              $scope.musicas = response.data;
+          })
+  };
+
+  carregaMusicas();
 
   $scope.ordenarPor = function(campo) {
     $scope.criterioDeOrdenacao = campo;
