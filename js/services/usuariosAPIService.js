@@ -2,72 +2,76 @@ angular.module("musiteca").factory("usuariosAPI", function ($http, config) {
 
     let  usuario = {};
 
-    let login = function() {
-        return localStorage.getItem("login");
+    let email = function() {
+        return localStorage.getItem("email");
     };
 
     let _setUser = function(user) {
          usuario = user;
     };
 
+    let _resetUser = function() {
+        usuario = {};
+    };
+
     let _getArtistas = function() {
-        return $http.get(config.baseUrl + "/u/" + login() + "/artistas");
+        return $http.get(config.baseUrl + "/u/" + email() + "/artistas");
     };
 
     let _getAlbuns = function() {
-        return $http.get(config.baseUrl + "/u/" + login() + "/albuns");
+        return $http.get(config.baseUrl + "/u/" + email() + "/albuns");
     };
 
     let _getAlbunsArtista = function(artista) {
-        return $http.get(config.baseUrl + "/u/" + login() + "/albuns/" + artista);
+        return $http.get(config.baseUrl + "/u/" + email() + "/albuns/" + artista);
     };
 
     let _getMusicas = function() {
-        return $http.get(config.baseUrl + "/u/" + login() + "/musicas");
+        return $http.get(config.baseUrl + "/u/" + email() + "/musicas");
     };
 
     let _getMusicasArtista = function(artista) {
-        return $http.get(config.baseUrl + "/u/" + login() + "/musicas/" + artista);
+        return $http.get(config.baseUrl + "/u/" + email() + "/musicas/" + artista);
     };
 
     let _getMusicasAlbum = function(artista, album) {
-        return $http.get(config.baseUrl + "/u/" + login() + "/musicas/" + artista + "/" + album);
+        return $http.get(config.baseUrl + "/u/" + email() + "/musicas/" + artista + "/" + album);
     };
 
     let _getFavoritos = function() {
-        return $http.get(config.baseUrl + "/u/" + login() + "/favoritos");
+        return $http.get(config.baseUrl + "/u/" + email() + "/favoritos");
     };
 
     let _getPlaylists = function() {
-        return $http.get(config.baseUrl + "/u/" + login() + "/playlists");
+        return $http.get(config.baseUrl + "/u/" + email() + "/playlists");
     };
 
     let _saveArtista = function(artista) {
-        return $http.post(config.baseUrl + "/u/" + login() + "/artistas", artista, {headers:{'Content-Type': 'application/json'}});
+        return $http.post(config.baseUrl + "/u/" + email() + "/artistas", artista, {headers:{'Content-Type': 'application/json'}});
     };
 
     let _saveAlbum = function(album) {
-        return $http.post(config.baseUrl + "/u/" + login() + "/albuns", album, {headers:{'Content-Type': 'application/json'}});
+        return $http.post(config.baseUrl + "/u/" + email() + "/albuns", album, {headers:{'Content-Type': 'application/json'}});
     };
 
     let _saveMusica = function(musica) {
-        return $http.post(config.baseUrl + "/u/" + login() + "/musicas", musica, {headers:{'Content-Type': 'application/json'}});
+        return $http.post(config.baseUrl + "/u/" + email() + "/musicas", musica, {headers:{'Content-Type': 'application/json'}});
     };
 
     let _saveFavorito = function(artista) {
-        return $http.post(config.baseUrl + "/u/" + login() + "/favoritos", artista, {headers:{'Content-Type': 'application/json'}});
+        return $http.post(config.baseUrl + "/u/" + email() + "/favoritos", artista, {headers:{'Content-Type': 'application/json'}});
     };
 
     let _savePlaylist = function(playlist) {
-        return $http.post(config.baseUrl + "/u/" + login() + "/playlists", playlist, {headers:{'Content-Type': 'application/json'}});
+        return $http.post(config.baseUrl + "/u/" + email() + "/playlists", playlist, {headers:{'Content-Type': 'application/json'}});
     };
 
     let _contemArtista = function(artista) {
-        return $http.post(config.baseUrl + "/u/" + login() + "/artistas/e", artista, {headers:{'Content-Type': 'application/json'}});
+        return $http.post(config.baseUrl + "/u/" + email() + "/artistas/e", artista, {headers:{'Content-Type': 'application/json'}});
     };
 
     let _contemAlbum = function(album) {
-        return $http.post(config.baseUrl + "/u/" + login() + "/albuns/e", album, {headers:{'Content-Type': 'application/json'}});
+        return $http.post(config.baseUrl + "/u/" + email() + "/albuns/e", album, {headers:{'Content-Type': 'application/json'}});
     };
 
     let _contemUsuario = function(usuario) {
@@ -75,19 +79,19 @@ angular.module("musiteca").factory("usuariosAPI", function ($http, config) {
     };
 
     let _contemMusica = function(musica) {
-        return $http.post(config.baseUrl + "/u/" + login() + "/musicas/e", musica, {headers:{'Content-Type': 'application/json'}});
+        return $http.post(config.baseUrl + "/u/" + email() + "/musicas/e", musica, {headers:{'Content-Type': 'application/json'}});
     };
 
     let _contemPlaylist = function(playlist) {
-        return $http.post(config.baseUrl + "/u/" + login() + "/playlists/e", playlist, {headers:{'Content-Type': 'application/json'}});
+        return $http.post(config.baseUrl + "/u/" + email() + "/playlists/e", playlist, {headers:{'Content-Type': 'application/json'}});
     };
 
     let _deletePlaylist = function(nomeplaylist) {
-        return $http.delete(config.baseUrl + "/u/" + login() + "/playlists/" + nomeplaylist);
+        return $http.delete(config.baseUrl + "/u/" + email() + "/playlists/" + nomeplaylist);
     };
 
     let _deleteFavorito = function(nomeArtista) {
-        return $http.delete(config.baseUrl + "/u/" + login() + "/favoritos/" + nomeArtista);
+        return $http.delete(config.baseUrl + "/u/" + email() + "/favoritos/" + nomeArtista);
     };
 
     let _saveUsuario = function(usuario) {
@@ -117,6 +121,7 @@ angular.module("musiteca").factory("usuariosAPI", function ($http, config) {
         contemUsuario: _contemUsuario,
         deletePlaylist: _deletePlaylist,
         deleteFavorito: _deleteFavorito,
-        saveUsuario: _saveUsuario
+        saveUsuario: _saveUsuario,
+        resetUser: _resetUser
     };
 });

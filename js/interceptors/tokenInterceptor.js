@@ -6,12 +6,6 @@ angular.module("musiteca").factory("tokenInterceptor", function($q, $location) {
         },
 
         responseError: function(rejection) {
-
-            if(rejection.status == 401) {
-                $location.path("/login");
-                console.log("interceptada");
-            }
-
             return $q.reject(rejection);
         }
     };

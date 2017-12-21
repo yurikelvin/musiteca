@@ -72,7 +72,7 @@
 
 
 </head>
-<body id="page-top" class="rating" ng-controller="mainCtrl">
+<body id="page-top" class="rating">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" ng-controller="mainCtrl">
@@ -83,22 +83,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <li class="nav-item" ng-if="logged">
                   <a class="nav-link js-scroll-trigger" href="#artistas">Artistas</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" ng-if="logged">
               <a class="nav-link js-scroll-trigger" href="#albuns" >Álbuns</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" ng-if="logged">
               <a class="nav-link js-scroll-trigger" href="#musicas" >Músicas</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" ng-if="logged">
               <a class="nav-link js-scroll-trigger" href="#playlists" >Playlists</a>
            </li>
-            <li class="nav-item">
+            <li class="nav-item" ng-if="logged">
                   <a class="nav-link js-scroll-trigger" href="#favoritos" >Favoritos</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" ng-if="logged">
                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Cadastro <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
                 </a>
@@ -112,10 +112,10 @@
                  Nova Playlist</button>
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" ng-if="!logged">
               <a class="nav-link js-scroll-trigger" ng-click="openModal('login')" href="">Login <i class="fa fa-user-o" aria-hidden="true"></i></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" ng-if="logged">
                   <a class="nav-link js-scroll-trigger" href="" ng-click="logout()">Logout <i class="fa fa-user" aria-hidden="true"></i></a>
               </li>
             <li class="nav-item">
@@ -143,7 +143,7 @@
       </div>
     </header>
 
-    <section class="bg-primary" id="about">
+    <section class="bg-primary" id="about" ng-controller="mainCtrl">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">

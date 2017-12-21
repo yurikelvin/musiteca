@@ -6,25 +6,28 @@
 	  </button>
 	</div>
 	<div class="modal-body">
+		{{usuario}}
+		{{}}
 	  	<form name="registerForm" novalidate>
 	  		<div class="form-group">
+				<label for="register-confirmed" class="col-form-label">E-mail:</label>
+				<input autocomplete="off" id="register-confirmed" class="form-control" type="text" ng-model="usuario.email" title="Digite um e-mail válido para efetuar o cadastro." placeholder="Digite um e-mail válido." ng-required="true" ng-minlength="9" ng-maxlength="70"/>
 				<label for="register-nome" class="col-form-label">Nome do usuário:</label>
-				<input id="register-nome" class="form-control" title="Nome do usuário." type="text" ng-model="usuario.nome" name="nome" placeholder="Digite um nome de usuário." ng-required="true"/>
+				<input id="register-nome" class="form-control" title="Nome do usuário." type="text" ng-model="usuario.nome" name="nome" placeholder="Digite seu nome." ng-required="true"/>
 
-	      		<label for="register-login" class="col-form-label">Login do usuário:</label>
-				<input id="register-login" class="form-control" title="Login contém entre 4 e 14 caracteres" type="text" ng-model="usuario.login" name="login" placeholder="Digite um nome de login para o usuário" ng-required="true" ng-minlength="6" ng-maxlength="14" required/>
 			</div>
 			<div class="form-group">
 				<label for="register-pass" class="col-form-label">Senha do usuário:</label>
 				<input autocomplete="off" id="register-pass" class="form-control" type="password" title="Senha contém entre 8 e 24 caracteres" ng-model="usuario.senha" name="password" placeholder="Digite uma senha a ser cadastrada" ng-required="true" ng-minlength="8" ng-maxlength="24" required/>
 
 				<label for="register-confirm" class="col-form-label">Confirme a senha cadastrada:</label>
-				<input autocomplete="off" id="register-confirm" class="form-control" type="password" name="confirmPassword" ng-model="confirmSenha" placeholder="Repita a senha cadastrada acima" ng-required="true" ng-minlength="8" ng-maxlength="24" required/>
+				<input autocomplete="off" id="register-confirm" class="form-control" type="password" name="confirmPassword" ng-model="confirmSenha" placeholder="Repita a senha cadastrada acima" ng-required="true" ng-minlength="8" ng-maxlength="24" required />
 				<small class="form-text text-muted">Não compartilhe sua senha com ninguém.</small>
 				<small class="form-text text-muted">A senha é única e intransferível.</small>
 				<br/>
-				<label for="register-confirmed" class="col-form-label">E-mail:</label>
-				<input autocomplete="off" id="register-confirmed" class="form-control" type="text" ng-model="usuario.email" placeholder="Digite um e-mail válido." ng-required="true"/>
+				<div class="alert alert-danger" ng-show="registerForm.confirmPassword.$error">
+					Senhas não batem.
+				</div>
 			</div>
 		</form>
 		<br/>
@@ -39,12 +42,18 @@
 		    </div>
 		</div>
 
-		<div ng-show="hasUser()" class="alert alert-danger">
-				Já existe um usuário com este login cadastrado no sistema.
+		<div ng-show="temUsuario" class="alert alert-danger alert-dismissible fade show">
+				Já existe um usuário com este email cadastrado no sistema.
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 		</div>
 
-		<div ng-show="hasSuccess()" class="alert alert-info">
+		<div ng-show="registrar" class="alert alert-success alert-dismissible fade show">
 			Usuário cadastrado com sucesso.
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
 		</div>
 	</div>
 	<div class="modal-footer">
