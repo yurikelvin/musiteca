@@ -4,11 +4,15 @@ angular.module("musiteca").controller("mainCtrl", function($rootScope, $location
 
     $scope.logged = false;
 
-    $scope.$on('login:updated', function(event) {
+    let loginLoad = function() {
         let email = localStorage.getItem("email");
         if(email != null && email !== "") {
             $scope.logged = true;
         }
+    };
+
+    $scope.$on('login:updated', function(event) {
+        loginLoad();
     });
 
     $scope.logout = function() {
@@ -30,5 +34,7 @@ angular.module("musiteca").controller("mainCtrl", function($rootScope, $location
         $scope.criterioDeOrdenacao = campo;
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
     };
+
+    loginLoad();
 
 });

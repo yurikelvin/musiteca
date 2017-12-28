@@ -150,8 +150,8 @@
             <h2 class="section-heading text-white">Músiteca</h2>
             <hr class="light my-4">
             <p class="text-faded mb-4">Músiteca foi desenvolvido para servir como um serviço de músicas que atenda as necessidades dos usuários, deixando livremente a criação de artistas, álbuns, músicas, playlists e favoritos.</p>
-            <p class="text-faded mb-4">Crie já uma conta e experimente!</p>
-            <a class="btn btn-light btn-xl js-scroll-trigger" ng-click="openModal('login')" href="">Fazer login</a>
+            <p class="text-faded mb-4" ng-if="!logged">Crie já uma conta e experimente!</p>
+            <a class="btn btn-light btn-xl js-scroll-trigger" ng-click="openModal('login')" href="" ng-if="!logged">Fazer login</a>
           </div>
         </div>
       </div>

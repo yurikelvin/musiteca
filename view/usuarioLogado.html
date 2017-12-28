@@ -89,10 +89,10 @@
                 <table class="table table-striped" ng-if="musicas.length > 0">
                     <tr>
                         <th><a class="link-neon" href="" ng-click="ordenarPor('nome')" style="color: #8B4513;">Nome</a></th>
-                        <th>Duração</th>
-                        <th>Ano de Lançamento</th>
-                        <th>Álbum Associado</th>
-                        <th>Artista</th>
+                        <th><a class="link-neon" href="" ng-click="ordenarPor('duracao')" style="color: #8B4513;">Duração</a></th>
+                        <th><a class="link-neon" href="" ng-click="ordenarPor('ano')" style="color: #8B4513;">Ano de Lançamento</a></th>
+                        <th><a class="link-neon" href="" ng-click="ordenarPor('albumNome')" style="color: #8B4513;">Álbum Associado</a></th>
+                        <th><a class="link-neon" href="" ng-click="ordenarPor('nomeArtist')" style="color: #8B4513;">Artista</a></th>
                     </tr>
                     <tr ng-repeat="musica in musicas | filter: {nome: buscaMusica} | limitTo: 10 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
                         <td><a style="color: #8B4513; pointer-events: none;" href="">{{musica.nome}}</a></td>

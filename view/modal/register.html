@@ -6,28 +6,20 @@
 	  </button>
 	</div>
 	<div class="modal-body">
-		{{usuario}}
-		{{}}
 	  	<form name="registerForm" novalidate>
 	  		<div class="form-group">
 				<label for="register-confirmed" class="col-form-label">E-mail:</label>
 				<input autocomplete="off" id="register-confirmed" class="form-control" type="text" ng-model="usuario.email" title="Digite um e-mail válido para efetuar o cadastro." placeholder="Digite um e-mail válido." ng-required="true" ng-minlength="9" ng-maxlength="70"/>
-				<label for="register-nome" class="col-form-label">Nome do usuário:</label>
-				<input id="register-nome" class="form-control" title="Nome do usuário." type="text" ng-model="usuario.nome" name="nome" placeholder="Digite seu nome." ng-required="true"/>
+				<label for="register-nome" class="col-form-label">Nome Completo:</label>
+				<input id="register-nome" class="form-control" title="Digite seu nome." type="text" ng-model="usuario.nome" name="nome" placeholder="Digite seu nome." ng-required="true"/>
 
 			</div>
 			<div class="form-group">
 				<label for="register-pass" class="col-form-label">Senha do usuário:</label>
 				<input autocomplete="off" id="register-pass" class="form-control" type="password" title="Senha contém entre 8 e 24 caracteres" ng-model="usuario.senha" name="password" placeholder="Digite uma senha a ser cadastrada" ng-required="true" ng-minlength="8" ng-maxlength="24" required/>
-
-				<label for="register-confirm" class="col-form-label">Confirme a senha cadastrada:</label>
-				<input autocomplete="off" id="register-confirm" class="form-control" type="password" name="confirmPassword" ng-model="confirmSenha" placeholder="Repita a senha cadastrada acima" ng-required="true" ng-minlength="8" ng-maxlength="24" required />
 				<small class="form-text text-muted">Não compartilhe sua senha com ninguém.</small>
 				<small class="form-text text-muted">A senha é única e intransferível.</small>
 				<br/>
-				<div class="alert alert-danger" ng-show="registerForm.confirmPassword.$error">
-					Senhas não batem.
-				</div>
 			</div>
 		</form>
 		<br/>
