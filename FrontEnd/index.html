@@ -10,7 +10,7 @@
     <link href="img/favicon-music.ico" rel="shortcut icon" type="image/png"/>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="css/app.css"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -20,12 +20,12 @@
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
 
     <!-- Plugin CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" rel="stylesheet">
+    <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/creative.min.css" rel="stylesheet">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="lib/jquery/jquery.min.js"></script>
 
     <!-- Plugin starRate -->
     <script src="js/star-rating.js" type="text/javascript"></script>
@@ -33,12 +33,12 @@
 
 
     <!-- Angular -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/i18n/angular-locale_pt-br.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-messages.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-sanitize.min.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-locale_pt-br.js"></script>
+    <script src="lib/angular/angular-messages.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+    <script src="lib/angular/angular-sanitize.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="lib/angular/ui-bootstrap-tpls-3.0.0-beta.3.min.js"></script>
 
@@ -75,7 +75,7 @@
 <body id="page-top" class="rating">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" ng-controller="mainCtrl">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">Musiteca</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,6 +83,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+<<<<<<< HEAD:FrontEnd/index.html
             <li class="nav-item" ng-if="logged">
                   <a class="nav-link js-scroll-trigger" href="#artistas">Artistas</a>
             </li>
@@ -103,12 +104,12 @@
                   Cadastro <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <button type="button" class="dropdown-item" ng-click="openModal('novoArtista')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Artista</button>
-                    <button type="button" class="dropdown-item" ng-click="openModal('novoAlbum')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Álbum</button>
+                    <button type="buttom" class="dropdown-item" ng-click="openModal('novoArtista')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Artista</button>
+                    <button type="buttom" class="dropdown-item" ng-click="openModal('novoAlbum')"><i class="fa fa-plus" aria-hidden="true"></i> Novo Álbum</button>
                     <div class="dropdown-divider"></div>
-                    <button type="button" class="dropdown-item" ng-click="openModal('novaMusica')"><i class="fa fa-plus" aria-hidden="true"></i> Nova Música</button>
+                    <button type="buttom" class="dropdown-item" ng-click="openModal('novaMusica')"><i class="fa fa-plus" aria-hidden="true"></i> Nova Música</button>
                     <div class="dropdown-divider"></div>
-                    <button type="button" class="dropdown-item" ng-click="openModal('novaPlaylist')"><i class="fa fa-plus" aria-hidden="true"></i>
+                    <button type="buttom" class="dropdown-item" ng-click="openModal('novaPlaylist')"><i class="fa fa-plus" aria-hidden="true"></i>
                  Nova Playlist</button>
                 </div>
             </li>
@@ -157,7 +158,232 @@
       </div>
     </section>
 
-    <div ng-view></div>
+    <section id="artistas" ng-controller="musitecaCtrl">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Artistas</h2>
+                <hr class="my-4">
+                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="artistas.length > 0">
+                    <input autocomplete="off" ng-model="buscaArtista" placeholder=" Filtrar" class="form-control"/>
+                    <div class="search-icon">
+                        <i class="fa fa-search text-primary mb-3 sr-icons"></i>
+                    </div>
+                </div>
+                <br/>
+              </div>
+            </div>
+          </div>
+          <div class="container" ng-show="artistas.length == 0">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="service-box mt-5 mx-auto">
+                  <i class="fa fa-4x fa-meh-o text-primary mb-3 sr-icons"></i>
+                  <h3 class="mb-3">Oops! Não há nenhum artista cadastrado no momento.</h3>
+                </div>
+            </div>
+          </div>
+          <div class="container" ng-show="artistas.length > 0">
+            <div class="row">
+            <div class="col-lg-3 col-md-6 text-center" ng-repeat="artista in artistas | filter: {nome: buscaArtista}">
+                <div class="circular--landscape" ng-if="artista.imagem != 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
+                    <img src="{{artista.imagem}}" />
+                </div>
+              <div style="margin-left: 23px" class="circular--square" ng-if="artista.imagem == 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
+                    <img src="{{artista.imagem}}" />
+              </div>
+              <br/>
+              <a href="" ng-click="view(artista, 'detalhesArtista')">{{artista.nome}}</a>
+              <input class="check_box" type="checkbox" ng-attr-id="{{'c' + artista.nome}}" ng-model="artista.selecionado" ng-disabled="artista.favorito == true"/>
+              <label class="check_box" ng-attr-for="{{'c' +artista.nome}}" ng-click="adicionaFavoritos(artistas)">
+                    <i class="fa" ng-class="{'fa-2x fa-star-o text-warning': !artista.selecionado, 'fa-2x fa-star text-warning': artista.selecionado}"></i>
+                </label>
+              </div>
+            </div>
+          </div>
+          <hr/>
+    </section>
+
+    <section class="p-0" id="albuns" ng-controller="musitecaCtrl">
+      <div class="container-fluid p-0">
+        <div class="container" ng-show="albuns.length == 0 && artistas.length == 0">
+          <div class="col-lg-8 mx-auto text-center">
+            <div class="service-box mt-5 mx-auto">
+              <h2 class="section-heading">Álbuns</h2>
+              <hr/>
+              <i class="fa fa-4x fa-meh-o text-primary mb-3 sr-icons"></i>
+              <h3 class="mb-3">Oops! Não há nenhum álbum cadastrado no momento.</h3>
+            </div>
+        </div>
+        </div>
+        <div class="row no-gutters" ng-show="albuns.length > 0">
+          <div class="col-lg-4 col-sm-6" ng-repeat="album in albuns">
+            <a class="portfolio-box" href="">
+              <img class="img-fluid" style="width: 650px; height: 320px;" src="{{album.imagem}}" />
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    {{album.artistaNome}}
+                  </div>
+                  <div class="project-name" ng-click="view(album, 'detalhesAlbum')">
+                    {{album.nome}}
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-primary text-white" id="musicas">
+      <div class="container text-center">
+        <h2 class="mb-4">Músicas</h2>
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="musicas.length > 0">
+                    <input autocomplete="off" ng-model="buscaMusica" placeholder=" Filtrar Música" class="form-control"/>
+                    <div class="search-icon">
+                        <i class="fa fa-search text-primary mb-3 sr-icons"></i>
+                    </div>
+                </div>
+                <table class="table table-striped" ng-show="musicas.length > 0">
+                    <tr>
+                        <th><a class="link-neon" href="" ng-click="ordenarPor('nome')" style="color: #8B4513;">Nome</a></th>
+                        <th>Duração</th>
+                        <th>Ano de Lançamento</th>
+                        <th>Álbum Associado</th>
+                        <th>Artista</th>
+                    </tr>
+                    <tr ng-repeat="musica in musicas | filter: {nome: buscaMusica} | limitTo: 10 | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+                            <td><a style="color: #8B4513; pointer-events: none;" href="">{{musica.nome}}</a></td>
+                            <td>{{musica.duracao}}</td>
+                            <td>{{musica.ano}}</td>
+                            <td>{{musica.albumNome}}</td>
+                            <td>{{musica.nomeArtist}}</td>
+                    </tr>
+                </table>
+
+                <div ng-show="musicas.length == 0">
+                    <div class="col-lg-8 mx-auto text-center">
+                      <div class="service-box mt-5 mx-auto">
+                        <i class="fa fa-4x fa-meh-o text-primary mb-3 sr-icons"></i>
+                        <h3 class="mb-3">Oops! Não há nenhuma música cadastrada no momento.</h3>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-dark text-white" id="playlists" ng-controller="playlistsCtrl">
+      <div class="container text-center">
+        <h2 class="mb-4">Playlists</h2>
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <button class="btn btn-playlist" ng-click="showBuscar()" ng-show="playlists.length > 0">Filtrar Playlist</button>
+            <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="buscarPlaylist">
+                <br/>
+                <input autocomplete="off" ng-model="buscaPlaylist" placeholder=" Filtrar" class="form-control"/>
+                <div class="search-icon2">
+                    <i class="fa fa-search text-secondary"></i>
+                </div>
+            </div>
+            <table class="table table-striped" ng-show="playlists.length > 0">
+                <tr>
+                    <th>Selecionar</th>
+                    <th><a class="link-neon" href="" ng-click="ordenarPor('nome')" style="color: #42DCA3;">Nome</a></th>
+                    <th>Criada em</th>
+                </tr>
+                <tr ng-repeat="playlist in playlists | filter: {nome: buscaPlaylist} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+                        <td><input type="checkbox" ng-attr-id="{{'p' + playlist.nome}}" ng-model="playlist.selected"/>
+                            <label ng-attr-for="{{'p' +playlist.nome}}">
+                                <i class="fa" ng-class="{'fa-lg fa-square-o text-white': !playlist.selected, 'fa-lg fa-check-square-o text-white': playlist.selected}"></i>
+                            </label></td>
+                        <td><a style="color: #42DCA3;" href="" ng-click="view(playlist, 'detalhesPlaylist')">{{playlist.nome}}</a></td>
+                        <td>{{playlist.data  | date:'mediumDate'}}</td>
+                </tr>
+            </table>
+
+            <div ng-show="playlists.length == 0">
+                <div class="col-lg-8 mx-auto text-center">
+                  <div class="service-box mt-5 mx-auto">
+                    <i class="fa fa-4x fa-meh-o text-danger mb-3 sr-icons"></i>
+                    <h3 class="mb-3">Oops! Não há nenhuma playlist cadastrada no momento.</h3>
+                  </div>
+                </div>
+            </div>
+
+            <div ng-show="isPlaylistSelecionado(playlists)"    >
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <button class="btn btn-danger btn-xl" ng-click="confirmRemovePlaylist(playlists)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remover Playlist(s)</button>
+            </div>
+            </div>
+        </div>
+      </div>
+      <div class="container text-center" ng-controller="mainCtrl">
+            <br/>
+            <br/>
+            <br/>
+          <button class="btn btn-light btn-xl sr-button" ng-click="openModal('novaPlaylist')"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+       Nova Playlist</button>
+      </div>
+    </section>
+
+    <section id="favoritos" ng-controller="musitecaCtrl">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Artistas Favoritos</h2>
+                <hr class="my-4">
+                <div class="col-lg-4" style="margin-left: auto; margin-right: auto;" ng-show="artistas.length > 0">
+                    <input autocomplete="off" ng-model="buscaArtistaFavorito" placeholder=" Filtrar Artista Favorito" class="form-control"/>
+                    <div class="search-icon">
+                        <i class="fa fa-search text-primary mb-3 sr-icons"></i>
+                    </div>
+                </div>
+                <br/>
+              </div>
+            </div>
+          </div>
+          <div class="container" ng-show="artistas.length == 0">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="service-box mt-5 mx-auto">
+                  <i class="fa fa-4x fa-meh-o text-primary mb-3 sr-icons"></i>
+                  <h3 class="mb-3">Oops! Não há nenhum artista favorito cadastrado no momento.</h3>
+                </div>
+            </div>
+          </div>
+          <div class="container" ng-show="artistas.length > 0">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center" ng-repeat="artistaFavorito in artistasFavoritos | filter: {nome: buscaArtistaFavorito}">
+                    <input class="check_box" type="checkbox" ng-attr-id="{{'cd' + artistaFavorito.nome}}" ng-model="artistaFavorito.select"/>
+                    <label style="position: relative; margin: 1px 200px auto auto;" class="check_box" ng-attr-for="{{'cd' +artistaFavorito.nome}}">
+                          <i class="fa" ng-class="{'fa-2x fa-square-o text-info': !artistaFavorito.select, 'fa-2x fa-check-square-o text-info': artistaFavorito.select}"></i>
+                        </label>
+                    <div class="circular--landscape" ng-if="artistaFavorito.imagem != 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
+                        <img src="{{artistaFavorito.imagem}}" />
+                    </div>
+                  <div style="margin-left: 23px" class="circular--square" ng-if="artistaFavorito.imagem == 'https://www.atomix.com.au/media/2015/06/atomix_user31.png'">
+                        <img src="{{artistaFavorito.imagem}}" />
+                  </div>
+                  <br/>
+                  <a href="" style="color: #17a2b8;" ng-click="view(artistaFavorito, 'detalhesArtista')">{{artistaFavorito.nome}}</a>
+                </div>
+                <div class="col-lg-12 text-center" ng-show="isArtistaFavoritoSelecionado(artistasFavoritos)"   >
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                  <button class="btn btn-danger btn-xl" ng-click="confirmRemoveFavoritos(artistasFavoritos)" ><i class="fa fa-trash-o" aria-hidden="true"></i> Remover Artistas Favoritos</button>
+                </div>
+            </div>
+          </div>
+          <hr/>
+    </section>
 
     <section id="contact">
       <div class="container">
@@ -191,9 +417,9 @@
 
 
     <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="lib/jquery-easing/jquery.easing.min.js"></script>
     <script src="lib/scrollreveal/scrollreveal.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="lib/magnific-popup/jquery.magnific-popup.min.js"></script>
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.min.js"></script>
