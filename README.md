@@ -1,5 +1,5 @@
 # Musiteca
-Musiteca é um projeto que teve como inspiração os laboratórios da disciplina Sistema da Informação I da Universidade Federal de Campina Grande,
+    Musiteca é um projeto que teve como inspiração os laboratórios da disciplina Sistema da Informação I da Universidade Federal de Campina Grande,
 trata-se de uma aplicação que reune as funcionalidades que alguns sistemas de áudio possuem, como por exemplo,
 adicionar artistas ao sistema, adicionar artistas do sistema aos artistas favoritos,
 salvar qual a última música tocada daquele determinado artista, gerenciar playlists, etc.
