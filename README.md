@@ -40,7 +40,8 @@ cd BackEnd/
 ```
 gradle bootRun
 ```
-E pronto, o servidor BackEnd estará ligado a porta 8080 em http://localhost:8080 e o FrontEnd estará ligado a porta 8000 do http://localhost:8000
+
+Espere a aplicação backEnd subir e pronto, o servidor BackEnd estará ligado a porta 8080 em http://localhost:8080 e o FrontEnd estará ligado a porta 8000 do http://localhost:8000
 
 
 
