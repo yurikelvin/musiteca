@@ -13,6 +13,18 @@ Você vai precisar também do gradle para rodar o servidor Back End em springboo
 sudo apt install gradle
 ```
 
+* Caso haja erros na hora de subir o BackEnd
+
+Também é necessário instalar o postgres e criar um novo banco de dados chamado musitecadb
+
+Com usuário e senha iguais a :
+
+```
+username=postgres
+password=postgres
+```
+
+
 ### Rodando a aplicação
 
 * Subindo o FrontEnd com python:
