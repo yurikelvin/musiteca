@@ -5,6 +5,7 @@ import musiteca.musiteca.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -47,6 +48,18 @@ public class UsuarioService implements CrudService<Usuario>{
         if(usuarioRepository.count() > 0) {
             usuarioRepository.deleteAll();
         }
+    }
+
+    @Transactional
+    public boolean confereUsuario(String email, String senha) {
+        boolean confere = false;
+        Usuario usuarioProcurado = usuarioRepository.getOne(email);
+        if(usuarioProcurado != null && usuarioProcurado.getSenha().equals(senha)) {
+            confere = true;
+        }
+
+        return confere;
+
     }
 
     public boolean contemUsuario(String usuario) {

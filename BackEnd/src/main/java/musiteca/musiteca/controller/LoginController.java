@@ -42,8 +42,9 @@ public class LoginController {
             return new ResponseEntity<>(new LoginResponse("deu ruim amigo"), HttpStatus.UNAUTHORIZED);
         }
         Integer HORAS = 3600 * 1000;
+
         String token = Jwts.builder()
-                .setSubject(usuario.getEmail())
+                .setSubject(usuario.getEmail() + " " + usuario.getSenha())
                 .signWith(SignatureAlgorithm.HS512,"banana")
                 .setExpiration(new Date(System.currentTimeMillis() + 24 * HORAS))
                 .compact();
