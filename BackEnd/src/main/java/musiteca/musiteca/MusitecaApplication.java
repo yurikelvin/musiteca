@@ -2,12 +2,18 @@ package musiteca.musiteca;
 
 import musiteca.musiteca.controller.TokenFilter;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.util.UrlPathHelper;
 
 import java.util.Collections;
 
@@ -37,4 +43,5 @@ public class MusitecaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MusitecaApplication.class, args);
 	}
+
 }

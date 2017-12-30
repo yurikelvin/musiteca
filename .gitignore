@@ -1,3 +1,124 @@
 !FrontEnd/*
 !BackEnd/*
 !README.md
+
+# Created by https://www.gitignore.io/api/gradle,webstorm,intellij+all
+
+### Intellij+all ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff:
+FrontEnd/.idea/**/workspace.xml
+FrontEnd/.idea/**/tasks.xml
+FrontEnd/.idea/dictionaries
+
+# Sensitive or high-churn files:
+FrontEnd/.idea/**/dataSources/
+FrontEnd/.idea/**/dataSources.ids
+FrontEnd/.idea/**/dataSources.xml
+FrontEnd/.idea/**/dataSources.local.xml
+FrontEnd/.idea/**/sqlDataSources.xml
+FrontEnd/.idea/**/dynamic.xml
+FrontEnd/.idea/**/uiDesigner.xml
+
+# Gradle:
+FrontEnd/.idea/**/gradle.xml
+FrontEnd/.idea/**/libraries
+
+# CMake
+FrontEnd/cmake-build-debug/
+
+# Mongo Explorer plugin:
+FrontEnd/.idea/**/mongoSettings.xml
+
+## File-based project format:
+*FrontEnd/.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+BackEnd/out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Ruby plugin and RubyMine
+/.rakeTasks
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+### Intellij+all Patch ###
+# Ignores the whole idea folder
+# See https://github.com/joeblau/gitignore.io/issues/186 and https://github.com/joeblau/gitignore.io/issues/360
+
+FrontEnd/.idea/
+
+### WebStorm ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff:
+
+# Sensitive or high-churn files:
+
+# Gradle:
+
+# CMake
+
+# Mongo Explorer plugin:
+
+## File-based project format:
+
+## Plugin-specific files:
+
+# IntelliJ
+
+# mpeltonen/sbt-idea plugin
+
+# JIRA plugin
+
+# Cursive Clojure plugin
+
+# Ruby plugin and RubyMine
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+
+### WebStorm Patch ###
+# Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
+
+# *.iml
+# modules.xml
+# .idea/misc.xml
+# *.ipr
+
+# Sonarlint plugin
+FrontEnd/.idea/sonarlint
+
+### Gradle ###
+BackEnd/.gradle
+BackEnd/**/build/
+
+# Ignore Gradle GUI config
+BackEnd/gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!BackEnd/gradle-wrapper.jar
+
+# Cache of project
+BackEnd/.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+# End of https://www.gitignore.io/api/gradle,webstorm,intellij+all

@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.HandlerMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 
@@ -40,8 +42,11 @@ public class MusicaController {
         return new ResponseEntity<>(musicaCadastrada, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value="usuarios/u/{name}/musicas/{artista}/{album}",method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<Musica>> getMusicasAlbum(@PathVariable String name, @PathVariable String artista, @PathVariable String album) {
+    @RequestMapping(value="usuarios/u/{name}/musicas/{artista}/**",method= RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<Musica>> getMusicasAlbum(@PathVariable String name, @PathVariable String artista, HttpServletRequest request) {
+        String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+        String album = path.substring(String.format("usuarios/u/%s/musicas/%s/", name, artista).length() + 1);
+
         Collection<Musica> musicasAlbum = musicaService.getMusicasAlbum(name, artista, album);
         return new ResponseEntity<>(musicasAlbum, HttpStatus.OK);
     }
