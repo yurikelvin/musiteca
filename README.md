@@ -55,6 +55,10 @@ gradle bootRun
 
 Espere a aplicação backEnd subir e pronto, o servidor BackEnd estará ligado a porta 8080 em http://localhost:8080 e o FrontEnd estará ligado a porta 8000 do http://localhost:8000
 
+### Exemplo Online
+
+O seguinte repositório contém uma demonstração da aplicação ONLINE [Musiteca Heroku Example](https://github.com/yurikelvin/musitecaHerokuExample), o exemplo em questão utiliza o projeto apenas como um servidor spring para facilitar o deploy.
+
 
 
 ## Authors
