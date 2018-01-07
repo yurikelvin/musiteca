@@ -63,7 +63,7 @@ O seguinte repositório contém uma demonstração da aplicação ONLINE [Musite
 
 ## Authors
 
-* **Yuri Kelvin** - *Desenvolvimento inicial e final*
+* **Yuri Silva** - *Desenvolvimento*
 
 ## Créditos
 * [Start Bootstrap](https://startbootstrap.com/) - Pelo template inicial da aplicação
