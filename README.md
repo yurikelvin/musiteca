@@ -57,7 +57,7 @@ Espere a aplicação backEnd subir e pronto, o servidor BackEnd estará ligado a
 
 ### Exemplo Online
 
-O seguinte repositório contém uma demonstração da aplicação ONLINE [Musiteca Heroku Example](https://github.com/yurikelvin/musitecaHerokuExample), o exemplo em questão utiliza o projeto apenas como um servidor spring para facilitar o deploy.
+O seguinte repositório contém uma demonstração da aplicação online [Musiteca Heroku Example](https://github.com/yurikelvin/musitecaHerokuExample), o exemplo em questão utiliza o projeto apenas como um servidor spring para facilitar o deploy.
 
 
 
